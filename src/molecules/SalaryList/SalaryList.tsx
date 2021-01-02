@@ -78,10 +78,10 @@ export const SalaryList = () => {
               <span>{item.sex}</span>
               <span>Тел. {item.phone}</span>
             </div>
-            <div className="salary-item__salary">Зарплата {item.salary}</div>
-            <div className="salary-item__avans">Аванс {item.avans}</div>
+            <div className="salary-item__salary">Зарплата - {item.salary}</div>
+            <div className="salary-item__avans">Аванс - {item.avans}</div>
             <div className="salary-item__result">
-              Остаток {salaryResultItem(item.salary, item.avans)}
+              Остаток - {salaryResultItem(item.salary, item.avans)}
             </div>
             <div className="button-avans">
               <button>Аванс</button>

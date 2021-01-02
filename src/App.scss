@@ -17,7 +17,11 @@
       max-width: 1200px;
       width: 100%;
       display: flex;
-      justify-content: space-evenly;
+      justify-content: space-between;
+
+      li:nth-child(1) {
+        color: rgb(202, 24, 122);
+      }
 
       li + li {
         cursor: pointer;

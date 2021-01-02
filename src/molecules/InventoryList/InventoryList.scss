@@ -1,4 +1,4 @@
-.salary-list {
+.inventory-list {
   .title {
     display: flex;
     justify-content: space-between;
@@ -9,7 +9,7 @@
   }
 
   .item_list {
-    .salary-item {
+    .inventory-item {
       margin-top: 5px;
       margin-bottom: 5px;
       display: flex;
@@ -28,7 +28,7 @@
         }
       }
 
-      &__salary {
+      &__quantity {
         width: 20%;
         display: flex;
         align-items: center;
@@ -36,7 +36,7 @@
         font-weight: 600;
       }
 
-      &__avans {
+      &__price {
         width: 20%;
         display: flex;
         align-items: center;
@@ -44,15 +44,7 @@
         font-weight: 600;
       }
 
-      &__result {
-        width: 20%;
-        display: flex;
-        align-items: center;
-        font-size: 16px;
-        font-weight: 600;
-      }
-
-      .button-avans {
+      .button-edit-inventory {
         width: 10%;
         display: flex;
         align-items: center;
@@ -67,7 +59,7 @@
         }
       }
 
-      .button-salary {
+      .button-delete-inventory {
         width: 10%;
         display: flex;
         justify-content: flex-end;
@@ -80,21 +72,6 @@
           font-size: 16px;
           cursor: pointer;
         }
-      }
-    }
-  }
-
-  .footer {
-    display: flex;
-    justify-content: space-between;
-    border-top: 2px grey solid;
-    font-size: 18px;
-    font-weight: 500;
-    padding: 15px;
-
-    .title__total_salary {
-      span + span {
-        margin-left: 35px;
       }
     }
   }
