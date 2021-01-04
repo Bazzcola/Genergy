@@ -86,9 +86,9 @@ export const SalaryList = () => {
             <div className="button-avans">
               <button>Аванс</button>
             </div>
-            <div className="button-salary">
+            {/* <div className="button-salary">
               <button>Зарплата</button>
-            </div>
+            </div> */}
           </div>
         ))}
       </div>

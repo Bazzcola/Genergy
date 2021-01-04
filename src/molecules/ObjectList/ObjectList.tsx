@@ -99,9 +99,14 @@ export const ObjectList = () => {
               <div className="object_work-detail__description">
                 {item.object_work_description}
               </div>
-              <div className="object_work-detail__price">
-                Примерно {item.object_work_detail_price} лей.
+
+              <span>Описание материалов</span>
+              <div className="object_work-detail__description">
+                {item.object_work_description}
               </div>
+              {/* <div className="object_work-detail__price">
+                Примерно {item.object_work_detail_price} лей.
+              </div> */}
             </div>
             <div className="object_avans">
               Аванс {item.object_work_avans} лей.

@@ -18,6 +18,7 @@ export const App = () => {
           <li>Список материалов</li>
           <li>Создать обьект</li>
           <li>Создать пользователя</li>
+          <li>Список работ</li>
         </ul>
       </div>
       <div className="content">
