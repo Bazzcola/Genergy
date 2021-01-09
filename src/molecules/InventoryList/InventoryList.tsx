@@ -40,6 +40,7 @@ export const InventoryList = () => {
     <div className="inventory-list">
       <div className="title">
         <div className="title__text">Список инвентаря</div>
+        <button className="add-button">Добавить</button>
       </div>
       <div className="item_list">
         {dataInventory.map((item, index) => (
