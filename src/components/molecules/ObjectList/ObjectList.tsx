@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import 'molecules/ObjectList/ObjectList.scss';
+import './ObjectList.scss';
 
 export const ObjectList = () => {
   const objectList = [

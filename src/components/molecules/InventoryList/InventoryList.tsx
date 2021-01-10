@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import 'molecules/InventoryList/InventoryList.scss';
+import './InventoryList.scss';
 
 export const InventoryList = () => {
   const dataInventory = [

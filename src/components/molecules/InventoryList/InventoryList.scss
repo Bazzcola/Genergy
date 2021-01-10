@@ -7,8 +7,11 @@
     font-size: 18px;
     font-weight: 500;
 
+    &__text{
+      color:rgb(0, 153, 255);
+    }
+
     .add-button {
-      padding: 5px;
       height: 30px;
       font-weight: 600;
       font-size: 16px;
@@ -59,7 +62,6 @@
         justify-content: flex-end;
 
         button {
-          padding: 5px;
           height: 30px;
           font-weight: 600;
           font-size: 16px;
@@ -74,7 +76,6 @@
         align-items: center;
 
         button {
-          padding: 5px;
           height: 30px;
           font-weight: 600;
           font-size: 16px;

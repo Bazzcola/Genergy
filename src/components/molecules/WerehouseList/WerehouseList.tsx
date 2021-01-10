@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import 'molecules/WerehouseList/WerehouseList.scss';
+import './WerehouseList.scss';
 
 export const WerehouseList = () => {
   const dataWerehouse = [
