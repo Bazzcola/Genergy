@@ -52,7 +52,7 @@ export const CreateObject = () => {
           </Tag>
         );
     }
-
+    console.log('tesst')
     return (
         <div className="create-object-container">
             <h1>Создать рабочий обьект</h1>
