@@ -49,7 +49,9 @@ export const InventoryList = () => {
             <div className="inventory-item__quantity">
               Колличество - {item.quantity}
             </div>
-            <div className="inventory-item__price">Ценна - {item.price}</div>
+            <div className="inventory-item__price">
+              Ценна 1шт.- {item.price}
+            </div>
             <div className="button-edit-inventory">
               <button>Редактировать</button>
             </div>
