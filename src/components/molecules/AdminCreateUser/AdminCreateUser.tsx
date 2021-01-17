@@ -87,3 +87,37 @@ export const AdminCreateUser = () => {
     </div>
   );
 };
+
+interface User {
+  user_id: string;
+  user_name: string; //имя
+  user_value: number; // 1-user 2-staff 3-admin
+  user_sex: string; // female, male
+  user_phone: string;
+  user_salary_value: {
+    percent_tax: number | boolean; // 50%
+    hour_tax: number; //20-30 лей час
+  };
+  user_salary: string;
+  user_avans: string;
+  user_objects: [
+    {
+      object_id: string;
+      object_name: string;
+    }
+  ];
+  user_inventory: [
+    {
+      inventory_id: string;
+      inventory_name: string; //название инвентаря
+      inventory_quantity: string; //кол-во инвентаря
+    }
+  ];
+  user_materials: [
+    {
+      material_id: string;
+      material_name: string; //название материалов
+      material_quantity: string; //кол-во материалов
+    }
+  ];
+}
