@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, Checkbox, Radio,Switch } from 'antd';
 
 import './AdminCreateUser.scss';
 
@@ -49,35 +49,102 @@ export const AdminCreateUser = () => {
             onFinishFailed={onFinishFailed}
         >
             <Form.Item
-            label="Username"
-            name="username"
+            label="Имя"
+            name="user_name"
             rules={[
                 {
                 required: true,
-                message: 'Please input your username!',
+                message: 'Please input username!',
                 },
             ]}
             >
             <Input />
             </Form.Item>
-    
+
+            <Form.Item name="user_sex" label="Пол" rules={[
+                {
+                required: true,
+                message: 'Please input gender type!',
+                },
+            ]}>
+              <Radio.Group>
+                <Radio value="male">Male</Radio>
+                <Radio value="female">Female</Radio>
+              </Radio.Group>
+            </Form.Item>
             <Form.Item
-            label="Password"
-            name="password"
+            label="IDNP"
+            name="user_idno"
             rules={[
                 {
                 required: true,
-                message: 'Please input your password!',
+                message: 'Please input idno!',
+                },
+            ]}
+            >
+            <Input />
+            </Form.Item>
+
+            <Form.Item
+            label="Телефон"
+            name="user_phone"
+            rules={[
+                {
+                required: true,
+                message: 'Please input phone!',
+                },
+            ]}
+            >
+            <Input />
+            </Form.Item>
+            
+            <Form.Item name="user_value" label="Уровень" rules={[
+                {
+                required: true,
+                message: 'Please input user value!',
+                },
+            ]}>
+              <Radio.Group>
+                <Radio value={1}>Staff</Radio>
+                <Radio value={2}>Manager</Radio>
+              </Radio.Group>
+            </Form.Item>
+
+            <Form.Item  label="На проценте" name="salary_percent" valuePropName="checked">
+              <Switch />
+            </Form.Item>
+          
+              <Form.Item label="На ставке"  name="salary_hour" valuePropName="checked">
+                <Switch />
+              </Form.Item>
+
+              <Form.Item
+              label="Ставка час"
+              name="hour_tax"
+              rules={[
+                  {
+                  required: false,
+                  },
+              ]}
+              >
+              <Input/>
+            
+              </Form.Item>
+          
+
+             <Form.Item
+            label="Пароль"
+            name="user_password"
+            rules={[
+                {
+                required: true,
+                message: 'Please input password!',
                 },
             ]}
             >
             <Input.Password />
             </Form.Item>
-    
-            <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-            <Checkbox>Запомнить пароль</Checkbox>
-            </Form.Item>
-    
+          
             <Form.Item {...tailLayout}>
             <Button type="primary" htmlType="submit">
                 Созадть

@@ -1,0 +1,34 @@
+.add-mat-container{
+    margin:0 auto;
+    max-width: 1000px;
+    width:100%;
+
+    .user-info{
+        text-align: center;
+        margin-top: 30px;
+        margin-bottom: 30px;
+
+        h1{
+            font-size: 18px;
+            color:deepskyblue;
+            font-weight: 500;
+        }
+
+        ul{
+            font-size: 16px;
+            color:black;
+            font-weight: 500;
+        }
+    }
+
+    .add-form{
+        max-width: 430px;
+        margin:0 auto;
+        width:100%;
+    }
+
+    .add-submit-btn{
+        display:flex;
+        margin:0 auto;
+    }
+}

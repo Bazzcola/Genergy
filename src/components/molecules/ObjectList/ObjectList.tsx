@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { NavLink } from 'react-router-dom';
 
 import './ObjectList.scss';
 
@@ -79,6 +80,12 @@ export const ObjectList = () => {
           <div className="object_item" key={index}>
             <div className="object_item__title">
               <span>Название: {item.object_name}</span>
+              <NavLink to="/admin_menu/edit_object" activeClassName="selected">
+                <button className="close-object">Редактировать</button>
+              </NavLink>
+              <NavLink to="/admin_menu/edit_object_worker_time" activeClassName="selected">
+                <button className="close-object">Время +/-</button>
+              </NavLink>
               <button className="close-object">Закрыть</button>
             </div>
             <div className="object_item__description">

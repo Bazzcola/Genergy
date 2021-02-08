@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Form, Input, Button, InputNumber, Select, Tag, Space, Radio } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
-import './CreateObject.scss';
+import './EditObject.scss';
 import { RadioChangeEvent } from 'antd/lib/radio';
 
 interface ObjectForm {
@@ -23,7 +23,7 @@ interface ObjectForm {
     }
 }
 
-export const CreateObject = () => {
+export const EditObject = () => {
     const [test,setTest] = React.useState<ObjectForm>();
     const [value, setValue] = React.useState(0);
     const layout = {
@@ -67,7 +67,7 @@ export const CreateObject = () => {
 
     return (
         <div className="create-object-container">
-            <h1>Создать рабочий обьект</h1>
+            <h1>Редактировать рабочий обьект</h1>
             <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages} autoComplete="off" className="object-form">
                 <Form.Item
                     name={['object', 'object_name']}
@@ -215,16 +215,11 @@ export const CreateObject = () => {
                 
                 <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
                     <Button type="primary" htmlType="submit" className="object-submit-btn">
-                        Создать
+                        Сохранить
                     </Button>
                     
                     <Button>
                         Очистить форму
-                    </Button>
-                </Form.Item>
-                <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-                    <Button>
-                        Сохранить в предосмотр
                     </Button>
                 </Form.Item>
             </Form>

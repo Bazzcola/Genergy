@@ -9,7 +9,7 @@
       display: flex;
       align-items: center;
       padding: 0 15px;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 500;
       border-bottom: 2px grey solid;
       color:black;
@@ -28,11 +28,6 @@
           .selected{
             color:rgb(0, 153, 255);
           }
-        }
-  
-        li:nth-child(1) {
-          color: red;
-          font-weight: 700;
         }
   
         li + li {

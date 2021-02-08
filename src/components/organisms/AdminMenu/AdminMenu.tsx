@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { NavLink, Switch, Route, Redirect } from 'react-router-dom';
+import { NavLink, Switch, Route } from 'react-router-dom';
 import { InventoryList } from 'components/molecules/InventoryList/InventoryList';
 import { ObjectList } from 'components/molecules/ObjectList/ObjectList';
 import { SalaryList } from 'components/molecules/SalaryList/SalaryList';
@@ -7,17 +7,27 @@ import { WerehouseList } from 'components/molecules/WerehouseList/WerehouseList'
 import { WorkList } from 'components/molecules/WorkList/WorkList';
 import { AdminCreateUser } from 'components/molecules/AdminCreateUser/AdminCreateUser';
 import { CreateObject } from 'components/molecules/CreateObject/CreateObject';
+import { UserList } from 'components/molecules/UserList/UserList';
+import { UserProfile } from 'components/molecules/UserProfile/UserProfile';
+import { ProfileAddMat } from 'components/molecules/ProfileAddMat/ProfileAddMat';
+import { ProfileEditMat } from 'components/molecules/ProfileEditMat/ProfileEditMat';
+import { WaitingObjectList } from 'components/molecules/WaitingObjectList/WaitingObjectList';
+import { EditObject } from 'components/molecules/EditObject/EditObject';
 
 import './AdminMenu.scss';
+import { AddWorkerTime } from 'components/molecules/AddWorkerTime/AddWorkerTime';
 
 export const AdminMenu = () => {
     return (
         <div className="container">
         <div className="header">
           <ul className="header-line">
-            <li>Admin</li>
+            <li><NavLink to="/admin_menu/user_profile" activeClassName="selected">Admin</NavLink></li>
             <li>
               <NavLink to="/admin_menu/salary_list" activeClassName="selected">Список зарплат</NavLink>
+            </li>
+            <li>
+              <NavLink to="/admin_menu/user_list" activeClassName="selected">Список персонала</NavLink>
             </li>
             <li>
               <NavLink to="/admin_menu/object_list" activeClassName="selected">Список обьектов</NavLink>
@@ -25,12 +35,34 @@ export const AdminMenu = () => {
             <li><NavLink to="/admin_menu/inventory_list" activeClassName="selected">Список инвентаря</NavLink></li>
             <li><NavLink to="/admin_menu/werehouse_list" activeClassName="selected">Список материалов</NavLink></li>
             <li><NavLink to="/admin_menu/create_object" activeClassName="selected">Создать обьект</NavLink></li>
+            <li><NavLink to="/admin_menu/object_waiting_list" activeClassName="selected">Cписок ожидания</NavLink></li>
             <li><NavLink to="/admin_menu/create_user" activeClassName="selected">Создать пользователя</NavLink></li>
             <li><NavLink to="/admin_menu/work_price_list" activeClassName="selected">Список работ</NavLink></li>
           </ul>
         </div>
         <div className="content">
           <Switch>
+            <Route path="/admin_menu/edit_object" exact>
+              <EditObject />
+            </Route>
+            <Route path="/admin_menu/edit_object_worker_time" exact>
+              <AddWorkerTime />
+            </Route>
+            <Route path="/admin_menu/user_profile_edit_material" exact>
+              <ProfileEditMat />
+            </Route>
+            <Route path="/admin_menu/object_waiting_list" exact>
+              <WaitingObjectList />
+            </Route>
+            <Route path="/admin_menu/user_profile_add_material" exact>
+              <ProfileAddMat />
+            </Route>
+            <Route path="/admin_menu/user_profile" exact>
+              <UserProfile />
+            </Route>
+            <Route path="/admin_menu/user_list" exact>
+              <UserList />
+            </Route>
             <Route path="/admin_menu/salary_list" exact>
               <SalaryList />
             </Route>

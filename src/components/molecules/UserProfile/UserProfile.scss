@@ -1,0 +1,72 @@
+.user-profile{
+    margin:0 auto;
+
+    h1{
+        font-size:20px;
+        color:black;
+        position:absolute;
+        top:15%;
+        left:50%;
+        transform:translate(-50%,-50%);
+    }
+
+    .user-profile-content{
+        display:flex;
+        justify-content: space-between;
+        max-width:1000px;
+        width:100%;
+        margin-top: 100px;
+        
+        .user-detail-form{
+            max-width:500px;
+            width:100%;
+        }
+
+        .inventory-mat-review{
+            .material-review{
+                span{
+                    font-size: 18px;
+                    font-weight: 500;
+                    color:rgb(21, 153, 197);
+                }
+
+                .material-list{
+                    font-size: 16px;
+                    font-weight: 500;
+                    color:black;
+                  
+                }
+            }
+
+            
+
+            .inventory-review{
+                margin-top: 50px;
+                span{
+                    font-size: 18px;
+                    font-weight: 500;
+                    color:rgb(21, 153, 197);
+                }
+                .inventory-list{
+                    font-size: 16px;
+                    font-weight: 500;
+                    color:black;
+                }
+            }
+
+            .object-review{
+                margin-top: 50px;
+                span{
+                    font-size: 18px;
+                    font-weight: 500;
+                    color:rgb(21, 153, 197);
+                }
+                .object-list{
+                    font-size: 16px;
+                    font-weight: 500;
+                    color:black;
+                }
+            }
+        }
+    }
+}
