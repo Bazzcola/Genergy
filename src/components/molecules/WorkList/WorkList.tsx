@@ -28,7 +28,7 @@ export const WorkList = () => {
       name: 'Установка рубильника',
       quantity: 1,
       price: 500
-    },
+    }
   ];
 
   return (

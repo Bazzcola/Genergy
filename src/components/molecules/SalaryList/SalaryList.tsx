@@ -3,7 +3,6 @@ import { Context } from 'components/context/Context';
 
 import './SalaryList.scss';
 
-
 export const SalaryList = () => {
   const [allSalary, setAllSalary] = React.useState<number>(0);
   const [allAvans, setAllAvans] = React.useState<number>(0);
