@@ -25,8 +25,8 @@ export const Main = () => {
   return (
     <ProviderContext>
       <BrowserRouter>
-        {/* <AdminMenu /> */}
-        {token.login ? (
+        <AdminMenu />
+        {/* {token.login ? (
           <>
             {token.userType === 'admin1' ? (
               <>
@@ -47,7 +47,7 @@ export const Main = () => {
               <Login auth={auth} />
             </Route>
           </>
-        )}
+        )} */}
       </BrowserRouter>
     </ProviderContext>
   );

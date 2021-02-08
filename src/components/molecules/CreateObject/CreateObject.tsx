@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Form, Input, Button, InputNumber, Select, Tag, Space } from 'antd';
+import { Form, Input, Button, InputNumber, Select, Tag, Space, Radio } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
 import './CreateObject.scss';
@@ -20,6 +20,8 @@ interface ObjectForm {
 
 export const CreateObject = () => {
   const [test, setTest] = React.useState<ObjectForm>();
+  const [value, setValue] = React.useState(0);
+
   const layout = {
     labelCol: {
       span: 8
@@ -27,6 +29,11 @@ export const CreateObject = () => {
     wrapperCol: {
       span: 16
     }
+  };
+
+  const onChange = (e:any) => {
+    console.log('radio checked', e.target.value);
+    setValue(e.target.value);
   };
 
   const validateMessages = {
@@ -76,6 +83,7 @@ export const CreateObject = () => {
         onFinish={onFinish}
         validateMessages={validateMessages}
         autoComplete="off"
+        className="object-form"
       >
         <Form.Item
           name={['object', 'object_name']}
@@ -119,67 +127,130 @@ export const CreateObject = () => {
           />
         </Form.Item>
 
-        <Form.List name={['object', 'object_work_total_list']}>
-          {(fields, { add, remove }) => (
-            <>
-              {fields.map((field) => (
-                <Space
-                  key={field.key}
-                  style={{ display: 'flex', marginBottom: 8 }}
-                  align="baseline"
-                >
-                  <Form.Item
-                    {...field}
-                    name={[field.name, 'work']}
-                    fieldKey={[field.fieldKey, 'work']}
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Название работы обязательно!'
-                      }
-                    ]}
+        <div className="add-inputs">
+          <Form.List name={['object', 'object_work_total_list']}>
+            {(fields, { add, remove }) => (
+              <>
+                {fields.map((field) => (
+                  <Space
+                    key={field.key}
+                    style={{ display: 'flex', marginBottom: 8 }}
+                    align="baseline"
                   >
-                    <Select
-                      placeholder="Выберите"
-                      showArrow
-                      tagRender={workerRender}
-                      style={{ width: '300px' }}
-                      options={workerPriceListOptions}
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    {...field}
-                    name={[field.name, 'quantity']}
-                    fieldKey={[field.fieldKey, 'quantity']}
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Количество не меньше 0',
-                        min: 0,
-                        max: 999,
-                        type: 'number'
-                      }
-                    ]}
+                    <Form.Item
+                      {...field}
+                      name={[field.name, 'work']}
+                      fieldKey={[field.fieldKey, 'work']}
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Название работы обязательно!'
+                        }
+                      ]}
+                    >
+                      <Select
+                        placeholder="Выберите"
+                        showArrow
+                        tagRender={workerRender}
+                        style={{ width: '300px' }}
+                        options={workerPriceListOptions}
+                      />
+                    </Form.Item>
+                    <Form.Item
+                      {...field}
+                      name={[field.name, 'quantity']}
+                      fieldKey={[field.fieldKey, 'quantity']}
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Количество не меньше 0',
+                          min: 0,
+                          max: 999,
+                          type: 'number'
+                        }
+                      ]}
+                    >
+                      <InputNumber placeholder="кол-во" />
+                    </Form.Item>
+                    <MinusCircleOutlined onClick={() => remove(field.name)} />
+                  </Space>
+                ))}
+                <Form.Item>
+                  <Button
+                    type="dashed"
+                    onClick={() => add()}
+                    block
+                    icon={<PlusOutlined />}
                   >
-                    <InputNumber placeholder="кол-во" />
-                  </Form.Item>
-                  <MinusCircleOutlined onClick={() => remove(field.name)} />
-                </Space>
-              ))}
-              <Form.Item>
-                <Button
-                  type="dashed"
-                  onClick={() => add()}
-                  block
-                  icon={<PlusOutlined />}
-                >
-                  Добавить работу
-                </Button>
-              </Form.Item>
-            </>
-          )}
-        </Form.List>
+                    Добавить работу
+                  </Button>
+                </Form.Item>
+              </>
+            )}
+          </Form.List>
 
+          <Form.List name={['object', 'object_material_total_list']}>
+            {(fields, { add, remove }) => (
+              <>
+                {fields.map((field) => (
+                  <Space
+                    key={field.key}
+                    style={{ display: 'flex', marginBottom: 8 }}
+                    align="baseline"
+                  >
+                    <Form.Item
+                      {...field}
+                      name={[field.name, 'material']}
+                      fieldKey={[field.fieldKey, 'material']}
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Название работы обязательно!'
+                        }
+                      ]}
+                    >
+                      <Select
+                        placeholder="Выберите"
+                        showArrow
+                        tagRender={workerRender}
+                        style={{ width: '300px' }}
+                        options={workerPriceListOptions}
+                      />
+                    </Form.Item>
+                    <Form.Item
+                      {...field}
+                      name={[field.name, 'quantity']}
+                      fieldKey={[field.fieldKey, 'quantity']}
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Количество не меньше 0',
+                          min: 0,
+                          max: 999,
+                          type: 'number'
+                        }
+                      ]}
+                    >
+                      <InputNumber placeholder="кол-во" />
+                    </Form.Item>
+                    <MinusCircleOutlined onClick={() => remove(field.name)} />
+                  </Space>
+                ))}
+                <Form.Item>
+                  <Button
+                    type="dashed"
+                    onClick={() => add()}
+                    block
+                    icon={<PlusOutlined />}
+                  >
+                    Добавить материалов
+                  </Button>
+                </Form.Item>
+              </>
+            )}
+          </Form.List>
+        </div>
+        
         <Form.Item
           name={['object', 'object_avans']}
           label="Аванс"
@@ -194,9 +265,21 @@ export const CreateObject = () => {
         >
           <InputNumber placeholder="Введите аванс" />
         </Form.Item>
+        <Form.Item className="radio-percent" name={['object', 'percent']} label="Скидка">
+          <Radio.Group onChange={onChange} value={value}>
+            <Radio value={0}>0%</Radio>
+            <Radio value={5}>5%</Radio>
+            <Radio value={10}>10%</Radio>
+            <Radio value={15}>15%</Radio>
+            <Radio value={20}>20%</Radio>
+          </Radio.Group>
+        </Form.Item>
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" className="object-submit-btn">
             Создать
+          </Button>
+          <Button>
+            Добавить в ожидания
           </Button>
         </Form.Item>
       </Form>
