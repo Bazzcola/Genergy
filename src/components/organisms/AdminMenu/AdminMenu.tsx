@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { NavLink, Switch, Route } from 'react-router-dom';
+import { DownOutlined } from '@ant-design/icons';
+import { Dropdown, Button, Menu, message } from 'antd';
 import { InventoryList } from 'components/molecules/InventoryList/InventoryList';
 import { ObjectList } from 'components/molecules/ObjectList/ObjectList';
 import { SalaryList } from 'components/molecules/SalaryList/SalaryList';
@@ -13,35 +15,74 @@ import { ProfileAddMat } from 'components/molecules/ProfileAddMat/ProfileAddMat'
 import { ProfileEditMat } from 'components/molecules/ProfileEditMat/ProfileEditMat';
 import { WaitingObjectList } from 'components/molecules/WaitingObjectList/WaitingObjectList';
 import { EditObject } from 'components/molecules/EditObject/EditObject';
+import { AddWorkerTime } from 'components/molecules/AddWorkerTime/AddWorkerTime';
+import { CurrentObject } from 'components/molecules/CurrentObject/CurrentObject';
 
 import './AdminMenu.scss';
-import { AddWorkerTime } from 'components/molecules/AddWorkerTime/AddWorkerTime';
 
 export const AdminMenu = () => {
+  function handleMenuClick(e:any) {
+    message.info('Click on menu item.');
+    console.log('click', e);
+  }
+
+  const menu1 = (
+    <Menu onClick={handleMenuClick}>
+      <Menu.Item key="1">
+        <NavLink to="/admin_menu/inventory_list" activeClassName="selected"><span>Список инвентаря</span></NavLink>
+      </Menu.Item>
+      <Menu.Item key="2">
+        <NavLink to="/admin_menu/werehouse_list" activeClassName="selected"><span>Список материалов</span></NavLink>
+      </Menu.Item>
+      <Menu.Item key="3">
+        <NavLink to="/admin_menu/user_list" activeClassName="selected"><span>Список персонала</span></NavLink>
+      </Menu.Item>
+    </Menu>
+  );
+
+  const menu2 = (
+    <Menu onClick={handleMenuClick}>
+      <Menu.Item key="4">
+        <NavLink to="/admin_menu/salary_list" activeClassName="selected"><span>Список зарплат</span></NavLink>
+      </Menu.Item>
+      <Menu.Item key="5">
+        <NavLink to="/admin_menu/object_list" activeClassName="selected"><span>Список обьектов</span></NavLink>
+      </Menu.Item>
+      <Menu.Item key="6">
+        <NavLink to="/admin_menu/object_waiting_list" activeClassName="selected"><span>Cписок ожидания</span></NavLink>
+      </Menu.Item>
+    </Menu>
+  );
+
     return (
         <div className="container">
         <div className="header">
-          <ul className="header-line">
-            <li><NavLink to="/admin_menu/user_profile" activeClassName="selected">Admin</NavLink></li>
-            <li>
-              <NavLink to="/admin_menu/salary_list" activeClassName="selected">Список зарплат</NavLink>
-            </li>
-            <li>
-              <NavLink to="/admin_menu/user_list" activeClassName="selected">Список персонала</NavLink>
-            </li>
-            <li>
-              <NavLink to="/admin_menu/object_list" activeClassName="selected">Список обьектов</NavLink>
-            </li>
-            <li><NavLink to="/admin_menu/inventory_list" activeClassName="selected">Список инвентаря</NavLink></li>
-            <li><NavLink to="/admin_menu/werehouse_list" activeClassName="selected">Список материалов</NavLink></li>
-            <li><NavLink to="/admin_menu/create_object" activeClassName="selected">Создать обьект</NavLink></li>
-            <li><NavLink to="/admin_menu/object_waiting_list" activeClassName="selected">Cписок ожидания</NavLink></li>
-            <li><NavLink to="/admin_menu/create_user" activeClassName="selected">Создать пользователя</NavLink></li>
-            <li><NavLink to="/admin_menu/work_price_list" activeClassName="selected">Список работ</NavLink></li>
-          </ul>
+          <div className="header-line">
+            <Button><NavLink to="/admin_menu/user_profile" activeClassName="selected">Admin</NavLink></Button>
+            <Button><NavLink to="/admin_menu/curent_object" activeClassName="selected">Текущие объекты</NavLink></Button>
+            <Button><NavLink to="/admin_menu/create_object" activeClassName="selected">Создать объект</NavLink></Button>
+            <Button><NavLink to="/admin_menu/work_price_list" activeClassName="selected">Список работ</NavLink></Button>
+            <Button><NavLink to="/admin_menu/create_user" activeClassName="selected">Создать пользователя</NavLink></Button>
+
+            <Dropdown overlay={menu2}>
+              <Button>
+                Списки Зп./Объе./Ожид. <DownOutlined />
+              </Button>
+            </Dropdown>
+
+            <Dropdown overlay={menu1}>
+              <Button>
+                Списки Инв./Мат./Пер. <DownOutlined />
+              </Button>
+            </Dropdown>
+            
+          </div>
         </div>
         <div className="content">
           <Switch>
+            <Route path="/admin_menu/curent_object" exact>
+              <CurrentObject />
+            </Route>
             <Route path="/admin_menu/edit_object" exact>
               <EditObject />
             </Route>

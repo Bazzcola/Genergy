@@ -1,6 +1,7 @@
 import React from 'react';
-import { Context } from 'components/context/Context';
 import { NavLink } from 'react-router-dom';
+import { Button } from 'antd';
+import { Context } from 'components/context/Context';
 
 import './UserList.scss';
 
@@ -33,7 +34,7 @@ export const UserList = () => {
                 </NavLink>
                     <div className="button-edit-user">
                         <NavLink to="/admin_menu/user_profile_edit_material">
-                            <span>Редактировать</span>
+                            <Button><span>Редактировать</span></Button>
                         </NavLink>
                     </div>
             </div>

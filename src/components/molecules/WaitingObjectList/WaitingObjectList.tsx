@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { Button } from 'antd';
 
 import './WaitingObjectList.scss';
 
@@ -76,17 +77,17 @@ export const WaitingObjectList = () => {
 
     return(
         <div className="waiting-object-list">
-            <div className="waiting-object-list__title">Список обьектов</div>
+            <div className="waiting-object-list__title">Список ожидаемых обьектов</div>
                 <div className="waiting-object-list__items">
                     {objectList.map((item, index) => (
                     <div className="waiting-object_item" key={index}>
                         <div className="waiting-object_item__title">
                             <span>Название: {item.object_name}</span>
-                            <button className="close-object">Добавить</button>
+                            <Button className="close-object">Добавить</Button>
                             <NavLink to="/admin_menu/edit_object" activeClassName="selected">
-                              <button className="close-object">Редактировать</button>
+                              <Button className="close-object">Редактировать</Button>
                             </NavLink>
-                            <button className="close-object">Удалить</button>
+                            <Button className="close-object">Удалить</Button>
                         </div>
                         <div className="waiting-object_item__description">
                             {item.object_description}

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Button } from 'antd';
 
 import './InventoryList.scss';
 
@@ -40,7 +41,7 @@ export const InventoryList = () => {
     <div className="inventory-list">
       <div className="title">
         <div className="title__text">Список инвентаря</div>
-        <button className="add-button">Добавить</button>
+        <Button className="add-button">Добавить</Button>
       </div>
       <div className="item_list">
         {dataInventory.map((item, index) => (
@@ -53,10 +54,10 @@ export const InventoryList = () => {
               Ценна 1шт.- {item.price}
             </div>
             <div className="button-edit-inventory">
-              <button>Редактировать</button>
+              <Button>Редактировать</Button>
             </div>
             <div className="button-delete-inventory">
-              <button>Удалить</button>
+              <Button>Удалить</Button>
             </div>
           </div>
         ))}

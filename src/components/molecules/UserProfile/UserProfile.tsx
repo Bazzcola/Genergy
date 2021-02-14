@@ -25,6 +25,25 @@ export const UserProfile = () => {
         <div className="user-profile">
             <h1>Профиль работника</h1>
             <div className="user-profile-content">
+                    <div className="user-detail-form">
+                        <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages} autoComplete="off">
+                            <Form.Item name={['user', 'name']} label="Name" rules={[{ required: true }]}>
+                                <Input placeholder="Вова" disabled/>
+                            </Form.Item>
+                            <Form.Item name={['user', 'idnp']} label="IDNP" rules={[{ type: 'email' }]}>
+                                <Input placeholder="35214566985524"/>
+                            </Form.Item>
+                            <Form.Item name={['user', 'phone']} label="Phone">
+                                <Input placeholder="+069431495"/>
+                            </Form.Item>
+                            <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+                                <Button type="primary" htmlType="submit">
+                                Сохранить
+                                </Button>
+                            </Form.Item>
+                        </Form>
+                    </div>
+
                     <div className="inventory-mat-review">
                         <div className="material-review">
                             <span>Список материалов</span>
@@ -55,24 +74,6 @@ export const UserProfile = () => {
                             </ul>
                         </div>
                     </div>
-                    <div className="user-detail-form">
-                    <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages} autoComplete="off">
-                        <Form.Item name={['user', 'name']} label="Name" rules={[{ required: true }]}>
-                            <Input placeholder="Вова" disabled/>
-                        </Form.Item>
-                        <Form.Item name={['user', 'idnp']} label="IDNP" rules={[{ type: 'email' }]}>
-                            <Input placeholder="35214566985524"/>
-                        </Form.Item>
-                        <Form.Item name={['user', 'phone']} label="Phone">
-                            <Input placeholder="+069431495"/>
-                        </Form.Item>
-                        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-                            <Button type="primary" htmlType="submit">
-                            Сохранить
-                            </Button>
-                        </Form.Item>
-                    </Form>
-                </div>
             </div>
         </div>
     );

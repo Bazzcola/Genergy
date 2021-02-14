@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Context } from 'components/context/Context';
-
+import { Button } from 'antd';
 import './SalaryList.scss';
 
 export const SalaryList = () => {
@@ -41,10 +41,10 @@ export const SalaryList = () => {
               Остаток - {salaryResultItem(item.salary, item.avans)}
             </div>
             <div className="button-avans">
-              <button>Аванс</button>
+              <Button>Аванс</Button>
             </div>
             <div className="button-salary">
-              <button>Выдал ЗП</button>
+              <Button>Выдал ЗП</Button>
             </div>
           </div>
         ))}

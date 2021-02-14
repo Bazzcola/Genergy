@@ -5,7 +5,6 @@
     display: flex;
     justify-content: space-between;
     padding: 15px;
-    border-bottom: 2px grey solid;
     color:rgb(0, 153, 255);
     
     span {
@@ -14,26 +13,29 @@
     }
 
     .add-material {
-      font-size: 16px;
-      font-weight: 600;
       border-radius: 5px;
       outline: none;
-      border: 1px black solid;
+      border: 1px #d2d2d2 solid;
       cursor: pointer;
       color: black;
-      background-color: aqua;
-      transition: 0.3s;
+
+      span {
+        font-size: 14px;
+        font-weight: 500;
+      }
     }
   }
 
   .werehouse-list__items {
+    padding:0 15px;
+    
     .werehouse-item {
       margin-top: 5px;
       margin-bottom: 5px;
       display: flex;
       justify-content: space-between;
       padding: 15px;
-      border: 1px black solid;
+      border: 1px #d2d2d2 solid;
       border-radius: 5px;
 
       &__name {
@@ -78,8 +80,8 @@
 
         button {
           height: 30px;
-          font-weight: 600;
-          font-size: 16px;
+          font-weight: 500;
+          font-size: 14px;
           cursor: pointer;
         }
       }
@@ -92,9 +94,12 @@
 
         button {
           height: 30px;
-          font-weight: 600;
-          font-size: 16px;
           cursor: pointer;
+
+          span {
+            font-weight: 500;
+            font-size: 14px;
+          }
         }
       }
     }

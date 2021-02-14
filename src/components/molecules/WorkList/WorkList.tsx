@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Button } from 'antd';
 import axios from 'axios';
 import { useRequest } from 'estafette';
 import {inventoryList} from 'api/inventoryList';
@@ -54,7 +55,7 @@ export const WorkList = () => {
     <div className="work-list">
       <div className="title">
         <div className="title__text">Список работ</div>
-        <button className="add-button">Добавить</button>
+        <Button className="add-button">Добавить</Button>
       </div>
       <div className="item_list">
         {dataWorkList.map((item, index) => (
@@ -65,10 +66,10 @@ export const WorkList = () => {
             </div>
             <div className="work-item__price">Ценна - {item.price}</div>
             <div className="button-edit-work">
-              <button>Редактировать</button>
+              <Button>Редактировать</Button>
             </div>
             <div className="button-delete-work">
-              <button>Удалить</button>
+              <Button>Удалить</Button>
             </div>
           </div>
         ))}

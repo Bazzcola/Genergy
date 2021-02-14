@@ -4,7 +4,6 @@
     display: flex;
     justify-content: space-between;
     padding: 15px;
-    border-bottom: 2px grey solid;
     font-size: 18px;
     font-weight: 500;
     color:rgb(0, 153, 255);
@@ -16,10 +15,11 @@
     flex-wrap: wrap;
     justify-content: space-between;
     margin-top: 20px;
+    padding:0 15px;
 
     .object_item {
       padding: 15px;
-      border: 2px grey solid;
+      border: 1px #d2d2d2 solid;
       border-radius: 5px;
       max-width: 49%;
       width: 49%;
@@ -36,20 +36,21 @@
         }
 
         .close-object {
-          font-size: 16px;
-          font-weight: 600;
           border-radius: 5px;
           outline: none;
-          border: 1px black solid;
+          border: 1px #d2d2d2 solid;
           cursor: pointer;
-          color: black;
-          background-color: aqua;
-          transition: 0.3s;
+          color: #1599c5;
+
+          span {
+            font-size: 14px;
+            font-weight: 500;
+          }
         }
 
-        .close-object:hover {
-          background-color: red;
-          color: white;
+        .close-object:hover{
+          background-color:#0099ff;
+          color:#ffff;
         }
       }
 
@@ -74,14 +75,19 @@
               margin-right: 10px;
               font-size: 16px;
               font-weight: 600;
-              padding: 5px;
-              border: 1px black solid;
+              padding: 5px 15px;
+              border: 1px #d2d2d2 solid;
               border-radius: 5px;
               cursor: pointer;
+              color:#0099ff;
+            }
+
+            li:nth-child(1) {
+              color:red;
             }
 
             li:hover {
-              background-color: aqua;
+              background-color: rgb(0, 153, 255, 0.1);
             }
           }
         }

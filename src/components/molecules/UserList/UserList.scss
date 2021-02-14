@@ -3,7 +3,6 @@
       display: flex;
       justify-content: space-between;
       padding: 15px;
-      border-bottom: 2px grey solid;
       font-size: 18px;
       font-weight: 500;
   
@@ -29,15 +28,13 @@
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        border: 1px black solid;
         border-radius: 5px;
-        margin-top:5px;
-        margin-bottom:5px;
         margin-left:10px;
-        background:cornflowerblue;
-        color:white;
-        cursor: pointer;
-        transition: 0.2s;
+
+        button{
+          height:40px;
+          border-radius:5px;
+        }
 
         a{
             height:45px;
@@ -52,27 +49,23 @@
         }
     }
 
-    .button-edit-user:hover{
-        color:cornflowerblue;
-        background-color: white;
-    }
-
     .item_list {
-     a{
-        width:100%;
-        max-width: 100%;
-        color:black;
-     }
+      padding:0 15px;
+      
+      a{
+          width:100%;
+          max-width: 100%;
+          color:black;
+      }
       .user-item {
         margin-top: 5px;
         margin-bottom: 5px;
         display: flex;
         justify-content: space-between;
-        padding: 15px;
-        border: 1px black solid;
+        padding: 5px 15px;
+        border: 1px #d2d2d2 solid;
         border-radius: 5px;
         cursor: pointer;
-        transition: 0.2s;
   
         &__name {
           width: 20%;

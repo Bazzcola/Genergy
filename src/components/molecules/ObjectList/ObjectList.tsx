@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
+import { Button } from 'antd';
 
 import './ObjectList.scss';
 
@@ -81,12 +82,12 @@ export const ObjectList = () => {
             <div className="object_item__title">
               <span>Название: {item.object_name}</span>
               <NavLink to="/admin_menu/edit_object" activeClassName="selected">
-                <button className="close-object">Редактировать</button>
+                <Button className="close-object">Редактировать</Button>
               </NavLink>
               <NavLink to="/admin_menu/edit_object_worker_time" activeClassName="selected">
-                <button className="close-object">Время +/-</button>
+                <Button className="close-object">Время +/-</Button>
               </NavLink>
-              <button className="close-object">Закрыть</button>
+              <Button className="close-object">Закрыть</Button>
             </div>
             <div className="object_item__description">
               {item.object_description}

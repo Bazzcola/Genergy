@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Button } from 'antd';
 
 import './WerehouseList.scss';
 
@@ -57,7 +58,7 @@ export const WerehouseList = () => {
     <div className="werehouse-list">
       <div className="werehouse-list__title">
         <span>Список материалов</span>
-        <button className="add-material">Добавить</button>
+        <Button className="add-material">Добавить</Button>
       </div>
       <div className="werehouse-list__items">
         {dataWerehouse.map((item, index) => (
@@ -73,10 +74,10 @@ export const WerehouseList = () => {
               Колличество - {item.werehouse_quantity} шт.
             </div>
             <div className="button-edit-werehouse">
-              <button>Редактировать</button>
+              <Button>Редактировать</Button>
             </div>
             <div className="button-delete-werehouse">
-              <button>Удалить</button>
+              <Button>Удалить</Button>
             </div>
           </div>
         ))}
