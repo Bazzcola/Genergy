@@ -6,8 +6,7 @@
     padding: 15px;
     font-size: 18px;
     font-weight: 500;
-    color:rgb(0, 153, 255);
-    
+    color: rgb(0, 153, 255);
   }
 
   &__items {
@@ -15,10 +14,10 @@
     flex-wrap: wrap;
     justify-content: space-between;
     margin-top: 20px;
-    padding:0 15px;
+    padding: 0 15px;
 
-    @media (max-width:1228px) {
-      display:block; 
+    @media (max-width: 1228px) {
+      display: block;
     }
 
     .object_item {
@@ -29,21 +28,21 @@
       width: 49%;
       margin-bottom: 10px;
 
-      @media (max-width:1228px) {
-        width:100%;
+      @media (max-width: 1228px) {
+        width: 100%;
         max-width: 100%;
       }
 
-      .buttons-group{
+      .buttons-group {
         button {
-          margin-right:10px;
+          margin-right: 10px;
         }
 
-        @media (max-width:690px) {
-          margin-top:10px;
+        @media (max-width: 690px) {
+          margin-top: 10px;
 
           button {
-            margin-top:10px;
+            margin-top: 10px;
           }
         }
       }
@@ -53,8 +52,8 @@
         display: flex;
         justify-content: space-between;
 
-        @media (max-width:690px) {
-          display:block;
+        @media (max-width: 690px) {
+          display: block;
         }
 
         span {
@@ -75,9 +74,9 @@
           }
         }
 
-        .close-object:hover{
-          background-color:#0099ff;
-          color:#ffff;
+        .close-object:hover {
+          background-color: #0099ff;
+          color: #ffff;
         }
       }
 
@@ -86,8 +85,8 @@
         font-weight: 400;
         margin-bottom: 10px;
 
-        span{
-          color:black;
+        span {
+          color: black;
           font-weight: 600;
         }
       }
@@ -111,11 +110,11 @@
               border: 1px #d2d2d2 solid;
               border-radius: 5px;
               cursor: pointer;
-              color:#0099ff;
+              color: #0099ff;
             }
 
             li:nth-child(1) {
-              color:red;
+              color: red;
             }
 
             li:hover {
@@ -135,10 +134,10 @@
           margin-top: 10px;
           margin-bottom: 10px;
           font-size: 16px;
-          color:black;
+          color: black;
 
-          span{
-            color:#1599c5;
+          span {
+            color: #1599c5;
           }
         }
 

@@ -5,8 +5,8 @@
     display: flex;
     justify-content: space-between;
     padding: 15px;
-    color:rgb(0, 153, 255);
-    
+    color: rgb(0, 153, 255);
+
     span {
       font-size: 18px;
       font-weight: 500;
@@ -27,8 +27,8 @@
   }
 
   .werehouse-list__items {
-    padding:0 15px;
-    
+    padding: 0 15px;
+
     .werehouse-item {
       margin-top: 5px;
       margin-bottom: 5px;
@@ -38,8 +38,8 @@
       border: 1px #d2d2d2 solid;
       border-radius: 5px;
 
-      @media (max-width:1228px) {
-        display:block;
+      @media (max-width: 1228px) {
+        display: block;
       }
 
       &__name {
@@ -52,8 +52,8 @@
           font-size: 14px;
         }
 
-        @media (max-width:1228px) {
-          width:100%;
+        @media (max-width: 1228px) {
+          width: 100%;
         }
       }
 
@@ -64,8 +64,8 @@
         font-size: 16px;
         font-weight: 600;
 
-        @media (max-width:1228px) {
-          width:100%;
+        @media (max-width: 1228px) {
+          width: 100%;
         }
       }
 
@@ -76,8 +76,8 @@
         font-size: 16px;
         font-weight: 600;
 
-        @media (max-width:1228px) {
-          width:100%;
+        @media (max-width: 1228px) {
+          width: 100%;
         }
       }
 
@@ -88,8 +88,8 @@
         font-size: 16px;
         font-weight: 600;
 
-        @media (max-width:1228px) {
-          width:100%;
+        @media (max-width: 1228px) {
+          width: 100%;
         }
       }
 
@@ -99,8 +99,8 @@
         align-items: center;
         justify-content: flex-end;
 
-        @media (max-width:1228px) {
-          width:100%;
+        @media (max-width: 1228px) {
+          width: 100%;
         }
 
         button {
@@ -117,16 +117,16 @@
         justify-content: flex-end;
         align-items: center;
 
-        @media (max-width:1228px) {
-          width:100%;
+        @media (max-width: 1228px) {
+          width: 100%;
         }
 
         button {
           height: 30px;
           cursor: pointer;
 
-          @media (max-width:1228px) {
-            margin-top:10px;
+          @media (max-width: 1228px) {
+            margin-top: 10px;
           }
 
           span {

@@ -1,115 +1,114 @@
 .work-list {
-    .title {
+  .title {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: 500;
+
+    &__text {
+      color: rgb(0, 153, 255);
+    }
+
+    .add-button {
+      height: 30px;
+      font-weight: 500;
+      font-size: 14px;
+      cursor: pointer;
+    }
+  }
+
+  .item_list {
+    padding: 0 15px 35px 15px;
+
+    .work-item {
+      margin-top: 10px;
+      margin-bottom: 10px;
       display: flex;
       justify-content: space-between;
       padding: 15px;
-      font-size: 18px;
-      font-weight: 500;
-  
-      &__text{
-        color:rgb(0, 153, 255);
-      }
-  
-      .add-button {
-        height: 30px;
-        font-weight: 500;
-        font-size: 14px;
-        cursor: pointer;
-      }
-    }
-  
-    .item_list {
-      padding:0 15px 35px 15px;
+      border: 1px #d2d2d2 solid;
+      border-radius: 5px;
 
-      .work-item {
-        margin-top: 10px;
-        margin-bottom: 10px;
+      @media (max-width: 900px) {
+        display: block;
+      }
+
+      &__name {
+        width: 20%;
+        font-size: 18px;
+        font-weight: 600;
+
+        span {
+          display: block;
+          font-size: 14px;
+        }
+
+        @media (max-width: 900px) {
+          width: 100%;
+        }
+      }
+
+      &__quantity {
+        width: 20%;
         display: flex;
-        justify-content: space-between;
-        padding: 15px;
-        border: 1px #d2d2d2 solid;
-        border-radius: 5px;
-        
-        @media (max-width:900px){
-          display:block;
+        align-items: center;
+        font-size: 16px;
+        font-weight: 600;
+
+        @media (max-width: 900px) {
+          width: 100%;
+        }
+      }
+
+      &__price {
+        width: 20%;
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        font-weight: 600;
+
+        @media (max-width: 900px) {
+          width: 100%;
+        }
+      }
+
+      .button-edit-work {
+        width: 10%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        @media (max-width: 900px) {
+          width: 100%;
         }
 
-        &__name {
-          width: 20%;
-          font-size: 18px;
-          font-weight: 600;
-
-          span {
-            display: block;
-            font-size: 14px;
-          }
-
-          @media (max-width:900px){
-            width: 100%;
-          }
+        button {
+          height: 30px;
+          font-weight: 500;
+          font-size: 14px;
+          cursor: pointer;
         }
-  
-        &__quantity {
-          width: 20%;
-          display: flex;
-          align-items: center;
-          font-size: 16px;
-          font-weight: 600;
+      }
 
-          @media (max-width:900px){
-            width: 100%;
-          }
+      .button-delete-work {
+        width: 10%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        @media (max-width: 900px) {
+          margin-top: 15px;
+          width: 100%;
         }
-  
-        &__price {
-          width: 20%;
-          display: flex;
-          align-items: center;
-          font-size: 16px;
-          font-weight: 600;
 
-          @media (max-width:900px){
-            width: 100%;
-          }
-        }
-  
-        .button-edit-work {
-          width: 10%;
-          display: flex;
-          align-items: center;
-          justify-content: flex-end;
-          
-          @media (max-width:900px){
-            width: 100%;
-          }
-
-          button {
-            height: 30px;
-            font-weight: 500;
-            font-size: 14px;
-            cursor: pointer;
-          }
-        }
-  
-        .button-delete-work {
-          width: 10%;
-          display: flex;
-          justify-content: flex-end;
-          align-items: center;
-          
-          @media (max-width:900px){
-            margin-top:15px;
-            width: 100%;
-          }
-
-          button {
-            height: 30px;
-            font-weight: 500;
-            font-size: 14px;
-            cursor: pointer;
-          }
+        button {
+          height: 30px;
+          font-weight: 500;
+          font-size: 14px;
+          cursor: pointer;
         }
       }
     }
   }
-  
+}

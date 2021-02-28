@@ -1,99 +1,96 @@
-.user-profile{
-    margin:0 auto;
-    padding: 0 15px;
+.user-profile {
+  margin: 0 auto;
+  padding: 0 15px;
 
-    h1{
-        font-size:20px;
-        color:#0099ff;
-        position:absolute;
-        top:18%;
-        left:50%;
-        transform:translate(-50%,-50%);
+  h1 {
+    font-size: 20px;
+    color: #0099ff;
+    position: absolute;
+    top: 18%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-        @media (max-width: 1228px) {
-            top:21%;
-        }
-
-        @media (max-width: 690px) {
-            top:12%;
-            width:100%;
-            text-align: center;
-        }
+    @media (max-width: 1228px) {
+      top: 21%;
     }
 
-    .user-profile-content{
-        display:flex;
-        justify-content: center;
-        width:100%;
-        margin-top: 100px;
-        margin-left:auto;
-        margin-right:auto;
-        
-        @media (max-width: 690px) {
-            display:block;
-            margin:0 auto;
-        }
-
-        .user-detail-form{
-            width:60%;
-            margin: 0 auto;
-        }
-
-        .inventory-mat-review{
-            width:40%;
-            margin-left:50px;
-
-            @media (max-width: 690px) {
-                width:100%;
-                margin:0 auto;
-                text-align: center;
-                padding-bottom:20px;
-            }
-
-            .material-review{
-                span{
-                    font-size: 18px;
-                    font-weight: 500;
-                    color:rgb(21, 153, 197);
-                }
-
-                .material-list{
-                    font-size: 16px;
-                    font-weight: 500;
-                    color:black;
-                  
-                }
-            }
-
-            
-
-            .inventory-review{
-                margin-top: 50px;
-                span{
-                    font-size: 18px;
-                    font-weight: 500;
-                    color:rgb(21, 153, 197);
-                }
-                .inventory-list{
-                    font-size: 16px;
-                    font-weight: 500;
-                    color:black;
-                }
-            }
-
-            .object-review{
-                margin-top: 50px;
-                span{
-                    font-size: 18px;
-                    font-weight: 500;
-                    color:rgb(21, 153, 197);
-                }
-                .object-list{
-                    font-size: 16px;
-                    font-weight: 500;
-                    color:black;
-                }
-            }
-        }
+    @media (max-width: 690px) {
+      top: 12%;
+      width: 100%;
+      text-align: center;
     }
+  }
+
+  .user-profile-content {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+
+    @media (max-width: 690px) {
+      display: block;
+      margin: 0 auto;
+    }
+
+    .user-detail-form {
+      width: 60%;
+      margin: 0 auto;
+    }
+
+    .inventory-mat-review {
+      width: 40%;
+      margin-left: 50px;
+
+      @media (max-width: 690px) {
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+        padding-bottom: 20px;
+      }
+
+      .material-review {
+        span {
+          font-size: 18px;
+          font-weight: 500;
+          color: rgb(21, 153, 197);
+        }
+
+        .material-list {
+          font-size: 16px;
+          font-weight: 500;
+          color: black;
+        }
+      }
+
+      .inventory-review {
+        margin-top: 50px;
+        span {
+          font-size: 18px;
+          font-weight: 500;
+          color: rgb(21, 153, 197);
+        }
+        .inventory-list {
+          font-size: 16px;
+          font-weight: 500;
+          color: black;
+        }
+      }
+
+      .object-review {
+        margin-top: 50px;
+        span {
+          font-size: 18px;
+          font-weight: 500;
+          color: rgb(21, 153, 197);
+        }
+        .object-list {
+          font-size: 16px;
+          font-weight: 500;
+          color: black;
+        }
+      }
+    }
+  }
 }

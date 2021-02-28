@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Button } from 'antd';
 import { useRequest } from 'estafette';
-import {inventoryList} from 'api/inventoryList';
+import { inventoryList } from 'api/inventoryList';
 
 import './WorkList.scss';
 
@@ -10,10 +10,9 @@ export const WorkList = () => {
   useEffect(() => {
     request(inventoryList.getInventoryList({}));
     // request(inventoryList.getInventoryList(`http://localhost:8000/inventory/instrument/`));
-    
-  },[])
+  }, []);
 
-  console.log(data)
+  console.log(data);
 
   const dataWorkList = [
     {
@@ -42,8 +41,6 @@ export const WorkList = () => {
       price: 500
     }
   ];
-
-
 
   return (
     <div className="work-list">

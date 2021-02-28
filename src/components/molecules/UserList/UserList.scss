@@ -1,132 +1,131 @@
 .user-list {
-    .title {
-      display: flex;
-      justify-content: space-between;
-      padding: 15px;
-      font-size: 18px;
+  .title {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: 600;
+
+    &__text {
+      color: rgb(0, 153, 255);
+    }
+
+    .add-button {
+      height: 30px;
       font-weight: 600;
-
-      &__text{
-        color:rgb(0, 153, 255);
-      }
-  
-      .add-button {
-        height: 30px;
-        font-weight: 600;
-        font-size: 16px;
-        cursor: pointer;
-      }
-    }
-
-    .user-item-content{
-        display:flex;
-        justify-content: space-between;
-
-        @media (max-width:1228px) {
-          display:block;
-        }
-    }
-
-    .button-edit-user {
-        width: 10%;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        border-radius: 5px;
-        margin-left:10px;
-
-        button{
-          height:40px;
-          border-radius:5px;
-        }
-
-        @media (max-width:1228px) {
-          width:100%;
-          margin-left:0px;
-          margin-top:10px;
-        }
-
-        a{
-            height:45px;
-            display:flex;
-            align-items: center;
-            justify-content: center;
-
-            @media (max-width:1228px) {
-              display:block;
-            }
-        }
-
-        span {
-          font-weight: 600;
-          font-size: 14px;
-        }
-    }
-
-    .item_list {
-      padding:0 15px;
-      
-      a{
-          width:100%;
-          max-width: 100%;
-          color:black;
-      }
-      .user-item {
-        margin-top: 5px;
-        margin-bottom: 5px;
-        display: flex;
-        justify-content: space-between;
-        padding: 5px 15px;
-        border: 1px #d2d2d2 solid;
-        border-radius: 5px;
-        cursor: pointer;
-        
-        @media (max-width: 1228px) {
-          display:block;
-        }
-
-        &__name {
-          width: 20%;
-          font-size: 18px;
-          font-weight: 600;
-
-          span {
-            display: block;
-            font-size: 14px;
-          }
-
-          @media (max-width: 1228px) {
-            width:100%;
-          }
-        }
-  
-        &__quantity {
-          width: 20%;
-          display: flex;
-          align-items: center;
-          font-size: 16px;
-          font-weight: 600;
-
-          @media (max-width: 1228px) {
-            width:100%;
-          }
-        }
-  
-        &__price {
-          width: 20%;
-          display: flex;
-          align-items: center;
-          font-size: 16px;
-          font-weight: 600;
-
-          @media (max-width: 1228px) {
-            width:100%;
-          }
-        }
-      }
-    }
-    .user-item:hover{
-        background-color: cornsilk;
+      font-size: 16px;
+      cursor: pointer;
     }
   }
-  
+
+  .user-item-content {
+    display: flex;
+    justify-content: space-between;
+
+    @media (max-width: 1228px) {
+      display: block;
+    }
+  }
+
+  .button-edit-user {
+    width: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    border-radius: 5px;
+    margin-left: 10px;
+
+    button {
+      height: 40px;
+      border-radius: 5px;
+    }
+
+    @media (max-width: 1228px) {
+      width: 100%;
+      margin-left: 0px;
+      margin-top: 10px;
+    }
+
+    a {
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      @media (max-width: 1228px) {
+        display: block;
+      }
+    }
+
+    span {
+      font-weight: 600;
+      font-size: 14px;
+    }
+  }
+
+  .item_list {
+    padding: 0 15px;
+
+    a {
+      width: 100%;
+      max-width: 100%;
+      color: black;
+    }
+    .user-item {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 15px;
+      border: 1px #d2d2d2 solid;
+      border-radius: 5px;
+      cursor: pointer;
+
+      @media (max-width: 1228px) {
+        display: block;
+      }
+
+      &__name {
+        width: 20%;
+        font-size: 18px;
+        font-weight: 600;
+
+        span {
+          display: block;
+          font-size: 14px;
+        }
+
+        @media (max-width: 1228px) {
+          width: 100%;
+        }
+      }
+
+      &__quantity {
+        width: 20%;
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        font-weight: 600;
+
+        @media (max-width: 1228px) {
+          width: 100%;
+        }
+      }
+
+      &__price {
+        width: 20%;
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        font-weight: 600;
+
+        @media (max-width: 1228px) {
+          width: 100%;
+        }
+      }
+    }
+  }
+  .user-item:hover {
+    background-color: cornsilk;
+  }
+}

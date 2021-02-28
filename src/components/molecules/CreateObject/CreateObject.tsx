@@ -1,5 +1,14 @@
 import * as React from 'react';
-import { Form, Input, Button, InputNumber, Select, Tag, Space, Radio } from 'antd';
+import {
+  Form,
+  Input,
+  Button,
+  InputNumber,
+  Select,
+  Tag,
+  Space,
+  Radio
+} from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
 import './CreateObject.scss';
@@ -31,7 +40,7 @@ export const CreateObject = () => {
     }
   };
 
-  const onChange = (e:any) => {
+  const onChange = (e: any) => {
     console.log('radio checked', e.target.value);
     setValue(e.target.value);
   };
@@ -250,7 +259,7 @@ export const CreateObject = () => {
             )}
           </Form.List>
         </div>
-        
+
         <Form.Item
           className="avans_field"
           name={['object', 'object_avans']}
@@ -266,7 +275,11 @@ export const CreateObject = () => {
         >
           <InputNumber placeholder="Введите аванс" />
         </Form.Item>
-        <Form.Item className="radio-percent" name={['object', 'percent']} label="Скидка">
+        <Form.Item
+          className="radio-percent"
+          name={['object', 'percent']}
+          label="Скидка"
+        >
           <Radio.Group onChange={onChange} value={value}>
             <Radio value={0}>0%</Radio>
             <Radio value={5}>5%</Radio>
@@ -277,12 +290,14 @@ export const CreateObject = () => {
         </Form.Item>
         <Form.Item>
           <div className="submit-buttons">
-            <Button type="primary" htmlType="submit" className="object-submit-btn">
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="object-submit-btn"
+            >
               Создать
             </Button>
-            <Button>
-              Добавить в ожидания
-            </Button>
+            <Button>Добавить в ожидания</Button>
           </div>
         </Form.Item>
       </Form>
