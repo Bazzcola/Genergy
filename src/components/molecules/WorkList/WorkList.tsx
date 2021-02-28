@@ -1,26 +1,20 @@
 import React, { useEffect } from 'react';
 import { Button } from 'antd';
-import axios from 'axios';
 import { useRequest } from 'estafette';
 import {inventoryList} from 'api/inventoryList';
 
 import './WorkList.scss';
 
 export const WorkList = () => {
-  // const { request, data, loading, errors } = useRequest({data:{}});
-  // useEffect(() => {
-    // getInventory(inventoryList.getInventoryList())
-    // const test = {count:2,price:222,title:'fignea'}
+  const { request, data, loading, errors } = useRequest();
+  useEffect(() => {
+    request(inventoryList.getInventoryList({}));
     // request(inventoryList.getInventoryList(`http://localhost:8000/inventory/instrument/`));
-  //   fetch('http://localhost:8000/inventory/instrument/')
-  //   .then((response) => {
-  //     return response.json();
-  //   })
-  //   .then((data) => {
-  //     console.log(data);
-  //   });
-  // },[])
-// console.log(data)
+    
+  },[])
+
+  console.log(data)
+
   const dataWorkList = [
     {
       name: 'Замена розетки',

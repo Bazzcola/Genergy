@@ -83,13 +83,17 @@ export const WaitingObjectList = () => {
                     <div className="waiting-object_item" key={index}>
                         <div className="waiting-object_item__title">
                             <span>Название: {item.object_name}</span>
-                            <Button className="close-object">Добавить</Button>
-                            <NavLink to="/admin_menu/edit_object" activeClassName="selected">
-                              <Button className="close-object">Редактировать</Button>
-                            </NavLink>
-                            <Button className="close-object">Удалить</Button>
+                            <div className="buttons-group">
+                              <Button className="close-object">Добавить</Button>
+                              <NavLink to="/admin_menu/edit_object" activeClassName="selected">
+                                <Button className="close-object">Редактировать</Button>
+                              </NavLink>
+                              <Button className="close-object">Удалить</Button>
+                            </div>  
                         </div>
                         <div className="waiting-object_item__description">
+                          <span>Описание объекта</span>
+                          <br />
                             {item.object_description}
                         </div>
                         <div className="waiting-object_item__workers">

@@ -6,6 +6,10 @@
     font-size: 18px;
     font-weight: 500;
 
+    @media (max-width:900px){
+      display:block;
+    }
+
     &__text{
       color:rgb(0, 153, 255);
     }
@@ -23,13 +27,22 @@
       border: 1px #d2d2d2 solid;
       border-radius: 5px;
 
+      @media (max-width:900px){
+        display:block;
+      }
+
       &__name {
         width: 20%;
         font-size: 18px;
         font-weight: 600;
+
         span {
           display: block;
           font-size: 14px;
+        }
+
+        @media (max-width:900px){
+          width:100%;
         }
       }
 
@@ -39,6 +52,10 @@
         align-items: center;
         font-size: 16px;
         font-weight: 600;
+
+        @media (max-width:900px){
+          width:100%;
+        }
       }
 
       &__avans {
@@ -47,6 +64,10 @@
         align-items: center;
         font-size: 16px;
         font-weight: 600;
+
+        @media (max-width:900px){
+          width:100%;
+        }
       }
 
       &__result {
@@ -55,6 +76,10 @@
         align-items: center;
         font-size: 16px;
         font-weight: 600;
+
+        @media (max-width:900px){
+          width:100%;
+        }
       }
 
       .button-avans {
@@ -62,6 +87,10 @@
         display: flex;
         align-items: center;
         justify-content: flex-end;
+
+        @media (max-width:900px){
+          width:100%;
+        }
 
         button {
           height: 30px;
@@ -76,6 +105,11 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
+
+        @media (max-width:900px){
+          width:100%;
+          margin-top:10px;
+        }
 
         button {
           height: 30px;

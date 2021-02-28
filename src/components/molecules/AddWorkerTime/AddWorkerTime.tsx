@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, Form, InputNumber, Select, Space } from 'antd';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
 import './AddWorkerTime.scss';
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
 export const AddWorkerTime = () => {
     
@@ -30,7 +30,7 @@ export const AddWorkerTime = () => {
                             <Select
                                 placeholder="Выберите"
                                 showArrow
-                                style={{ width: '300px' }}
+                                className="time-select"
                                 options={workerListOptions}
                             />
                             </Form.Item>

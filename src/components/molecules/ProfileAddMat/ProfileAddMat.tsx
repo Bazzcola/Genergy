@@ -40,7 +40,7 @@ export const ProfileAddMat = () => {
                             <Select
                                 placeholder="Выберите"
                                 showArrow
-                                style={{ width: '300px' }}
+                                className='profile-select'
                                 options={materialList}
                             />
                             </Form.Item>
@@ -79,7 +79,7 @@ export const ProfileAddMat = () => {
                             <Select
                                 placeholder="Выберите"
                                 showArrow
-                                style={{ width: '300px' }}
+                                className='profile-select'
                                 options={inventoryList}
                             />
                             </Form.Item>

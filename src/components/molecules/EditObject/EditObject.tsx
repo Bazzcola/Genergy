@@ -66,7 +66,7 @@ export const EditObject = () => {
       };
 
     return (
-        <div className="create-object-container">
+        <div className="edit-object-container">
             <h1>Редактировать рабочий обьект</h1>
             <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages} autoComplete="off" className="object-form">
                 <Form.Item
@@ -120,7 +120,7 @@ export const EditObject = () => {
                                 placeholder="Выберите"
                                 showArrow
                                 tagRender={workerRender}
-                                style={{ width: '300px' }}
+                                className='select-materials'
                                 options={workerPriceListOptions}
                             />
                             </Form.Item>
@@ -160,7 +160,7 @@ export const EditObject = () => {
                                 placeholder="Выберите"
                                 showArrow
                                 tagRender={workerRender}
-                                style={{ width: '300px' }}
+                                className='select-materials'
                                 options={workerPriceListOptions}
                             />
                             </Form.Item>
@@ -212,15 +212,17 @@ export const EditObject = () => {
                     <Radio value={20}>20%</Radio>
                 </Radio.Group>
                 </Form.Item>
-                
-                <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-                    <Button type="primary" htmlType="submit" className="object-submit-btn">
-                        Сохранить
-                    </Button>
-                    
-                    <Button>
-                        Очистить форму
-                    </Button>
+
+                <Form.Item>
+                    <div className="submit-buttons">
+                        <Button type="primary" htmlType="submit" className="object-submit-btn">
+                            Сохранить
+                        </Button>
+                        
+                        <Button>
+                            Очистить форму
+                        </Button>
+                    </div>
                 </Form.Item>
             </Form>
       </div>

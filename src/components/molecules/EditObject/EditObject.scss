@@ -1,6 +1,6 @@
 @import '~antd/dist/antd.css';
 
-.create-object-container {
+.edit-object-container {
     max-width:600px;
     width:100%;
     position:absolute;
@@ -8,6 +8,23 @@
     left:50%;
     transform: translate(-50%,-50%);
     height:100%;
+
+    @media (max-width:1228px) {
+        top:70%;
+        padding:0 15px;
+    }
+
+    .submit-buttons{
+        display:flex;
+        justify-content: flex-end;
+        width:100%;
+        max-width: 100%;
+
+        @media (max-width:578px){
+            justify-content: center;
+        }
+        
+    }
 
    .object-form{
        padding-bottom:50px;
@@ -20,15 +37,47 @@
     h1{
         text-align: center;
         margin-bottom:50px;
+        color:#0099ff;
     }
 
     .add-inputs {
         max-width:600px;
         width:100%;
-        >div {
+
+        .select-materials {
+            width:300px;
+
+            @media (max-width:780px){
+                width:200px;
+            }
+
+            @media (max-width:578px) {
+                width:300px;
+            }
+
+            @media (max-width:480px) {
+                width:200px;
+            }
+
+            @media (max-width:370px) {
+                width:155px;
+            }
+        }
+
+        @media (max-width:578px){
+            max-width:100%;
+            width:100%;
+        }
+
+        > div {
             width:300px;
             margin-left:200px;
             margin-bottom:20px;
+
+            @media (max-width:578px){
+                width:100%;
+                margin:10px auto; 
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 .current-object-list {
     margin-bottom: 30px;
+
     &__title {
       display: flex;
       justify-content: space-between;
@@ -7,7 +8,14 @@
       font-size: 18px;
       font-weight: 500;
       color:rgb(0, 153, 255);
-      
+
+      @media (max-width:690px) {
+        display:block;
+        text-align: center;
+        font-size: 24px;
+        padding: 0 15px;
+      }
+
     }
   
     &__items {
@@ -24,17 +32,36 @@
         max-width: 49%;
         width: 49%;
         margin-bottom: 10px;
+
+        @media (max-width:1280px) {
+          max-width:100%;
+          width: 100%;
+        }
   
         &__title {
           margin-bottom: 15px;
           display: flex;
           justify-content: space-between;
-          
+
+          @media (max-width:690px) {
+            display:block;
+          }
+
           .object-name{
               font-size: 16px;
               font-weight: 500;
           }
-  
+          
+          .buttons-group{
+            button {
+              margin-right:10px;
+
+              @media (max-width:690px) {
+                margin-top:10px;
+              }
+            }
+          }
+
           .close-object {
             font-size: 14px;
             font-weight: 500;
@@ -56,6 +83,12 @@
           font-size: 16px;
           font-weight: 400;
           margin-bottom: 10px;
+
+          span {
+            font-size: 16px;
+            font-weight: 600;
+          }
+          
         }
   
         &__workers {
@@ -102,6 +135,11 @@
             margin-top: 10px;
             margin-bottom: 10px;
             font-size: 16px;
+            color:black;
+
+            span{
+              color:#1599c5;
+            }
           }
   
           &__price {

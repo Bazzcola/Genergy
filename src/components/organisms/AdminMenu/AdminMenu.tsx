@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { NavLink, Switch, Route } from 'react-router-dom';
-import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, Button, Menu, message } from 'antd';
+import { AppstoreOutlined, ContainerOutlined, DesktopOutlined, DownOutlined, MailOutlined, MenuUnfoldOutlined, PieChartOutlined } from '@ant-design/icons';
+import SubMenu from 'antd/lib/menu/SubMenu';
 import { InventoryList } from 'components/molecules/InventoryList/InventoryList';
 import { ObjectList } from 'components/molecules/ObjectList/ObjectList';
 import { SalaryList } from 'components/molecules/SalaryList/SalaryList';
@@ -21,7 +22,20 @@ import { CurrentObject } from 'components/molecules/CurrentObject/CurrentObject'
 import './AdminMenu.scss';
 
 export const AdminMenu = () => {
-  function handleMenuClick(e:any) {
+  const [showMenu, setShowMenu] = React.useState<boolean>(false);
+  const mediaMenu = React.useRef<any>();
+
+  const closeMenu = () => {
+    setShowMenu(prevState => !prevState)
+  }
+
+  window.onclick = (event:any) => {
+    if(event.target.matches('.menu-bg')) {
+      setShowMenu(false);
+    }
+  }
+
+  const handleMenuClick = (e:any) => {
     message.info('Click on menu item.');
     console.log('click', e);
   }
@@ -55,7 +69,11 @@ export const AdminMenu = () => {
   );
 
     return (
+      <>
+        {showMenu && <div className="menu-bg"></div>}
         <div className="container">
+        <div className="company-logo"><img src="../assets/img/logo.png" alt="logo"/>
+        </div>
         <div className="header">
           <div className="header-line">
             <Button><NavLink to="/admin_menu/user_profile" activeClassName="selected">Admin</NavLink></Button>
@@ -77,6 +95,68 @@ export const AdminMenu = () => {
             </Dropdown>
             
           </div>
+          <div className="media-menu" style={{ width: 300 }}>
+
+              <Button className={`menu-btn ${showMenu ? 'active-btn' : 'disabled-btn'}`} type="primary" onClick={closeMenu} style={{ marginBottom: 16 }}>
+                Меню
+              </Button>
+             
+              {showMenu && <Menu
+                mode="inline"
+                theme="light"
+                className="media-menu-options"
+                ref={mediaMenu}
+              >
+                <Menu.Item key="1" icon={<PieChartOutlined />}>
+                  <NavLink to="/admin_menu/user_profile" activeClassName="selected">Admin</NavLink>
+                </Menu.Item>
+
+                <Menu.Item key="2" icon={<DesktopOutlined />}>
+                  <NavLink to="/admin_menu/curent_object" activeClassName="selected">Текущие объекты</NavLink>
+                </Menu.Item>
+
+                <Menu.Item key="3" icon={<ContainerOutlined />}>
+                  <NavLink to="/admin_menu/create_object" activeClassName="selected">Создать объект</NavLink>
+                </Menu.Item>
+
+                <Menu.Item key="4" icon={<ContainerOutlined />}>
+                  <NavLink to="/admin_menu/work_price_list" activeClassName="selected">Список работ</NavLink>
+                </Menu.Item>
+
+                <Menu.Item key="5" icon={<ContainerOutlined />}>
+                  <NavLink to="/admin_menu/create_user" activeClassName="selected">Создать пользователя</NavLink>
+                </Menu.Item>
+
+                <SubMenu key="sub1" icon={<MailOutlined />} title="Списки Зп./Объе./Ожид.">
+
+                  <Menu.Item key="6">
+                    <NavLink to="/admin_menu/inventory_list" activeClassName="selected"><span>Список инвентаря</span></NavLink>
+                  </Menu.Item>
+                  <Menu.Item key="7">
+                    <NavLink to="/admin_menu/werehouse_list" activeClassName="selected"><span>Список материалов</span></NavLink>
+                  </Menu.Item>
+                  <Menu.Item key="8">
+                    <NavLink to="/admin_menu/user_list" activeClassName="selected"><span>Список персонала</span></NavLink>
+                  </Menu.Item>
+
+                </SubMenu>
+
+                <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Списки Инв./Мат./Пер.">
+
+                  <Menu.Item key="9">
+                    <NavLink to="/admin_menu/salary_list" activeClassName="selected"><span>Список зарплат</span></NavLink>
+                  </Menu.Item>
+                  <Menu.Item key="10">
+                    <NavLink to="/admin_menu/object_list" activeClassName="selected"><span>Список обьектов</span></NavLink>
+                  </Menu.Item>
+                  <Menu.Item key="11">
+                    <NavLink to="/admin_menu/object_waiting_list" activeClassName="selected"><span>Cписок ожидания</span></NavLink>
+                  </Menu.Item>
+
+                </SubMenu>
+
+              </Menu>}
+            </div>
         </div>
         <div className="content">
           <Switch>
@@ -128,5 +208,6 @@ export const AdminMenu = () => {
           </Switch>
         </div>
       </div>
+      </>
     )
 }

@@ -152,7 +152,7 @@ export const CreateObject = () => {
                         placeholder="Выберите"
                         showArrow
                         tagRender={workerRender}
-                        style={{ width: '300px' }}
+                        className="select-materials"
                         options={workerPriceListOptions}
                       />
                     </Form.Item>
@@ -213,7 +213,7 @@ export const CreateObject = () => {
                         placeholder="Выберите"
                         showArrow
                         tagRender={workerRender}
-                        style={{ width: '300px' }}
+                        className="select-materials"
                         options={workerPriceListOptions}
                       />
                     </Form.Item>
@@ -252,6 +252,7 @@ export const CreateObject = () => {
         </div>
         
         <Form.Item
+          className="avans_field"
           name={['object', 'object_avans']}
           label="Аванс"
           rules={[
@@ -274,13 +275,15 @@ export const CreateObject = () => {
             <Radio value={20}>20%</Radio>
           </Radio.Group>
         </Form.Item>
-        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-          <Button type="primary" htmlType="submit" className="object-submit-btn">
-            Создать
-          </Button>
-          <Button>
-            Добавить в ожидания
-          </Button>
+        <Form.Item>
+          <div className="submit-buttons">
+            <Button type="primary" htmlType="submit" className="object-submit-btn">
+              Создать
+            </Button>
+            <Button>
+              Добавить в ожидания
+            </Button>
+          </div>
         </Form.Item>
       </Form>
     </div>

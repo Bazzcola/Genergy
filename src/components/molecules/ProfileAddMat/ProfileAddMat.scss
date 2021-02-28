@@ -1,7 +1,26 @@
+@import '~antd/dist/antd.css';
+
 .add-mat-container{
     margin:0 auto;
     max-width: 1000px;
     width:100%;
+    padding: 0 15px;
+
+    .profile-select {
+        width:300px;
+
+        @media (max-width:470px) {
+            width:240px;
+        }
+
+        @media (max-width:400px) {
+            width:200px;
+        }
+
+        @media (max-width:370px) {
+            width:160px;
+        }
+    }
 
     .user-info{
         text-align: center;
