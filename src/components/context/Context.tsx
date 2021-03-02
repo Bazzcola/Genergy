@@ -1,4 +1,6 @@
 import React, { useEffect, useState, ReactNode } from 'react';
+import { useRequest } from 'estafette';
+import { authApi } from 'api/authApi/authApi';
 
 export interface Props {
   salaryList: SalaryList[];
@@ -70,9 +72,18 @@ const dataSalaryList = [
 export const Context = React.createContext<Props>(defaultValue);
 
 export const ProviderContext = (props: ProviderProps) => {
+const { request, data, loading, errors } = useRequest();
+
   const [salaryList, setSalaryList] = useState<SalaryList[]>([]);
 
   const children = props.children;
+
+  useEffect(() => {
+    const login = {username: "super.user", password: "password"}
+    request(authApi.authLogin(login))
+  },[])
+
+console.log(data)
 
   useEffect(() => {
     setSalaryList(dataSalaryList);

@@ -1,19 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Button } from 'antd';
-import { useRequest } from 'estafette';
-import { inventoryList } from 'api/inventoryList';
 
 import './WorkList.scss';
 
 export const WorkList = () => {
-  const { request, data, loading, errors } = useRequest();
-  useEffect(() => {
-    request(inventoryList.getInventoryList({}));
-    // request(inventoryList.getInventoryList(`http://localhost:8000/inventory/instrument/`));
-  }, []);
-
-  console.log(data);
-
+  
   const dataWorkList = [
     {
       name: 'Замена розетки',

@@ -11,6 +11,8 @@ import {
   PieChartOutlined
 } from '@ant-design/icons';
 import SubMenu from 'antd/lib/menu/SubMenu';
+import { useRequest } from 'estafette';
+import { userListApi } from 'api/userListApi/userListApi';
 import { InventoryList } from 'components/molecules/InventoryList/InventoryList';
 import { ObjectList } from 'components/molecules/ObjectList/ObjectList';
 import { SalaryList } from 'components/molecules/SalaryList/SalaryList';
@@ -30,8 +32,23 @@ import { CurrentObject } from 'components/molecules/CurrentObject/CurrentObject'
 import './AdminMenu.scss';
 
 export const AdminMenu = () => {
+  const { request, data, loading, errors } = useRequest();
   const [showMenu, setShowMenu] = React.useState<boolean>(false);
-  const mediaMenu = React.useRef<any>();
+
+  React.useEffect(() => {
+    request(userListApi.getUserList({}));
+
+  }, []);
+
+  console.log(data);
+
+  React.useEffect(() => {
+    if(showMenu) {
+      document.getElementsByTagName('body')[0].style.overflowY = 'hidden';
+    } else {
+      document.getElementsByTagName('body')[0].style.overflowY = 'auto';
+    }
+  }, [showMenu]);
 
   const closeMenu = () => {
     setShowMenu((prevState) => !prevState);
@@ -162,12 +179,12 @@ export const AdminMenu = () => {
                 mode="inline"
                 theme="light"
                 className="media-menu-options"
-                ref={mediaMenu}
               >
                 <Menu.Item key="1" icon={<PieChartOutlined />}>
                   <NavLink
                     to="/admin_menu/user_profile"
                     activeClassName="selected"
+                    onClick={closeMenu}
                   >
                     Admin
                   </NavLink>
@@ -177,6 +194,7 @@ export const AdminMenu = () => {
                   <NavLink
                     to="/admin_menu/curent_object"
                     activeClassName="selected"
+                    onClick={closeMenu}
                   >
                     Текущие объекты
                   </NavLink>
@@ -186,6 +204,7 @@ export const AdminMenu = () => {
                   <NavLink
                     to="/admin_menu/create_object"
                     activeClassName="selected"
+                    onClick={closeMenu}
                   >
                     Создать объект
                   </NavLink>
@@ -195,6 +214,7 @@ export const AdminMenu = () => {
                   <NavLink
                     to="/admin_menu/work_price_list"
                     activeClassName="selected"
+                    onClick={closeMenu}
                   >
                     Список работ
                   </NavLink>
@@ -204,6 +224,7 @@ export const AdminMenu = () => {
                   <NavLink
                     to="/admin_menu/create_user"
                     activeClassName="selected"
+                    onClick={closeMenu}
                   >
                     Создать пользователя
                   </NavLink>
@@ -218,6 +239,7 @@ export const AdminMenu = () => {
                     <NavLink
                       to="/admin_menu/inventory_list"
                       activeClassName="selected"
+                      onClick={closeMenu}
                     >
                       <span>Список инвентаря</span>
                     </NavLink>
@@ -226,6 +248,7 @@ export const AdminMenu = () => {
                     <NavLink
                       to="/admin_menu/werehouse_list"
                       activeClassName="selected"
+                      onClick={closeMenu}
                     >
                       <span>Список материалов</span>
                     </NavLink>
@@ -234,6 +257,7 @@ export const AdminMenu = () => {
                     <NavLink
                       to="/admin_menu/user_list"
                       activeClassName="selected"
+                      onClick={closeMenu}
                     >
                       <span>Список персонала</span>
                     </NavLink>
@@ -249,6 +273,7 @@ export const AdminMenu = () => {
                     <NavLink
                       to="/admin_menu/salary_list"
                       activeClassName="selected"
+                      onClick={closeMenu}
                     >
                       <span>Список зарплат</span>
                     </NavLink>
@@ -257,6 +282,7 @@ export const AdminMenu = () => {
                     <NavLink
                       to="/admin_menu/object_list"
                       activeClassName="selected"
+                      onClick={closeMenu}
                     >
                       <span>Список обьектов</span>
                     </NavLink>
@@ -265,6 +291,7 @@ export const AdminMenu = () => {
                     <NavLink
                       to="/admin_menu/object_waiting_list"
                       activeClassName="selected"
+                      onClick={closeMenu}
                     >
                       <span>Cписок ожидания</span>
                     </NavLink>
