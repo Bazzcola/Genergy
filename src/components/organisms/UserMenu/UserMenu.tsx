@@ -7,7 +7,7 @@ import './UserMenu.scss';
 export const UserMenu = () => {
   return (
     <div className="container">
-      <div className="header">
+      {/* <div className="header">
         <ul className="header-line">
           <li>User</li>
           <li>
@@ -28,7 +28,7 @@ export const UserMenu = () => {
             <ObjectList />
           </Route>
         </Switch>
-      </div>
+      </div> */}
     </div>
   );
 };

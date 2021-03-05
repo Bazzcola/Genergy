@@ -1,8 +1,13 @@
 import React, { useEffect, useState, ReactNode } from 'react';
-import { useRequest } from 'estafette';
-import { authApi } from 'api/authApi/authApi';
+import cookies from 'react-cookies';
 
 export interface Props {
+  userLogin: boolean;
+  setUserLogin: React.Dispatch<React.SetStateAction<boolean>>;
+  activeToken: string | undefined;
+  setActiveToken: React.Dispatch<React.SetStateAction<string | undefined>>;
+  refreshToken: string | undefined;
+  setRefreshToken: React.Dispatch<React.SetStateAction<string | undefined>>;
   salaryList: SalaryList[];
   setSalaryList: React.Dispatch<React.SetStateAction<SalaryList[]>>;
 }
@@ -20,6 +25,12 @@ interface ProviderProps {
 }
 
 const defaultValue = {
+  userLogin: false,
+  setUserLogin: () => {},
+  activeToken: undefined,
+  setActiveToken: () => {},
+  refreshToken: undefined,
+  setRefreshToken: () => {},
   salaryList: [],
   setSalaryList: () => {}
 };
@@ -72,26 +83,34 @@ const dataSalaryList = [
 export const Context = React.createContext<Props>(defaultValue);
 
 export const ProviderContext = (props: ProviderProps) => {
-const { request, data, loading, errors } = useRequest();
-
-  const [salaryList, setSalaryList] = useState<SalaryList[]>([]);
-
   const children = props.children;
 
-  useEffect(() => {
-    const login = {username: "super.user", password: "password"}
-    request(authApi.authLogin(login))
-  },[])
-
-console.log(data)
+  const [salaryList, setSalaryList] = useState<SalaryList[]>([]);
+  const [activeToken, setActiveToken] = useState<string | undefined>(undefined);
+  const [refreshToken, setRefreshToken] = useState<string | undefined>(
+    undefined
+  );
+  const [userLogin, setUserLogin] = useState<boolean>(false);
 
   useEffect(() => {
     setSalaryList(dataSalaryList);
   }, []);
 
+  useEffect(() => {
+    setActiveToken(cookies.load('token'));
+  }, [userLogin]);
+
+  console.log(activeToken);
+
   return (
     <Context.Provider
       value={{
+        userLogin,
+        setUserLogin,
+        activeToken,
+        setActiveToken,
+        refreshToken,
+        setRefreshToken,
         salaryList,
         setSalaryList
       }}

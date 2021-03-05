@@ -1,49 +1,85 @@
 import * as React from 'react';
+import cookies from 'react-cookies';
 import { Form, Input, Button, Checkbox } from 'antd';
+import { useRequest } from 'estafette';
+import { useHistory } from 'estafette-router';
+import { authApi } from 'api/authApi/authApi';
+import { Context } from 'components/context/Context';
 
 import './Login.scss';
 
-interface Form {
-  password: string;
-  username: string;
-  remember?: boolean;
+interface Token {
+  access: string;
+  refresh: string;
 }
 
-interface Auth {
-  auth: (login: boolean, userType: string) => void;
-}
+const layout = {
+  labelCol: {
+    span: 8
+  },
+  wrapperCol: {
+    span: 16
+  }
+};
+const tailLayout = {
+  wrapperCol: {
+    offset: 8,
+    span: 16
+  }
+};
 
-export const Login = ({ auth }: Auth) => {
-  const [form, setForm] = React.useState<Form>({ password: '', username: '' });
+export const Login = () => {
+  const { request, data, loading } = useRequest<Token>({ data: {} });
+  const {
+    userLogin,
+    setActiveToken,
+    setRefreshToken,
+    setUserLogin
+  } = React.useContext(Context);
 
-  const layout = {
-    labelCol: {
-      span: 8
-    },
-    wrapperCol: {
-      span: 16
+  const { push } = useHistory();
+
+  const onEncrease = () => push('AdminPage');
+
+  React.useEffect(() => {
+    if (data.access) {
+      onEncrease();
+      console.log(userLogin);
     }
-  };
-  const tailLayout = {
-    wrapperCol: {
-      offset: 8,
-      span: 16
-    }
-  };
+  }, [data]);
+
+  console.log(data);
+  console.log(userLogin);
 
   const onFinish = (values: any) => {
-    setForm(values);
+    if (values.username.length > 4 && values.password.length > 4) {
+      request(
+        authApi.authLogin({
+          username: values.username,
+          password: values.password
+        })
+      );
+    }
   };
-  console.log('Success:', form);
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
 
   React.useEffect(() => {
-    if (form.username.length > 4) auth(true, form.username);
-    // eslint-disable-next-line
-  }, [onFinish]);
+    if (data.access && data.refresh) {
+      setActiveToken(data.access);
+      setRefreshToken(data.refresh);
+      setUserLogin(true);
+
+      const expirationDate = new Date();
+      expirationDate.setHours(expirationDate.getHours() + 3);
+      cookies.save('token', data.access, {
+        path: '/',
+        expires: expirationDate
+      });
+    }
+  }, [data]);
 
   return (
     <div className="auth-container">
@@ -88,7 +124,7 @@ export const Login = ({ auth }: Auth) => {
         </Form.Item>
 
         <Form.Item {...tailLayout}>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={loading}>
             Submit
           </Button>
         </Form.Item>

@@ -124,7 +124,7 @@ export const ObjectList = () => {
           <div className="object_item" key={index}>
             <div className="object_item__title">
               <span>Название: {item.object_name}</span>
-              <div className="buttons-group">
+              {/* <div className="buttons-group">
                 <NavLink
                   to="/admin_menu/edit_object"
                   activeClassName="selected"
@@ -138,7 +138,7 @@ export const ObjectList = () => {
                   <Button className="close-object">Время +/-</Button>
                 </NavLink>
                 <Button className="close-object">Закрыть</Button>
-              </div>
+              </div> */}
             </div>
             <div className="object_item__description">
               <span>Описание объекта</span>

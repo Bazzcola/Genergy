@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { NavLink, Switch, Route } from 'react-router-dom';
 import { Dropdown, Button, Menu, message } from 'antd';
 import {
   AppstoreOutlined,
@@ -12,6 +11,7 @@ import {
 } from '@ant-design/icons';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import { useRequest } from 'estafette';
+import { useHistory } from 'estafette-router';
 import { userListApi } from 'api/userListApi/userListApi';
 import { InventoryList } from 'components/molecules/InventoryList/InventoryList';
 import { ObjectList } from 'components/molecules/ObjectList/ObjectList';
@@ -33,25 +33,26 @@ import './AdminMenu.scss';
 
 export const AdminMenu = () => {
   const { request, data, loading, errors } = useRequest();
+  const { push } = useHistory();
   const [showMenu, setShowMenu] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     request(userListApi.getUserList({}));
-
   }, []);
 
   console.log(data);
 
   React.useEffect(() => {
-    if(showMenu) {
+    if (showMenu) {
       document.getElementsByTagName('body')[0].style.overflowY = 'hidden';
     } else {
       document.getElementsByTagName('body')[0].style.overflowY = 'auto';
     }
   }, [showMenu]);
 
-  const closeMenu = () => {
+  const closeMenu = (route: any) => {
     setShowMenu((prevState) => !prevState);
+    return route;
   };
 
   window.onclick = (event: any) => {
@@ -68,19 +69,13 @@ export const AdminMenu = () => {
   const menu1 = (
     <Menu onClick={handleMenuClick}>
       <Menu.Item key="1">
-        <NavLink to="/admin_menu/inventory_list" activeClassName="selected">
-          <span>Список инвентаря</span>
-        </NavLink>
+        <span onClick={() => push('InventoryListPage')}>Список инвентаря</span>
       </Menu.Item>
       <Menu.Item key="2">
-        <NavLink to="/admin_menu/werehouse_list" activeClassName="selected">
-          <span>Список материалов</span>
-        </NavLink>
+        <span onClick={() => push('WerehouseListPage')}>Список материалов</span>
       </Menu.Item>
       <Menu.Item key="3">
-        <NavLink to="/admin_menu/user_list" activeClassName="selected">
-          <span>Список персонала</span>
-        </NavLink>
+        <span onClick={() => push('UserListPage')}>Список персонала</span>
       </Menu.Item>
     </Menu>
   );
@@ -88,22 +83,15 @@ export const AdminMenu = () => {
   const menu2 = (
     <Menu onClick={handleMenuClick}>
       <Menu.Item key="4">
-        <NavLink to="/admin_menu/salary_list" activeClassName="selected">
-          <span>Список зарплат</span>
-        </NavLink>
+        <span onClick={() => push('SalaryListPage')}>Список зарплат</span>
       </Menu.Item>
       <Menu.Item key="5">
-        <NavLink to="/admin_menu/object_list" activeClassName="selected">
-          <span>Список обьектов</span>
-        </NavLink>
+        <span onClick={() => push('ObjectListPage')}>Список обьектов</span>
       </Menu.Item>
       <Menu.Item key="6">
-        <NavLink
-          to="/admin_menu/object_waiting_list"
-          activeClassName="selected"
-        >
-          <span>Cписок ожидания</span>
-        </NavLink>
+        <span onClick={() => push('WaitingObjectListPage')}>
+          Cписок ожидания
+        </span>
       </Menu.Item>
     </Menu>
   );
@@ -111,50 +99,40 @@ export const AdminMenu = () => {
   return (
     <>
       {showMenu && <div className="menu-bg"></div>}
+
       <div className="container">
         <div className="company-logo">
           <img src="../assets/img/logo.png" alt="logo" />
         </div>
+
         <div className="header">
           <div className="header-line">
             <Button>
-              <NavLink to="/admin_menu/user_profile" activeClassName="selected">
-                Admin
-              </NavLink>
+              <span onClick={() => push('UserProfilePage')}>Admin</span>
             </Button>
             <Button>
-              <NavLink
-                to="/admin_menu/curent_object"
-                activeClassName="selected"
-              >
+              <span onClick={() => push('CurrentObjectPage')}>
                 Текущие объекты
-              </NavLink>
+              </span>
             </Button>
             <Button>
-              <NavLink
-                to="/admin_menu/create_object"
-                activeClassName="selected"
-              >
+              <span onClick={() => push('CreateObjectPage')}>
                 Создать объект
-              </NavLink>
+              </span>
             </Button>
             <Button>
-              <NavLink
-                to="/admin_menu/work_price_list"
-                activeClassName="selected"
-              >
-                Список работ
-              </NavLink>
+              <span onClick={() => push('WorkListPage')}>Список работ</span>
             </Button>
             <Button>
-              <NavLink to="/admin_menu/create_user" activeClassName="selected">
+              <span onClick={() => push('AdminCreateUserPage')}>
                 Создать пользователя
-              </NavLink>
+              </span>
             </Button>
 
             <Dropdown overlay={menu2}>
               <Button>
-                Списки Зп./Объе./Ожид. <DownOutlined />
+                Списки Зп./Объе./Ожид.
+                <DownOutlined />
               </Button>
             </Dropdown>
 
@@ -164,191 +142,92 @@ export const AdminMenu = () => {
               </Button>
             </Dropdown>
           </div>
-          <div className="media-menu" style={{ width: 300 }}>
-            <Button
-              className={`menu-btn ${showMenu ? 'active-btn' : 'disabled-btn'}`}
-              type="primary"
-              onClick={closeMenu}
-              style={{ marginBottom: 16 }}
-            >
-              Меню
-            </Button>
-
-            {showMenu && (
-              <Menu
-                mode="inline"
-                theme="light"
-                className="media-menu-options"
-              >
-                <Menu.Item key="1" icon={<PieChartOutlined />}>
-                  <NavLink
-                    to="/admin_menu/user_profile"
-                    activeClassName="selected"
-                    onClick={closeMenu}
-                  >
-                    Admin
-                  </NavLink>
-                </Menu.Item>
-
-                <Menu.Item key="2" icon={<DesktopOutlined />}>
-                  <NavLink
-                    to="/admin_menu/curent_object"
-                    activeClassName="selected"
-                    onClick={closeMenu}
-                  >
-                    Текущие объекты
-                  </NavLink>
-                </Menu.Item>
-
-                <Menu.Item key="3" icon={<ContainerOutlined />}>
-                  <NavLink
-                    to="/admin_menu/create_object"
-                    activeClassName="selected"
-                    onClick={closeMenu}
-                  >
-                    Создать объект
-                  </NavLink>
-                </Menu.Item>
-
-                <Menu.Item key="4" icon={<ContainerOutlined />}>
-                  <NavLink
-                    to="/admin_menu/work_price_list"
-                    activeClassName="selected"
-                    onClick={closeMenu}
-                  >
-                    Список работ
-                  </NavLink>
-                </Menu.Item>
-
-                <Menu.Item key="5" icon={<ContainerOutlined />}>
-                  <NavLink
-                    to="/admin_menu/create_user"
-                    activeClassName="selected"
-                    onClick={closeMenu}
-                  >
-                    Создать пользователя
-                  </NavLink>
-                </Menu.Item>
-
-                <SubMenu
-                  key="sub1"
-                  icon={<MailOutlined />}
-                  title="Списки Зп./Объе./Ожид."
-                >
-                  <Menu.Item key="6">
-                    <NavLink
-                      to="/admin_menu/inventory_list"
-                      activeClassName="selected"
-                      onClick={closeMenu}
-                    >
-                      <span>Список инвентаря</span>
-                    </NavLink>
-                  </Menu.Item>
-                  <Menu.Item key="7">
-                    <NavLink
-                      to="/admin_menu/werehouse_list"
-                      activeClassName="selected"
-                      onClick={closeMenu}
-                    >
-                      <span>Список материалов</span>
-                    </NavLink>
-                  </Menu.Item>
-                  <Menu.Item key="8">
-                    <NavLink
-                      to="/admin_menu/user_list"
-                      activeClassName="selected"
-                      onClick={closeMenu}
-                    >
-                      <span>Список персонала</span>
-                    </NavLink>
-                  </Menu.Item>
-                </SubMenu>
-
-                <SubMenu
-                  key="sub2"
-                  icon={<AppstoreOutlined />}
-                  title="Списки Инв./Мат./Пер."
-                >
-                  <Menu.Item key="9">
-                    <NavLink
-                      to="/admin_menu/salary_list"
-                      activeClassName="selected"
-                      onClick={closeMenu}
-                    >
-                      <span>Список зарплат</span>
-                    </NavLink>
-                  </Menu.Item>
-                  <Menu.Item key="10">
-                    <NavLink
-                      to="/admin_menu/object_list"
-                      activeClassName="selected"
-                      onClick={closeMenu}
-                    >
-                      <span>Список обьектов</span>
-                    </NavLink>
-                  </Menu.Item>
-                  <Menu.Item key="11">
-                    <NavLink
-                      to="/admin_menu/object_waiting_list"
-                      activeClassName="selected"
-                      onClick={closeMenu}
-                    >
-                      <span>Cписок ожидания</span>
-                    </NavLink>
-                  </Menu.Item>
-                </SubMenu>
-              </Menu>
-            )}
-          </div>
         </div>
-        <div className="content">
-          <Switch>
-            <Route path="/admin_menu/curent_object" exact>
-              <CurrentObject />
-            </Route>
-            <Route path="/admin_menu/edit_object" exact>
-              <EditObject />
-            </Route>
-            <Route path="/admin_menu/edit_object_worker_time" exact>
-              <AddWorkerTime />
-            </Route>
-            <Route path="/admin_menu/user_profile_edit_material" exact>
-              <ProfileEditMat />
-            </Route>
-            <Route path="/admin_menu/object_waiting_list" exact>
-              <WaitingObjectList />
-            </Route>
-            <Route path="/admin_menu/user_profile_add_material" exact>
-              <ProfileAddMat />
-            </Route>
-            <Route path="/admin_menu/user_profile" exact>
-              <UserProfile />
-            </Route>
-            <Route path="/admin_menu/user_list" exact>
-              <UserList />
-            </Route>
-            <Route path="/admin_menu/salary_list" exact>
-              <SalaryList />
-            </Route>
-            <Route path="/admin_menu/inventory_list" exact>
-              <InventoryList />
-            </Route>
-            <Route path="/admin_menu/object_list" exact>
-              <ObjectList />
-            </Route>
-            <Route path="/admin_menu/werehouse_list" exact>
-              <WerehouseList />
-            </Route>
-            <Route path="/admin_menu/work_price_list" exact>
-              <WorkList />
-            </Route>
-            <Route path="/admin_menu/create_user" exact>
-              <AdminCreateUser />
-            </Route>
-            <Route path="/admin_menu/create_object" exact>
-              <CreateObject />
-            </Route>
-          </Switch>
+        <div className="media-menu" style={{ width: 300 }}>
+          <Button
+            className={`menu-btn ${showMenu ? 'active-btn' : 'disabled-btn'}`}
+            type="primary"
+            onClick={closeMenu}
+            style={{ marginBottom: 16 }}
+          >
+            Меню
+          </Button>
+
+          {showMenu && (
+            <Menu mode="inline" theme="light" className="media-menu-options">
+              <Menu.Item key="1" icon={<PieChartOutlined />}>
+                <span onClick={() => push('UserListPage')}>Admin</span>
+              </Menu.Item>
+
+              <Menu.Item key="2" icon={<DesktopOutlined />}>
+                <span onClick={() => push('CurrentObjectPage')}>
+                  Текущие объекты
+                </span>
+              </Menu.Item>
+
+              <Menu.Item key="3" icon={<ContainerOutlined />}>
+                <span onClick={() => push('CreateObjectPage')}>
+                  Создать объект
+                </span>
+              </Menu.Item>
+
+              <Menu.Item key="4" icon={<ContainerOutlined />}>
+                <span onClick={() => push('WorkListPage')}>Список работ</span>
+              </Menu.Item>
+
+              <Menu.Item key="5" icon={<ContainerOutlined />}>
+                <span onClick={() => push('AdminCreateUserPage')}>
+                  Создать пользователя
+                </span>
+              </Menu.Item>
+
+              <SubMenu
+                key="sub1"
+                icon={<MailOutlined />}
+                title="Списки Зп./Объе./Ожид."
+              >
+                <Menu.Item key="6">
+                  <span onClick={() => push('InventoryListPage')}>
+                    Список инвентаря
+                  </span>
+                </Menu.Item>
+                <Menu.Item key="7">
+                  <span onClick={() => push('WerehouseListPage')}>
+                    Список материалов
+                  </span>
+                </Menu.Item>
+                <Menu.Item key="8">
+                  <span onClick={() => push('UserListPage')}>
+                    Список персонала
+                  </span>
+                </Menu.Item>
+              </SubMenu>
+
+              <SubMenu
+                key="sub2"
+                icon={<AppstoreOutlined />}
+                title="Списки Инв./Мат./Пер."
+              >
+                <Menu.Item key="9">
+                  <span onClick={() => closeMenu(push('SalaryListPage'))}>
+                    Список зарплат
+                  </span>
+                </Menu.Item>
+                <Menu.Item key="10">
+                  <span onClick={() => closeMenu(push('ObjectListPage'))}>
+                    Список обьектов
+                  </span>
+                </Menu.Item>
+                <Menu.Item key="11">
+                  <span
+                    onClick={() => closeMenu(push('WaitingObjectListPage'))}
+                  >
+                    Cписок ожидания
+                  </span>
+                </Menu.Item>
+              </SubMenu>
+            </Menu>
+          )}
         </div>
       </div>
     </>

@@ -4,7 +4,6 @@ import { Button } from 'antd';
 import './WorkList.scss';
 
 export const WorkList = () => {
-  
   const dataWorkList = [
     {
       name: 'Замена розетки',
