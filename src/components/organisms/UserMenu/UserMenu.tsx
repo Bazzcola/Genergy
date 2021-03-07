@@ -1,34 +1,27 @@
 import * as React from 'react';
 import { ObjectList } from 'components/molecules/ObjectList/ObjectList';
-import { NavLink, Switch, Route } from 'react-router-dom';
+import { useHistory } from 'estafette-router';
 
 import './UserMenu.scss';
 
 export const UserMenu = () => {
+  const { push } = useHistory();
   return (
     <div className="container">
-      {/* <div className="header">
+      <div className="header">
         <ul className="header-line">
           <li>User</li>
           <li>
-            <NavLink to="/create_object" activeClassName="selected">
-              Создать обьект
-            </NavLink>
+            <span onClick={() => push('CreateObjectPage')}>Создать обьект</span>
           </li>
           <li>
-            <NavLink to="/work_price_list" activeClassName="selected">
-              Список работ
-            </NavLink>
+            <span onClick={() => push('WorkListPage')}>Список работ</span>
           </li>
         </ul>
       </div>
       <div className="content">
-        <Switch>
-          <Route path="/object_list" exact>
-            <ObjectList />
-          </Route>
-        </Switch>
-      </div> */}
+        <ObjectList />
+      </div>
     </div>
   );
 };

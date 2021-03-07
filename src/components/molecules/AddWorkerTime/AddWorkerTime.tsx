@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Form, InputNumber, Select, Space } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 
 import './AddWorkerTime.scss';
 
@@ -18,6 +19,7 @@ export const AddWorkerTime = () => {
 
   return (
     <div className="worker-time-container">
+      <AdminMenu />
       <h1>Выставить время на объекте</h1>
       <Form onFinish={onFinish}>
         <Form.List name={['object', 'object_worker_time']}>

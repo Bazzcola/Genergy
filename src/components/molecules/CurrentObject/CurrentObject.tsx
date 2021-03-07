@@ -1,10 +1,12 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import { Button } from 'antd';
+import { useHistory } from 'estafette-router';
+import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 
 import './CurrentObject.scss';
 
 export const CurrentObject = () => {
+  const { push } = useHistory();
   const objectList = [
     {
       object_name: 'Ларёк',
@@ -28,28 +30,30 @@ export const CurrentObject = () => {
 
   return (
     <div className="current-object-list">
+      <AdminMenu />
       <div className="current-object-list__title">Список текущих обьектов</div>
       <div className="current-object-list__items">
         {objectList.map((item, index) => (
           <div className="current-object_item" key={index}>
             <div className="current-object_item__title">
               <span className="object-name">Название: {item.object_name}</span>
+              <div className="buttons-group">
+                <Button
+                  className="close-object"
+                  onClick={() => push('EditObjectPage')}
+                >
+                  Редактировать
+                </Button>
 
-              {/* <div className="buttons-group">
-                <NavLink
-                  to="/admin_menu/edit_object"
-                  activeClassName="selected"
+                <Button
+                  className="close-object"
+                  onClick={() => push('AddWorkerTimePage')}
                 >
-                  <Button className="close-object">Редактировать</Button>
-                </NavLink>
-                <NavLink
-                  to="/admin_menu/edit_object_worker_time"
-                  activeClassName="selected"
-                >
-                  <Button className="close-object">Время +/-</Button>
-                </NavLink>
+                  Время +/-
+                </Button>
+
                 <Button className="close-object">Закрыть???</Button>
-              </div> */}
+              </div>
             </div>
             <div className="current-object_item__description">
               <span>Описание объекта</span>

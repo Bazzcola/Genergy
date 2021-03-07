@@ -4,7 +4,7 @@ import { Form, Input, Button, Checkbox } from 'antd';
 import { useRequest } from 'estafette';
 import { useHistory } from 'estafette-router';
 import { authApi } from 'api/authApi/authApi';
-import { Context } from 'components/context/Context';
+import { Context } from 'context/Context';
 
 import './Login.scss';
 

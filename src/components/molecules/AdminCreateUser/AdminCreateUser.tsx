@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Form, Input, Button, Checkbox, Radio, Switch } from 'antd';
+import { Form, Input, Button, Radio, Switch } from 'antd';
+import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 
 import './AdminCreateUser.scss';
 
@@ -38,6 +39,7 @@ export const AdminCreateUser = () => {
 
   return (
     <div className="create-container">
+      <AdminMenu />
       <h1>Создать пользователя</h1>
       <Form
         {...layout}
@@ -47,6 +49,7 @@ export const AdminCreateUser = () => {
         }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
+        className="create-user-form"
       >
         <Form.Item
           label="Username"
@@ -180,7 +183,7 @@ export const AdminCreateUser = () => {
           <Input.Password />
         </Form.Item>
 
-        <Form.Item {...tailLayout}>
+        <Form.Item className="submit-button">
           <Button type="primary" htmlType="submit">
             Созадть
           </Button>

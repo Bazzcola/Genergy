@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Button } from 'antd';
+import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 
 import './WerehouseList.scss';
 
@@ -56,6 +57,7 @@ export const WerehouseList = () => {
   ];
   return (
     <div className="werehouse-list">
+      <AdminMenu />
       <div className="werehouse-list__title">
         <span>Список материалов</span>
         <Button className="add-material">Добавить</Button>

@@ -1,43 +1,43 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { useHistory } from 'estafette-router';
 import { Button } from 'antd';
-import { Context } from 'components/context/Context';
+import { Context } from 'context/Context';
+import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 
 import './UserList.scss';
 
 export const UserList = () => {
   const { salaryList } = React.useContext(Context);
+  const { push } = useHistory();
 
   return (
     <div className="user-list">
+      <AdminMenu />
       <div className="title">
         <div className="title__text">Список персонала</div>
-        {/* <button className="add-button">Добавить</button> */}
       </div>
       <div className="item_list">
         {salaryList.map((item, index) => (
           <div className="user-item-content" key={item.name}>
-            {/* <NavLink to="/admin_menu/user_profile_add_material">
-              <div className="user-item">
-                <div className="user-item__name">{item.name}</div>
-                <div className="user-item__quantity">Телефон: {item.phone}</div>
-                <div className="user-item__price">
-                  Мат. на сумму : 14550 лей.
-                </div> */}
-            {/* <div className="button-edit-user">
-                            <button>Редактировать</button>
-                        </div> */}
-            {/* <div className="button-delete-user">
-                            <button>Удалить</button>
-                        </div> */}
-            {/* </div>
-            </NavLink> */}
-            <div className="button-edit-user">
-              {/* <NavLink to="/admin_menu/user_profile_edit_material">
-                <Button>
-                  <span>Редактировать</span>
+            <div className="user-item">
+              <div className="user-item__name">{item.name}</div>
+              <div className="user-item__quantity">Телефон: {item.phone}</div>
+              <div className="user-item__price">Мат. на сумму : 14550 лей.</div>
+              <div className="button-edit-user">
+                <Button onClick={() => push('ProfileAddMatPage')}>
+                  Добавить Мат.
                 </Button>
-              </NavLink> */}
+              </div>
+              <div className="button-edit-user">
+                <Button onClick={() => push('ProfileEditMatPage')}>
+                  Редактировать Мат.
+                </Button>
+              </div>
+              <div className="button-edit-user">
+                <Button>
+                  <span>Удалить Работника</span>
+                </Button>
+              </div>
             </div>
           </div>
         ))}

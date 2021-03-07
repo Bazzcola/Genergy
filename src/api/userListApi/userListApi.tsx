@@ -4,7 +4,7 @@ const baseUrl = 'https://genergy-backend.herokuapp.com';
 
 export const userListApi = {
   getUserList: (params: {}) =>
-    axios.get(`${baseUrl}/accounts/users/`, { params }), // User list create
+   axios.get(`${baseUrl}/accounts/users/`, { params }), // User list create
 
   updateUserList: (params: {}) =>
     axios.post(`${baseUrl}/accounts/users/`, { params }), // User list update

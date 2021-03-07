@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Input, Button } from 'antd';
+import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 
 import './UserProfile.scss';
 
@@ -22,6 +23,7 @@ export const UserProfile = () => {
 
   return (
     <div className="user-profile">
+      <AdminMenu />
       <h1>Профиль работника</h1>
       <div className="user-profile-content">
         <div className="user-detail-form">

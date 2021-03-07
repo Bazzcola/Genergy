@@ -10,9 +10,10 @@ import {
   Radio
 } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
+import { RadioChangeEvent } from 'antd/lib/radio';
 
 import './EditObject.scss';
-import { RadioChangeEvent } from 'antd/lib/radio';
 
 interface ObjectForm {
   object: {
@@ -91,6 +92,7 @@ export const EditObject = () => {
 
   return (
     <div className="edit-object-container">
+      <AdminMenu />
       <h1>Редактировать рабочий обьект</h1>
       <Form
         {...layout}

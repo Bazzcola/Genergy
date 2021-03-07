@@ -10,6 +10,7 @@ import {
   Radio
 } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 
 import './CreateObject.scss';
 
@@ -85,6 +86,7 @@ export const CreateObject = () => {
 
   return (
     <div className="create-object-container">
+      <AdminMenu />
       <h1>Создать рабочий обьект</h1>
       <Form
         {...layout}

@@ -56,19 +56,19 @@ export const routes: Routes[] = [
   },
   {
     name: 'EditObjectPage',
-    path: '/admin_menu/curent_object',
+    path: '/admin_menu/edit_object',
     exact: true,
     component: EditObjectPage
   },
   {
     name: 'AddWorkerTimePage',
-    path: '/admin_menu/curent_object',
+    path: '/admin_menu/edit_object_worker_time',
     exact: true,
     component: AddWorkerTimePage
   },
   {
     name: 'ProfileEditMatPage',
-    path: '/admin_menu/curent_object',
+    path: '/admin_menu/user_profile_edit_material',
     exact: true,
     component: ProfileEditMatPage
   },
@@ -80,7 +80,7 @@ export const routes: Routes[] = [
   },
   {
     name: 'ProfileAddMatPage',
-    path: '/admin_menu/curent_object',
+    path: '/admin_menu/user_profile_add_material',
     exact: true,
     component: ProfileAddMatPage
   },

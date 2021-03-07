@@ -1,5 +1,7 @@
+import { axiosHeadersUpdater } from 'axios/axios';
 import React, { useEffect, useState, ReactNode } from 'react';
 import cookies from 'react-cookies';
+import { load, save, remove } from 'react-cookies';
 
 export interface Props {
   userLogin: boolean;
@@ -94,13 +96,41 @@ export const ProviderContext = (props: ProviderProps) => {
 
   useEffect(() => {
     setSalaryList(dataSalaryList);
+    console.log(salaryList);
   }, []);
 
   useEffect(() => {
     setActiveToken(cookies.load('token'));
   }, [userLogin]);
 
-  console.log(activeToken);
+  React.useEffect(() => {
+    const onSaveAccessData = async (): Promise<void> => {
+      if (activeToken) {
+        if (activeToken === null) {
+          remove('access', { path: '/' });
+          remove('pwd_token', { path: '/' });
+
+          axiosHeadersUpdater();
+
+        
+        } else {
+        
+
+          save('access', activeToken, { path: '/' });
+          // save('pwd_token', accessData.pwd_token, { path: '/' });
+
+          axiosHeadersUpdater();
+
+        }
+      }
+    };
+
+    onSaveAccessData();
+  }, [activeToken]);
+
+
+  // console.log(salaryList);
+  // console.log(activeToken);
 
   return (
     <Context.Provider

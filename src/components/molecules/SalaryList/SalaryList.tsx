@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { Context } from 'components/context/Context';
+import { Context } from 'context/Context';
 import { Button } from 'antd';
+import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
+
 import './SalaryList.scss';
 
 export const SalaryList = () => {
@@ -20,9 +22,11 @@ export const SalaryList = () => {
     setAllAvans(salaryList.reduce((total, item) => total + item.avans, 0));
     setAllSalary(salaryList.reduce((total, item) => total + item.salary, 0));
   }, [salaryList]);
-
+  
   return (
     <div className="salary-list">
+      <AdminMenu />
+      {console.log(salaryList)}
       <div className="title">
         <div className="title__text">Список зарплат</div>
         <div className="title__period">Период 01.02.2021 - 01.03.2021</div>

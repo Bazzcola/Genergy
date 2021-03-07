@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Button } from 'antd';
+import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 
 import './InventoryList.scss';
 
@@ -39,6 +40,7 @@ export const InventoryList = () => {
 
   return (
     <div className="inventory-list">
+      <AdminMenu />
       <div className="title">
         <div className="title__text">Список инвентаря</div>
         <Button className="add-button">Добавить</Button>

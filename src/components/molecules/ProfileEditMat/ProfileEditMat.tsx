@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, InputNumber, Button } from 'antd';
+import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 
 import './ProfileEditMat.scss';
 
@@ -24,6 +25,7 @@ export const ProfileEditMat = () => {
 
   return (
     <div className="profile-edit-material">
+      <AdminMenu />
       <div className="edit-material">
         <Form onFinish={onFinish}>
           <h1>Список материалов</h1>

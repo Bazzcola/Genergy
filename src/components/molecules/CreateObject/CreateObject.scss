@@ -1,12 +1,8 @@
 @import '~antd/dist/antd.css';
 
 .create-object-container {
-  max-width: 600px;
+  max-width: 100%;
   width: 100%;
-  position: absolute;
-  top: 70%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   height: 100%;
 
   @media (max-width: 690px) {
@@ -14,7 +10,12 @@
   }
 
   .object-form {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
     padding-bottom: 50px;
+    padding-left: 25px;
+    padding-right: 25px;
 
     .object-submit-btn {
       margin-right: 15px;
@@ -42,6 +43,7 @@
   .add-inputs {
     max-width: 600px;
     width: 100%;
+    margin: 0 auto;
 
     .select-materials {
       width: 300px;

@@ -68,34 +68,34 @@
         }
       }
     }
+  }
+}
 
-    .media-menu {
-      display: none;
+.media-menu {
+  display: none;
 
-      .menu-btn {
-        left: 190px;
-        max-width: 100px;
-        width: 100%;
-      }
+  .menu-btn {
+    left: 190px;
+    max-width: 100px;
+    width: 100%;
+  }
 
-      .active-btn {
-        color: rgb(0, 153, 255);
-        background: white;
-      }
+  .active-btn {
+    color: rgb(0, 153, 255);
+    background: white;
+  }
 
-      .disabled-btn {
-        color: white;
-        background: rgb(0, 153, 255);
-      }
+  .disabled-btn {
+    color: white;
+    background: rgb(0, 153, 255);
+  }
 
-      @media (max-width: 690px) {
-        z-index: 5;
-        display: block;
-        position: absolute;
-        top: 25px;
-        right: 10px;
-      }
-    }
+  @media (max-width: 690px) {
+    z-index: 5;
+    display: block;
+    position: absolute;
+    top: 25px;
+    right: 10px;
   }
 }
 

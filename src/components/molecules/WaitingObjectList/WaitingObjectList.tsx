@@ -1,10 +1,13 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { useHistory } from 'estafette-router';
 import { Button } from 'antd';
+import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 
 import './WaitingObjectList.scss';
 
 export const WaitingObjectList = () => {
+  const { push } = useHistory();
+
   const objectList = [
     {
       object_name: 'Ларёк',
@@ -76,6 +79,7 @@ export const WaitingObjectList = () => {
 
   return (
     <div className="waiting-object-list">
+      <AdminMenu />
       <div className="waiting-object-list__title">
         Список ожидаемых обьектов
       </div>
@@ -84,16 +88,18 @@ export const WaitingObjectList = () => {
           <div className="waiting-object_item" key={index}>
             <div className="waiting-object_item__title">
               <span>Название: {item.object_name}</span>
-              {/* <div className="buttons-group">
+              <div className="buttons-group">
                 <Button className="close-object">Добавить</Button>
-                <NavLink
-                  to="/admin_menu/edit_object"
-                  activeClassName="selected"
+
+                <Button
+                  className="close-object"
+                  onClick={() => push('EditObjectPage')}
                 >
-                  <Button className="close-object">Редактировать</Button>
-                </NavLink>
+                  Редактировать
+                </Button>
+
                 <Button className="close-object">Удалить</Button>
-              </div> */}
+              </div>
             </div>
             <div className="waiting-object_item__description">
               <span>Описание объекта</span>

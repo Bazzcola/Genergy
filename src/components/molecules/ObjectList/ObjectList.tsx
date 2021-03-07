@@ -1,10 +1,12 @@
 import * as React from 'react';
-import { NavLink } from 'react-router-dom';
 import { Button } from 'antd';
+import { useHistory } from 'estafette-router';
+import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 
 import './ObjectList.scss';
 
 export const ObjectList = () => {
+  const { push } = useHistory();
   const objectList = [
     {
       object_name: 'Ларёк',
@@ -118,27 +120,30 @@ export const ObjectList = () => {
 
   return (
     <div className="object-list">
+      <AdminMenu />
       <div className="object-list__title">Список обьектов</div>
       <div className="object-list__items">
         {objectList.map((item, index) => (
           <div className="object_item" key={index}>
             <div className="object_item__title">
               <span>Название: {item.object_name}</span>
-              {/* <div className="buttons-group">
-                <NavLink
-                  to="/admin_menu/edit_object"
-                  activeClassName="selected"
+              <div className="buttons-group">
+                <Button
+                  className="close-object"
+                  onClick={() => push('EditObjectPage')}
                 >
-                  <Button className="close-object">Редактировать</Button>
-                </NavLink>
-                <NavLink
-                  to="/admin_menu/edit_object_worker_time"
-                  activeClassName="selected"
+                  Редактировать
+                </Button>
+
+                <Button
+                  className="close-object"
+                  onClick={() => push('AddWorkerTimePage')}
                 >
-                  <Button className="close-object">Время +/-</Button>
-                </NavLink>
+                  Время +/-
+                </Button>
+
                 <Button className="close-object">Закрыть</Button>
-              </div> */}
+              </div>
             </div>
             <div className="object_item__description">
               <span>Описание объекта</span>

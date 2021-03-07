@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Button, InputNumber, Select, Space } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 
 import './ProfileAddMat.scss';
 
@@ -25,6 +26,7 @@ export const ProfileAddMat = () => {
 
   return (
     <div className="add-mat-container">
+      <AdminMenu />
       <div className="user-info">
         <h1>Профиль работника</h1>
         <ul>
