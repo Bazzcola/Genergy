@@ -1,7 +1,7 @@
-import { axiosHeadersUpdater } from 'axios/axios';
 import React, { useEffect, useState, ReactNode } from 'react';
 import cookies from 'react-cookies';
 import { load, save, remove } from 'react-cookies';
+import { axiosHeadersUpdater } from 'axios/axios';
 
 export interface Props {
   userLogin: boolean;
@@ -87,50 +87,50 @@ export const Context = React.createContext<Props>(defaultValue);
 export const ProviderContext = (props: ProviderProps) => {
   const children = props.children;
 
+  const [userLogin, setUserLogin] = useState<boolean>(false);
   const [salaryList, setSalaryList] = useState<SalaryList[]>([]);
   const [activeToken, setActiveToken] = useState<string | undefined>(undefined);
   const [refreshToken, setRefreshToken] = useState<string | undefined>(
     undefined
   );
-  const [userLogin, setUserLogin] = useState<boolean>(false);
 
   useEffect(() => {
     setSalaryList(dataSalaryList);
-    console.log(salaryList);
   }, []);
 
   useEffect(() => {
-    setActiveToken(cookies.load('token'));
+    if (userLogin) {
+      setActiveToken(cookies.load('token'));
+      setRefreshToken(cookies.load('refresh_token'));
+      axiosHeadersUpdater();
+    } else {
+      setActiveToken(undefined);
+      setRefreshToken(undefined);
+      remove('token', { path: '/' });
+      remove('refresh_token', { path: '/' });
+      axiosHeadersUpdater();
+    }
   }, [userLogin]);
 
-  React.useEffect(() => {
-    const onSaveAccessData = async (): Promise<void> => {
-      if (activeToken) {
-        if (activeToken === null) {
-          remove('access', { path: '/' });
-          remove('pwd_token', { path: '/' });
+  // useEffect(() => {
+  //   const onSaveAccessData = async (activeToken: any): Promise<void> => {
+  //     if (userLogin) {
+  //       if (activeToken === null) {
+  //         remove('token', { path: '/' });
+  //         remove('refresh_token', { path: '/' });
 
-          axiosHeadersUpdater();
+  //         axiosHeadersUpdater();
+  //       } else {
+  //         save('token', activeToken, { path: '/' });
+  //         // save('pwd_token', accessData.pwd_token, { path: '/' });
+  //         console.log('3123213232');
+  //         axiosHeadersUpdater();
+  //       }
+  //     }
+  //   };
 
-        
-        } else {
-        
-
-          save('access', activeToken, { path: '/' });
-          // save('pwd_token', accessData.pwd_token, { path: '/' });
-
-          axiosHeadersUpdater();
-
-        }
-      }
-    };
-
-    onSaveAccessData();
-  }, [activeToken]);
-
-
-  // console.log(salaryList);
-  // console.log(activeToken);
+  //   onSaveAccessData(activeToken);
+  // }, [userLogin]);
 
   return (
     <Context.Provider

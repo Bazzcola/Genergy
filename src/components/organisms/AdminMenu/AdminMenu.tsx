@@ -1,5 +1,4 @@
 import * as React from 'react';
-import axios from 'axios';
 import { Dropdown, Button, Menu, message } from 'antd';
 import {
   AppstoreOutlined,
@@ -16,7 +15,6 @@ import { Context } from 'context/Context';
 import { userListApi } from 'api/userListApi/userListApi';
 
 import './AdminMenu.scss';
-const baseUrl = 'https://genergy-backend.herokuapp.com';
 
 export const AdminMenu = () => {
   const { request, data, loading, errors } = useRequest();
@@ -24,24 +22,17 @@ export const AdminMenu = () => {
   const { push } = useHistory();
   const [showMenu, setShowMenu] = React.useState<boolean>(false);
 
-  const authAxios = axios.create({
-    baseURL:baseUrl,
-    headers:{
-      Authorization: `Bearer ${activeToken}`
+  const fetch = () => {
+    request(userListApi.getUserProfile.action({}));
+  };
+
+  console.log(data);
+
+  React.useEffect(() => {
+    if (activeToken) {
+      fetch();
     }
-  })
-
-  // const fetch = () => {
-  //   request(userListApi.me.action());
-  // }
-
-  // console.log(data)
-
-  // React.useEffect(() => {
-  //   if(activeToken) {
-  //     fetch();
-  //   }
-  // }, [activeToken]);
+  }, [activeToken]);
 
   React.useEffect(() => {
     if (showMenu) {

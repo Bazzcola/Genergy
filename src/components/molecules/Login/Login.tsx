@@ -30,26 +30,13 @@ const tailLayout = {
 
 export const Login = () => {
   const { request, data, loading } = useRequest<Token>({ data: {} });
-  const {
-    userLogin,
-    setActiveToken,
-    setRefreshToken,
-    setUserLogin
-  } = React.useContext(Context);
+  const { setActiveToken, setRefreshToken, setUserLogin } = React.useContext(
+    Context
+  );
 
   const { push } = useHistory();
 
-  const onEncrease = () => push('AdminPage');
-
-  React.useEffect(() => {
-    if (data.access) {
-      onEncrease();
-      console.log(userLogin);
-    }
-  }, [data]);
-
-  console.log(data);
-  console.log(userLogin);
+  const onRedirect = () => push('AdminPage');
 
   const onFinish = (values: any) => {
     if (values.username.length > 4 && values.password.length > 4) {
@@ -68,18 +55,25 @@ export const Login = () => {
 
   React.useEffect(() => {
     if (data.access && data.refresh) {
-      setActiveToken(data.access);
-      setRefreshToken(data.refresh);
       setUserLogin(true);
 
       const expirationDate = new Date();
       expirationDate.setHours(expirationDate.getHours() + 3);
+
       cookies.save('token', data.access, {
         path: '/',
         expires: expirationDate
       });
+
+      cookies.save('refresh_token', data.refresh, {
+        path: '/'
+      });
+
+      onRedirect();
     }
   }, [data]);
+
+  console.log(data);
 
   return (
     <div className="auth-container">
