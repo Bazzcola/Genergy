@@ -1,10 +1,26 @@
 import React from 'react';
 import { Form, Input, Button } from 'antd';
+import { useRequest } from 'estafette';
+import { userListApi } from 'api/userListApi/userListApi';
+import { Context } from 'context/Context';
 import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 
 import './UserProfile.scss';
 
 export const UserProfile = () => {
+  const { request, data, loading, errors } = useRequest({data:{}});
+  const { userLogin } = React.useContext(Context);
+  
+  React.useEffect(() => {  
+      fetch();
+  }, []);
+
+  console.log(data);
+
+  const fetch = () => {
+    request(userListApi.getUserProfile.action({}));
+  };
+
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 }

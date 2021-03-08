@@ -1,9 +1,11 @@
 import $axios from 'axios';
 // import env from '@beam-australia/react-env';
-import { load, remove } from 'react-cookies';
+import { load,save,remove } from 'react-cookies';
+import { useRequest } from 'estafette';
 import { getRoute } from 'estafette-router';
 import { routes } from '../router/routes';
 import { history } from 'libs/history/history';
+import { authApi } from 'api/authApi/authApi';
 
 export const axios = $axios.create();
 // eslint-disable-next-line import/no-named-as-default-member
@@ -28,9 +30,9 @@ axios.interceptors.response.use(
 
     if (error.response) {
       if (error.response.status === 401) {
-        remove('token', { path: '/' });
-        remove('refresh_token', { path: '/' });
-
+        // remove('token', { path: '/' });
+        // remove('refresh_token', { path: '/' });
+        // localStorage.clear()
         history.push(
           getRoute(routes, 'Login', { query: { user_not_found: true } })
         );
@@ -41,6 +43,7 @@ axios.interceptors.response.use(
         error.response.data.detail ===
           'You do not have permission to perform this action.'
       ) {
+        localStorage.clear()
         history.push(
           getRoute(routes, 'Login', { query: { permissions_guard: true } })
         );

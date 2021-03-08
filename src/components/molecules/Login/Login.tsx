@@ -4,7 +4,6 @@ import { Form, Input, Button, Checkbox } from 'antd';
 import { useRequest } from 'estafette';
 import { useHistory } from 'estafette-router';
 import { authApi } from 'api/authApi/authApi';
-import { Context } from 'context/Context';
 
 import './Login.scss';
 
@@ -30,13 +29,12 @@ const tailLayout = {
 
 export const Login = () => {
   const { request, data, loading } = useRequest<Token>({ data: {} });
-  const { setActiveToken, setRefreshToken, setUserLogin } = React.useContext(
-    Context
-  );
-
+  
   const { push } = useHistory();
 
   const onRedirect = () => push('AdminPage');
+
+  const onLogin = () => push('Login');
 
   const onFinish = (values: any) => {
     if (values.username.length > 4 && values.password.length > 4) {
@@ -55,7 +53,7 @@ export const Login = () => {
 
   React.useEffect(() => {
     if (data.access && data.refresh) {
-      setUserLogin(true);
+      localStorage.setItem('userAuth', 'login_is_true');
 
       const expirationDate = new Date();
       expirationDate.setHours(expirationDate.getHours() + 3);
@@ -70,10 +68,13 @@ export const Login = () => {
       });
 
       onRedirect();
+    } else {
+        onLogin();
+        console.log('redirect-login')
     }
   }, [data]);
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <div className="auth-container">

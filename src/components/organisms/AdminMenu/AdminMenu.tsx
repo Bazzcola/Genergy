@@ -8,31 +8,15 @@ import {
   MailOutlined,
   PieChartOutlined
 } from '@ant-design/icons';
+import { remove } from 'react-cookies';
 import SubMenu from 'antd/lib/menu/SubMenu';
-import { useRequest } from 'estafette';
 import { useHistory } from 'estafette-router';
-import { Context } from 'context/Context';
-import { userListApi } from 'api/userListApi/userListApi';
 
 import './AdminMenu.scss';
 
 export const AdminMenu = () => {
-  const { request, data, loading, errors } = useRequest();
-  const { activeToken } = React.useContext(Context);
   const { push } = useHistory();
   const [showMenu, setShowMenu] = React.useState<boolean>(false);
-
-  const fetch = () => {
-    request(userListApi.getUserProfile.action({}));
-  };
-
-  console.log(data);
-
-  React.useEffect(() => {
-    if (activeToken) {
-      fetch();
-    }
-  }, [activeToken]);
 
   React.useEffect(() => {
     if (showMenu) {
@@ -57,6 +41,13 @@ export const AdminMenu = () => {
     message.info('Click on menu item.');
     console.log('click', e);
   };
+
+  const onLogout = () => {
+    localStorage.clear()
+    remove('token', { path: '/' });
+    remove('refresh_token', { path: '/' });
+    push('Logout');
+  }
 
   const menu1 = (
     <Menu onClick={handleMenuClick}>
@@ -93,6 +84,7 @@ export const AdminMenu = () => {
       <div className="container">
         <div className="company-logo">
           <img src="../assets/img/logo.png" alt="logo" />
+          <Button className="logout-button" onClick={() => onLogout()}>Выйти</Button>
         </div>
 
         <div className="header">

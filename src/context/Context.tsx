@@ -1,7 +1,9 @@
 import React, { useEffect, useState, ReactNode } from 'react';
 import cookies from 'react-cookies';
-import { load, save, remove } from 'react-cookies';
+import { remove } from 'react-cookies';
 import { axiosHeadersUpdater } from 'axios/axios';
+import { useHistory } from 'estafette-router';
+
 
 export interface Props {
   userLogin: boolean;
@@ -86,6 +88,7 @@ export const Context = React.createContext<Props>(defaultValue);
 
 export const ProviderContext = (props: ProviderProps) => {
   const children = props.children;
+  const { queries } = useHistory();
 
   const [userLogin, setUserLogin] = useState<boolean>(false);
   const [salaryList, setSalaryList] = useState<SalaryList[]>([]);
@@ -95,12 +98,19 @@ export const ProviderContext = (props: ProviderProps) => {
   );
 
   useEffect(() => {
+    console.log(queries)
+  }, []);
+
+  useEffect(() => {
+    if(localStorage.getItem('userAuth') === 'login_is_true') {
+      setUserLogin(true);
+    }
     setSalaryList(dataSalaryList);
   }, []);
 
   useEffect(() => {
-    if (userLogin) {
-      setActiveToken(cookies.load('token'));
+    if (localStorage.getItem('userAuth') === 'login_is_true') {
+      setActiveToken(cookies.load('token'));  
       setRefreshToken(cookies.load('refresh_token'));
       axiosHeadersUpdater();
     } else {
@@ -112,25 +122,9 @@ export const ProviderContext = (props: ProviderProps) => {
     }
   }, [userLogin]);
 
-  // useEffect(() => {
-  //   const onSaveAccessData = async (activeToken: any): Promise<void> => {
-  //     if (userLogin) {
-  //       if (activeToken === null) {
-  //         remove('token', { path: '/' });
-  //         remove('refresh_token', { path: '/' });
+  console.log(userLogin)
 
-  //         axiosHeadersUpdater();
-  //       } else {
-  //         save('token', activeToken, { path: '/' });
-  //         // save('pwd_token', accessData.pwd_token, { path: '/' });
-  //         console.log('3123213232');
-  //         axiosHeadersUpdater();
-  //       }
-  //     }
-  //   };
-
-  //   onSaveAccessData(activeToken);
-  // }, [userLogin]);
+  console.log('12312312312')
 
   return (
     <Context.Provider

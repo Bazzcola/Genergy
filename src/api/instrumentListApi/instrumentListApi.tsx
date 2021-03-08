@@ -1,20 +1,65 @@
-import axios from 'axios';
-
-const baseUrl = 'https://genergy-backend.herokuapp.com';
+import { Canceler } from 'axios';
+import { axios, cancelToken } from 'axios/axios';
 
 export const instrumentListApi = {
-  getInstrumentList: (params: {}) =>
-    axios.get(`${baseUrl}/entities/utils/`, { params }), // Get Instrument list
+  getInstrumentList: {
+    action: (params: {}): Promise<{ data: any }> =>
+      axios.get(`/entities/utils/`, {
+        cancelToken: new cancelToken(
+          (c: Canceler) => (instrumentListApi.getInstrumentList.cancel = c) // Get Instrument list
+        )
+      }),
+    cancel: (() => null) as Canceler
+  },
+  createInstrumentItem: {
+    action: (params: {}): Promise<{ data: any }> =>
+      axios.post(`/entities/utils/`, {
+        cancelToken: new cancelToken(
+          (c: Canceler) => (instrumentListApi.createInstrumentItem.cancel = c) // Create Instrument item
+        )
+      }),
+    cancel: (() => null) as Canceler
+  },
+  getInstrumentItem: {
+    action: (params: {}): Promise<{ data: any }> =>
+      axios.get(`/entities/utils/${params}/`, {
+        cancelToken: new cancelToken(
+          (c: Canceler) => (instrumentListApi.getInstrumentItem.cancel = c) // Get Instrument item
+        )
+      }),
+    cancel: (() => null) as Canceler
+  },
+  updateInstrumentItem: {
+    action: (params: {}): Promise<{ data: any }> =>
+      axios.put(`/entities/utils/${params}/`, {
+        cancelToken: new cancelToken(
+          (c: Canceler) => (instrumentListApi.updateInstrumentItem.cancel = c) // Update Instrument item
+        )
+      }),
+    cancel: (() => null) as Canceler
+  },
+  deleteInstrumentItem: {
+    action: (params: {}): Promise<{ data: any }> =>
+      axios.delete(`/entities/utils/${params}/`, {
+        cancelToken: new cancelToken(
+          (c: Canceler) => (instrumentListApi.deleteInstrumentItem.cancel = c) // Delete Instrument item
+        )
+      }),
+    cancel: (() => null) as Canceler
+  },
+  
+  // getInstrumentList: (params: {}) =>
+  //   axios.get(`${baseUrl}/entities/utils/`, { params }), // Get Instrument list
 
-  createInstrumentItem: (params: {}) =>
-    axios.post(`${baseUrl}/entities/utils/`, params), // Create Instrument item
+  // createInstrumentItem: (params: {}) =>
+  //   axios.post(`${baseUrl}/entities/utils/`, params), // Create Instrument item
 
-  getInstrumentItem: (params: {}) =>
-    axios.get(`${baseUrl}/entities/utils/${params}/`), // Get Instrument item
+  // getInstrumentItem: (params: {}) =>
+  //   axios.get(`${baseUrl}/entities/utils/${params}/`), // Get Instrument item
 
-  updateInstrumentItem: (params: {}) =>
-    axios.put(`${baseUrl}/entities/utils/${params}/`), // Update Instrument item
+  // updateInstrumentItem: (params: {}) =>
+  //   axios.put(`${baseUrl}/entities/utils/${params}/`), // Update Instrument item
 
-  deleteInstrumentItem: (params: {}) =>
-    axios.delete(`${baseUrl}/entities/utils/${params}/`) // Delete Instrument item
+  // deleteInstrumentItem: (params: {}) =>
+  //   axios.delete(`${baseUrl}/entities/utils/${params}/`) // Delete Instrument item
 };
