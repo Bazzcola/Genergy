@@ -14,7 +14,7 @@ export const userListApi = {
 
   updateUserList: {
     action: (params: {}): Promise<{ data: any }> =>
-      axios.post(`/accounts/users/`, {
+      axios.post(`/accounts/users/`,params, {
         cancelToken: new cancelToken(
           (c: Canceler) => (userListApi.updateUserList.cancel = c) // User list update
         )

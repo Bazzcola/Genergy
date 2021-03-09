@@ -2,20 +2,18 @@ import React from 'react';
 import { Form, Input, Button } from 'antd';
 import { useRequest } from 'estafette';
 import { userListApi } from 'api/userListApi/userListApi';
-import { Context } from 'context/Context';
 import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 
 import './UserProfile.scss';
 
 export const UserProfile = () => {
-  const { request, data, loading, errors } = useRequest({data:{}});
-  const { userLogin } = React.useContext(Context);
-  
+  const { request, data:userData, loading, errors } = useRequest<any>({data:{}});
+
   React.useEffect(() => {  
       fetch();
   }, []);
 
-  console.log(data);
+  console.log(userData);
 
   const fetch = () => {
     request(userListApi.getUserProfile.action({}));
@@ -55,7 +53,7 @@ export const UserProfile = () => {
               label="Name"
               rules={[{ required: true }]}
             >
-              <Input placeholder="Вова" disabled />
+              <Input placeholder={userData.username} disabled />
             </Form.Item>
             <Form.Item
               name={['user', 'idnp']}

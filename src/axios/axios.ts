@@ -1,11 +1,9 @@
 import $axios from 'axios';
 // import env from '@beam-australia/react-env';
 import { load,save,remove } from 'react-cookies';
-import { useRequest } from 'estafette';
 import { getRoute } from 'estafette-router';
 import { routes } from '../router/routes';
 import { history } from 'libs/history/history';
-import { authApi } from 'api/authApi/authApi';
 
 export const axios = $axios.create();
 // eslint-disable-next-line import/no-named-as-default-member

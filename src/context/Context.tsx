@@ -2,12 +2,12 @@ import React, { useEffect, useState, ReactNode } from 'react';
 import cookies from 'react-cookies';
 import { remove } from 'react-cookies';
 import { axiosHeadersUpdater } from 'axios/axios';
-import { useHistory } from 'estafette-router';
-
 
 export interface Props {
-  userLogin: boolean;
-  setUserLogin: React.Dispatch<React.SetStateAction<boolean>>;
+  logout:boolean;
+  setLogout: React.Dispatch<React.SetStateAction<boolean>>;
+  userLogin: boolean | undefined;
+  setUserLogin: React.Dispatch<React.SetStateAction<boolean | undefined>>;
   activeToken: string | undefined;
   setActiveToken: React.Dispatch<React.SetStateAction<string | undefined>>;
   refreshToken: string | undefined;
@@ -29,7 +29,9 @@ interface ProviderProps {
 }
 
 const defaultValue = {
-  userLogin: false,
+  logout:false,
+  setLogout: () => {},
+  userLogin: undefined,
   setUserLogin: () => {},
   activeToken: undefined,
   setActiveToken: () => {},
@@ -88,18 +90,14 @@ export const Context = React.createContext<Props>(defaultValue);
 
 export const ProviderContext = (props: ProviderProps) => {
   const children = props.children;
-  const { queries } = useHistory();
 
-  const [userLogin, setUserLogin] = useState<boolean>(false);
+  const [logout, setLogout] = useState<boolean>(false);
+  const [userLogin, setUserLogin] = useState<boolean | undefined>(undefined);
   const [salaryList, setSalaryList] = useState<SalaryList[]>([]);
   const [activeToken, setActiveToken] = useState<string | undefined>(undefined);
   const [refreshToken, setRefreshToken] = useState<string | undefined>(
     undefined
   );
-
-  useEffect(() => {
-    console.log(queries)
-  }, []);
 
   useEffect(() => {
     if(localStorage.getItem('userAuth') === 'login_is_true') {
@@ -118,17 +116,18 @@ export const ProviderContext = (props: ProviderProps) => {
       setRefreshToken(undefined);
       remove('token', { path: '/' });
       remove('refresh_token', { path: '/' });
+      setUserLogin(undefined);
       axiosHeadersUpdater();
     }
   }, [userLogin]);
 
   console.log(userLogin)
 
-  console.log('12312312312')
-
   return (
     <Context.Provider
       value={{
+        logout,
+        setLogout,
         userLogin,
         setUserLogin,
         activeToken,

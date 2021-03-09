@@ -8,10 +8,10 @@ import { ProviderContext } from 'context/Context';
 import './index.scss';
 
 ReactDOM.render(
-  <CreateRouter routes={routes}>
-      <ProviderContext>
-          <Main />
-      </ProviderContext>
-    </CreateRouter>,
+  <ProviderContext>
+    <CreateRouter routes={routes}>
+      <Main />
+    </CreateRouter>
+  </ProviderContext>,
   document.getElementById('root')
 );

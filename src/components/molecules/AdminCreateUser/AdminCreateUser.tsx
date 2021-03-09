@@ -1,37 +1,61 @@
 import * as React from 'react';
 import { Form, Input, Button, Radio, Switch } from 'antd';
+import { useRequest } from 'estafette';
+import { userListApi } from 'api/userListApi/userListApi';
 import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 
 import './AdminCreateUser.scss';
 
 interface Form {
-  password: string;
-  username: string;
-  remember?: boolean;
+  hour_tax: number,
+  password: string,
+  salary_hour: boolean,
+  salary_percent: boolean,
+  user_idno: string,
+  user_name: string,
+  user_password: string,
+  user_phone: string,
+  user_sex: string,
+  user_value: number,
+  username: string,
 }
+export const layout = {
+  labelCol: {
+    span: 8
+  },
+  wrapperCol: {
+    span: 16
+  }
+};
+const tailLayout = {
+  wrapperCol: {
+    offset: 8,
+    span: 16
+  }
+};
 
 export const AdminCreateUser = () => {
-  const [form, setForm] = React.useState<Form>({ password: '', username: '' });
-
-  const layout = {
-    labelCol: {
-      span: 8
-    },
-    wrapperCol: {
-      span: 16
-    }
-  };
-  const tailLayout = {
-    wrapperCol: {
-      offset: 8,
-      span: 16
-    }
-  };
-
+  const {request, loading} = useRequest();
+  
   const onFinish = (values: any) => {
-    setForm(values);
+    if(values) {
+      const params = {
+        username: values.user_name,
+        password: values.password,
+        fullname: values.username,
+        gender: values.user_sex.toUpperCase(),
+        phone: values.user_phone || '',
+        idnp: values.user_idno || '',
+        is_admin: false,
+        is_staff: true,
+        is_agent: false,
+        is_basic: false,
+        hour_price: values.salary_hour && values.hour_tax ? values.hour_tax : 0,
+        agent_rate: values.salary_percent ? 50 : 0,
+      }
+      request(userListApi.updateUserList.action(params));
+    }
   };
-  console.log('Success:', form);
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
@@ -184,7 +208,7 @@ export const AdminCreateUser = () => {
         </Form.Item>
 
         <Form.Item className="submit-button">
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={loading}>
             Созадть
           </Button>
         </Form.Item>

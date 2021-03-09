@@ -3,6 +3,7 @@ import cookies from 'react-cookies';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { useRequest } from 'estafette';
 import { useHistory } from 'estafette-router';
+import { Context } from 'context/Context';
 import { authApi } from 'api/authApi/authApi';
 
 import './Login.scss';
@@ -29,8 +30,8 @@ const tailLayout = {
 
 export const Login = () => {
   const { request, data, loading } = useRequest<Token>({ data: {} });
-  
   const { push } = useHistory();
+  const { setUserLogin } = React.useContext(Context);
 
   const onRedirect = () => push('AdminPage');
 
@@ -38,12 +39,16 @@ export const Login = () => {
 
   const onFinish = (values: any) => {
     if (values.username.length > 4 && values.password.length > 4) {
-      request(
-        authApi.authLogin({
-          username: values.username,
-          password: values.password
-        })
-      );
+      try {
+        request(
+          authApi.authLogin({
+            username: values.username,
+            password: values.password
+          })
+        );
+      } catch(e) {
+        console.log(e)
+      }
     }
   };
 
@@ -53,19 +58,21 @@ export const Login = () => {
 
   React.useEffect(() => {
     if (data.access && data.refresh) {
+      setUserLogin(true);
+
       localStorage.setItem('userAuth', 'login_is_true');
 
-      const expirationDate = new Date();
-      expirationDate.setHours(expirationDate.getHours() + 3);
+      // const expirationDate = new Date();
+      // expirationDate.setHours(expirationDate.getHours() + 3);
 
       cookies.save('token', data.access, {
         path: '/',
-        expires: expirationDate
+        // expires: expirationDate
       });
 
-      cookies.save('refresh_token', data.refresh, {
-        path: '/'
-      });
+      // cookies.save('refresh_token', data.refresh, {
+      //   path: '/'
+      // });
 
       onRedirect();
     } else {
@@ -73,8 +80,6 @@ export const Login = () => {
         console.log('redirect-login')
     }
   }, [data]);
-
-  // console.log(data);
 
   return (
     <div className="auth-container">
