@@ -13,6 +13,10 @@ export const UserProfile = () => {
       fetch();
   }, []);
 
+  React.useEffect(() => {  
+    console.log(errors,'errrrprrr')
+}, [errors]);
+
   console.log(userData);
 
   const fetch = () => {

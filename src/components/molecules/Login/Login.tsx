@@ -75,9 +75,6 @@ export const Login = () => {
       // });
 
       onRedirect();
-    } else {
-        onLogin();
-        console.log('redirect-login')
     }
   }, [data]);
 

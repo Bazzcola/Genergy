@@ -28,9 +28,7 @@ axios.interceptors.response.use(
 
     if (error.response) {
       if (error.response.status === 401) {
-        // remove('token', { path: '/' });
-        // remove('refresh_token', { path: '/' });
-        // localStorage.clear()
+        remove('token', { path: '/' });
         history.push(
           getRoute(routes, 'Login', { query: { user_not_found: true } })
         );
