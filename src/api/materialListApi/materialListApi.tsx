@@ -46,7 +46,7 @@ export const materialListApi = {
         )
       }),
     cancel: (() => null) as Canceler
-  },
+  }
 
   // getMaterialList: (params: {}) =>
   //   axios.get(`${baseUrl}/entities/items/`, { params }), // Get material list

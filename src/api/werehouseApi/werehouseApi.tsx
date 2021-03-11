@@ -37,7 +37,7 @@ export const werehouseApi = {
         )
       }),
     cancel: (() => null) as Canceler
-  },
+  }
 
   // addMaterials: (params: {}) =>
   //   axios.post(`${baseUrl}/entities/items/${params}/supply/`), // Add materials

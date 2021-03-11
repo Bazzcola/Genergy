@@ -1,6 +1,6 @@
 import $axios from 'axios';
 // import env from '@beam-australia/react-env';
-import { load,save,remove } from 'react-cookies';
+import { load, save, remove } from 'react-cookies';
 import { getRoute } from 'estafette-router';
 import { routes } from '../router/routes';
 import { history } from 'libs/history/history';
@@ -39,7 +39,6 @@ axios.interceptors.response.use(
         error.response.data.detail ===
           'You do not have permission to perform this action.'
       ) {
-        localStorage.clear()
         history.push(
           getRoute(routes, 'Login', { query: { permissions_guard: true } })
         );

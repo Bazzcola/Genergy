@@ -7,17 +7,17 @@ import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 import './AdminCreateUser.scss';
 
 interface Form {
-  hour_tax: number,
-  password: string,
-  salary_hour: boolean,
-  salary_percent: boolean,
-  user_idno: string,
-  user_name: string,
-  user_password: string,
-  user_phone: string,
-  user_sex: string,
-  user_value: number,
-  username: string,
+  hour_tax: number;
+  password: string;
+  salary_hour: boolean;
+  salary_percent: boolean;
+  user_idno: string;
+  user_name: string;
+  user_password: string;
+  user_phone: string;
+  user_sex: string;
+  user_value: number;
+  username: string;
 }
 export const layout = {
   labelCol: {
@@ -35,10 +35,10 @@ const tailLayout = {
 };
 
 export const AdminCreateUser = () => {
-  const {request, loading} = useRequest();
-  
+  const { request, loading } = useRequest();
+
   const onFinish = (values: any) => {
-    if(values) {
+    if (values) {
       const params = {
         username: values.user_name,
         password: values.password,
@@ -51,8 +51,8 @@ export const AdminCreateUser = () => {
         is_agent: false,
         is_basic: false,
         hour_price: values.salary_hour && values.hour_tax ? values.hour_tax : 0,
-        agent_rate: values.salary_percent ? 50 : 0,
-      }
+        agent_rate: values.salary_percent ? 50 : 0
+      };
       request(userListApi.updateUserList.action(params));
     }
   };

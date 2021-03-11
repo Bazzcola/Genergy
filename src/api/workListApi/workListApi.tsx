@@ -46,7 +46,7 @@ export const workListApi = {
         )
       }),
     cancel: (() => null) as Canceler
-  },
+  }
 
   // getWorkList: (params: {}) =>
   //   axios.get(`${baseUrl}/entities/works/`, { params }), // Get work list

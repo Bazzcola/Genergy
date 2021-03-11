@@ -46,8 +46,8 @@ export const instrumentListApi = {
         )
       }),
     cancel: (() => null) as Canceler
-  },
-  
+  }
+
   // getInstrumentList: (params: {}) =>
   //   axios.get(`${baseUrl}/entities/utils/`, { params }), // Get Instrument list
 

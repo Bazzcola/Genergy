@@ -46,8 +46,8 @@ export const Login = () => {
             password: values.password
           })
         );
-      } catch(e) {
-        console.log(e)
+      } catch (e) {
+        console.log(e);
       }
     }
   };
@@ -60,13 +60,11 @@ export const Login = () => {
     if (data.access && data.refresh) {
       setUserLogin(true);
 
-      localStorage.setItem('userAuth', 'login_is_true');
-
       // const expirationDate = new Date();
       // expirationDate.setHours(expirationDate.getHours() + 3);
 
       cookies.save('token', data.access, {
-        path: '/',
+        path: '/'
         // expires: expirationDate
       });
 

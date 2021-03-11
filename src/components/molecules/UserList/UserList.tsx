@@ -9,23 +9,25 @@ import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 import './UserList.scss';
 
 export const UserList = () => {
-  const { request, data:dataUserList, loading, errors } = useRequest<any>({data:{}});
+  const { request, data: dataUserList, loading, errors } = useRequest<any>({
+    data: {}
+  });
   const { salaryList } = React.useContext(Context);
   const { push } = useHistory();
 
-  const [userList, setUserList] = useState<any>([])
+  const [userList, setUserList] = useState<any>([]);
 
   useEffect(() => {
     request(userListApi.getUserList.action({}));
-  },[])
+  }, []);
 
   useEffect(() => {
-    if(dataUserList){
-      setUserList(dataUserList.results)
+    if (dataUserList) {
+      setUserList(dataUserList.results);
     }
-  },[dataUserList])
+  }, [dataUserList]);
 
-console.log(dataUserList)
+  console.log(dataUserList);
 
   return (
     <div className="user-list">
@@ -34,30 +36,33 @@ console.log(dataUserList)
         <div className="title__text">Список персонала</div>
       </div>
       <div className="item_list">
-        {userList && userList.map((item:any) => (
-          <div className="user-item-content" key={item.id}>
-            <div className="user-item">
-              <div className="user-item__name">{item.username}</div>
-              <div className="user-item__quantity">Телефон: {item.phone}</div>
-              <div className="user-item__price">Мат. на сумму : 14550 лей.</div>
-              <div className="button-edit-user">
-                <Button onClick={() => push('ProfileAddMatPage')}>
-                  Добавить Мат.
-                </Button>
-              </div>
-              <div className="button-edit-user">
-                <Button onClick={() => push('ProfileEditMatPage')}>
-                  Редактировать Мат.
-                </Button>
-              </div>
-              <div className="button-edit-user">
-                <Button>
-                  <span>Удалить Работника</span>
-                </Button>
+        {userList &&
+          userList.map((item: any) => (
+            <div className="user-item-content" key={item.id}>
+              <div className="user-item">
+                <div className="user-item__name">{item.username}</div>
+                <div className="user-item__quantity">Телефон: {item.phone}</div>
+                <div className="user-item__price">
+                  Мат. на сумму : 14550 лей.
+                </div>
+                <div className="button-edit-user">
+                  <Button onClick={() => push('ProfileAddMatPage')}>
+                    Добавить Мат.
+                  </Button>
+                </div>
+                <div className="button-edit-user">
+                  <Button onClick={() => push('ProfileEditMatPage')}>
+                    Редактировать Мат.
+                  </Button>
+                </div>
+                <div className="button-edit-user">
+                  <Button>
+                    <span>Удалить Работника</span>
+                  </Button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { remove } from 'react-cookies';
 import { axiosHeadersUpdater } from 'axios/axios';
 
 export interface Props {
-  logout:boolean;
+  logout: boolean;
   setLogout: React.Dispatch<React.SetStateAction<boolean>>;
   userLogin: boolean | undefined;
   setUserLogin: React.Dispatch<React.SetStateAction<boolean | undefined>>;
@@ -27,7 +27,7 @@ interface ProviderProps {
 }
 
 const defaultValue = {
-  logout:false,
+  logout: false,
   setLogout: () => {},
   userLogin: undefined,
   setUserLogin: () => {},
@@ -95,14 +95,14 @@ export const ProviderContext = (props: ProviderProps) => {
   );
 
   useEffect(() => {
-    if(load('token')) {
-      setUserLogin(true)
+    if (load('token')) {
+      setUserLogin(true);
     }
     setSalaryList(dataSalaryList);
   }, []);
 
   useEffect(() => {
-    if (localStorage.getItem('userAuth') === 'login_is_true') {
+    if (load('token')) {
       axiosHeadersUpdater();
     } else {
       remove('token', { path: '/' });
@@ -112,7 +112,7 @@ export const ProviderContext = (props: ProviderProps) => {
     }
   }, [userLogin]);
 
-  console.log(userLogin)
+  console.log(userLogin);
 
   return (
     <Context.Provider

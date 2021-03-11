@@ -12,4 +12,3 @@ export const authApi = {
   authRefresh: (params: {}) =>
     axios.post(`${baseUrl}/accounts/auth/refresh`, params) // JWT authorization refresh
 };
-

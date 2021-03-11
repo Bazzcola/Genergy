@@ -22,7 +22,7 @@ export const SalaryList = () => {
     setAllAvans(salaryList.reduce((total, item) => total + item.avans, 0));
     setAllSalary(salaryList.reduce((total, item) => total + item.salary, 0));
   }, [salaryList]);
-  
+
   return (
     <div className="salary-list">
       <AdminMenu />

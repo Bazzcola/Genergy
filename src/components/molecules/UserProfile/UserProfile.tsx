@@ -7,15 +7,17 @@ import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 import './UserProfile.scss';
 
 export const UserProfile = () => {
-  const { request, data:userData, loading, errors } = useRequest<any>({data:{}});
+  const { request, data: userData, loading, errors } = useRequest<any>({
+    data: {}
+  });
 
-  React.useEffect(() => {  
-      fetch();
+  React.useEffect(() => {
+    fetch();
   }, []);
 
-  React.useEffect(() => {  
-    console.log(errors,'errrrprrr')
-}, [errors]);
+  React.useEffect(() => {
+    console.log(errors, 'errrrprrr');
+  }, [errors]);
 
   console.log(userData);
 

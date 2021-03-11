@@ -43,11 +43,11 @@ export const AdminMenu = () => {
   };
 
   const onLogout = () => {
-    localStorage.clear()
+    localStorage.clear();
     remove('token', { path: '/' });
     remove('refresh_token', { path: '/' });
     push('Logout');
-  }
+  };
 
   const menu1 = (
     <Menu onClick={handleMenuClick}>
@@ -84,7 +84,9 @@ export const AdminMenu = () => {
       <div className="container">
         <div className="company-logo">
           <img src="../assets/img/logo.png" alt="logo" />
-          <Button className="logout-button" onClick={() => onLogout()}>Выйти</Button>
+          <Button className="logout-button" onClick={() => onLogout()}>
+            Выйти
+          </Button>
         </div>
 
         <div className="header">
