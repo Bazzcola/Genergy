@@ -7,17 +7,13 @@ import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 import './UserProfile.scss';
 
 export const UserProfile = () => {
-  const { request, data: userData, loading, errors } = useRequest<any>({
+  const { request, data: userData, loading } = useRequest<any>({
     data: {}
   });
 
   React.useEffect(() => {
     fetch();
   }, []);
-
-  React.useEffect(() => {
-    console.log(errors, 'errrrprrr');
-  }, [errors]);
 
   console.log(userData);
 
@@ -66,10 +62,10 @@ export const UserProfile = () => {
               label="IDNP"
               rules={[{ type: 'email' }]}
             >
-              <Input placeholder="35214566985524" />
+              <Input placeholder={userData.idnp} />
             </Form.Item>
             <Form.Item name={['user', 'phone']} label="Phone">
-              <Input placeholder="+069431495" />
+              <Input placeholder={userData.phone} />
             </Form.Item>
             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
               <Button type="primary" htmlType="submit">

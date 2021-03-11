@@ -13,7 +13,7 @@ export const instrumentListApi = {
   },
   createInstrumentItem: {
     action: (params: {}): Promise<{ data: any }> =>
-      axios.post(`/entities/utils/`, {
+      axios.post(`/entities/utils/`, params, {
         cancelToken: new cancelToken(
           (c: Canceler) => (instrumentListApi.createInstrumentItem.cancel = c) // Create Instrument item
         )

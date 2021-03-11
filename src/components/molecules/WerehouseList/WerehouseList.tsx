@@ -1,66 +1,75 @@
 import * as React from 'react';
 import { Button } from 'antd';
 import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
+import { WerehouseAddModal } from 'components/atoms/WerehouseAddModal/WerehouseAddModal';
 
 import './WerehouseList.scss';
 
+export const dataWerehouse = [
+  {
+    werehouse_name: 'Провод медный 10х3см',
+    werehouse_quantity: 104,
+    werehouse_buy_price: 50,
+    werehouse_sell_price: 35
+  },
+  {
+    werehouse_name: 'Провод медный 10х3см',
+    werehouse_quantity: 104,
+    werehouse_buy_price: 50,
+    werehouse_sell_price: 35
+  },
+  {
+    werehouse_name: 'Провод медный 10х3см',
+    werehouse_quantity: 104,
+    werehouse_buy_price: 50,
+    werehouse_sell_price: 35
+  },
+  {
+    werehouse_name: 'Провод медный 10х3см',
+    werehouse_quantity: 104,
+    werehouse_buy_price: 50,
+    werehouse_sell_price: 35
+  },
+  {
+    werehouse_name: 'Провод медный 10х3см',
+    werehouse_quantity: 104,
+    werehouse_buy_price: 50,
+    werehouse_sell_price: 35
+  },
+  {
+    werehouse_name: 'Провод медный 10х3см',
+    werehouse_quantity: 104,
+    werehouse_buy_price: 50,
+    werehouse_sell_price: 35
+  },
+  {
+    werehouse_name: 'Провод медный 10х3см',
+    werehouse_quantity: 104,
+    werehouse_buy_price: 50,
+    werehouse_sell_price: 35
+  },
+  {
+    werehouse_name: 'Провод медный 10х3см',
+    werehouse_quantity: 104,
+    werehouse_buy_price: 50,
+    werehouse_sell_price: 35
+  }
+];
+
 export const WerehouseList = () => {
-  const dataWerehouse = [
-    {
-      werehouse_name: 'Провод медный 10х3см',
-      werehouse_quantity: 104,
-      werehouse_buy_price: 50,
-      werehouse_sell_price: 35
-    },
-    {
-      werehouse_name: 'Провод медный 10х3см',
-      werehouse_quantity: 104,
-      werehouse_buy_price: 50,
-      werehouse_sell_price: 35
-    },
-    {
-      werehouse_name: 'Провод медный 10х3см',
-      werehouse_quantity: 104,
-      werehouse_buy_price: 50,
-      werehouse_sell_price: 35
-    },
-    {
-      werehouse_name: 'Провод медный 10х3см',
-      werehouse_quantity: 104,
-      werehouse_buy_price: 50,
-      werehouse_sell_price: 35
-    },
-    {
-      werehouse_name: 'Провод медный 10х3см',
-      werehouse_quantity: 104,
-      werehouse_buy_price: 50,
-      werehouse_sell_price: 35
-    },
-    {
-      werehouse_name: 'Провод медный 10х3см',
-      werehouse_quantity: 104,
-      werehouse_buy_price: 50,
-      werehouse_sell_price: 35
-    },
-    {
-      werehouse_name: 'Провод медный 10х3см',
-      werehouse_quantity: 104,
-      werehouse_buy_price: 50,
-      werehouse_sell_price: 35
-    },
-    {
-      werehouse_name: 'Провод медный 10х3см',
-      werehouse_quantity: 104,
-      werehouse_buy_price: 50,
-      werehouse_sell_price: 35
-    }
-  ];
+  const [visible, setVisible] = React.useState<boolean>(false);
+
+  const onShowModal = () => {
+    setVisible(prev => !prev)
+  }
+
   return (
     <div className="werehouse-list">
       <AdminMenu />
+      {visible && <WerehouseAddModal onShow={onShowModal}/>}
       <div className="werehouse-list__title">
         <span>Список материалов</span>
-        <Button className="add-material">Добавить</Button>
+        <Button className="add-material" onClick={onShowModal}>Добавить</Button>
       </div>
       <div className="werehouse-list__items">
         {dataWerehouse.map((item, index) => (

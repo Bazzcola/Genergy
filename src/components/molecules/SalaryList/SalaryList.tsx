@@ -1,48 +1,48 @@
 import * as React from 'react';
-import { Context } from 'context/Context';
 import { Button } from 'antd';
+import { useRequest } from 'estafette';
 import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
+import { userListApi } from 'api/userListApi/userListApi';
 
 import './SalaryList.scss';
 
 export const SalaryList = () => {
-  const [allSalary, setAllSalary] = React.useState<number>(0);
-  const [allAvans, setAllAvans] = React.useState<number>(0);
-  const { salaryList } = React.useContext(Context);
-
-  const salaryResultItem = (x: number, y: number) => {
-    return x - y;
-  };
-
-  const salaryRemain = () => {
-    return allSalary - allAvans;
-  };
+  const { request, data: dataUserList, loading, errors } = useRequest<any>({
+    data: {}
+  });
+  const [userList, setUserList] = React.useState<any>([]);
 
   React.useEffect(() => {
-    setAllAvans(salaryList.reduce((total, item) => total + item.avans, 0));
-    setAllSalary(salaryList.reduce((total, item) => total + item.salary, 0));
-  }, [salaryList]);
+    request(userListApi.getUserList.action({}));
+  }, []);
+
+  React.useEffect(() => {
+    if (dataUserList) {
+      setUserList(dataUserList.results);
+    }
+  }, [dataUserList]);
+
+  console.log(dataUserList);
 
   return (
     <div className="salary-list">
       <AdminMenu />
-      {console.log(salaryList)}
       <div className="title">
         <div className="title__text">Список зарплат</div>
         <div className="title__period">Период 01.02.2021 - 01.03.2021</div>
       </div>
       <div className="item_list">
-        {salaryList.map((item, index) => (
-          <div className="salary-item" key={index}>
+        {userList && userList.map((item:any) => (
+          <div className="salary-item" key={item.id}>
             <div className="salary-item__name">
-              {item.name}
-              <span>{item.sex}</span>
+              {item.username}
+              <span>{item.gender}</span>
               <span>Тел. {item.phone}</span>
             </div>
-            <div className="salary-item__salary">Зарплата - {item.salary}</div>
-            <div className="salary-item__avans">Аванс - {item.avans}</div>
+            <div className="salary-item__salary">Зарплата - 0</div>
+            <div className="salary-item__avans">Аванс - 0</div>
             <div className="salary-item__result">
-              Остаток - {salaryResultItem(item.salary, item.avans)}
+              Остаток - 0
             </div>
             <div className="button-avans">
               <Button>Аванс</Button>
@@ -54,12 +54,12 @@ export const SalaryList = () => {
         ))}
       </div>
       <div className="footer">
-        <div className="title__total_number">{salaryList.length} человек</div>
+        <div className="title__total_number">{userList?.length} человек</div>
         <div className="title__total_salary">
           <span>
-            Выдал {allAvans} лей. / Осталось {salaryRemain()} лей.
+            Выдал 0 лей. / Осталось 0 лей.
           </span>
-          <span>Всего к отплате {allSalary} лей.</span>
+          <span>Всего к отплате 0 лей.</span>
         </div>
       </div>
     </div>

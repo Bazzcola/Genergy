@@ -38,6 +38,7 @@ export const AdminCreateUser = () => {
   const { request, loading } = useRequest();
 
   const onFinish = (values: any) => {
+    console.log(values)
     if (values) {
       const params = {
         username: values.user_name,
@@ -47,9 +48,9 @@ export const AdminCreateUser = () => {
         phone: values.user_phone || '',
         idnp: values.user_idno || '',
         is_admin: false,
-        is_staff: true,
-        is_agent: false,
-        is_basic: false,
+        is_staff: values.user_value === 2 ? true : false,
+        is_agent: values.salary_percent ? true : false,
+        is_basic: values.user_value === 1 ? true : false,
         hour_price: values.salary_hour && values.hour_tax ? values.hour_tax : 0,
         agent_rate: values.salary_percent ? 50 : 0
       };
@@ -76,8 +77,8 @@ export const AdminCreateUser = () => {
         className="create-user-form"
       >
         <Form.Item
-          label="Username"
-          name="username"
+          label="User Account"
+          name="user_name"
           rules={[
             {
               required: true,
@@ -102,7 +103,7 @@ export const AdminCreateUser = () => {
         </Form.Item>
         <Form.Item
           label="Имя"
-          name="user_name"
+          name="username"
           rules={[
             {
               required: true,

@@ -3,7 +3,6 @@ import { useHistory } from 'estafette-router';
 import { Button } from 'antd';
 import { useRequest } from 'estafette';
 import { userListApi } from 'api/userListApi/userListApi';
-import { Context } from 'context/Context';
 import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 
 import './UserList.scss';
@@ -12,7 +11,6 @@ export const UserList = () => {
   const { request, data: dataUserList, loading, errors } = useRequest<any>({
     data: {}
   });
-  const { salaryList } = React.useContext(Context);
   const { push } = useHistory();
 
   const [userList, setUserList] = useState<any>([]);
@@ -40,7 +38,7 @@ export const UserList = () => {
           userList.map((item: any) => (
             <div className="user-item-content" key={item.id}>
               <div className="user-item">
-                <div className="user-item__name">{item.username}</div>
+                <div className="user-item__name">{item.fullname}</div>
                 <div className="user-item__quantity">Телефон: {item.phone}</div>
                 <div className="user-item__price">
                   Мат. на сумму : 14550 лей.
