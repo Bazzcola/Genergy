@@ -13,7 +13,6 @@ interface Form {
   salary_percent: boolean;
   user_idno: string;
   user_name: string;
-  user_password: string;
   user_phone: string;
   user_sex: string;
   user_value: number;
@@ -38,7 +37,7 @@ export const AdminCreateUser = () => {
   const { request, loading } = useRequest();
 
   const onFinish = (values: any) => {
-    console.log(values)
+    console.log(values);
     if (values) {
       const params = {
         username: values.user_name,
@@ -193,19 +192,6 @@ export const AdminCreateUser = () => {
           ]}
         >
           <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Пароль"
-          name="user_password"
-          rules={[
-            {
-              required: true,
-              message: 'Please input password!'
-            }
-          ]}
-        >
-          <Input.Password />
         </Form.Item>
 
         <Form.Item className="submit-button">

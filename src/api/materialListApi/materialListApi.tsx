@@ -13,7 +13,7 @@ export const materialListApi = {
   },
   createMaterialItem: {
     action: (params: {}): Promise<{ data: any }> =>
-      axios.post(`/entities/items/`, {
+      axios.post(`/entities/items/`, params, {
         cancelToken: new cancelToken(
           (c: Canceler) => (materialListApi.createMaterialItem.cancel = c) // Create material item
         )
@@ -30,8 +30,8 @@ export const materialListApi = {
     cancel: (() => null) as Canceler
   },
   updateMaterialItem: {
-    action: (params: {}): Promise<{ data: any }> =>
-      axios.put(`/entities/items/${params}/`, {
+    action: (params: any): Promise<{ data: any }> =>
+      axios.put(`/entities/items/${params.id}/`, params, {
         cancelToken: new cancelToken(
           (c: Canceler) => (materialListApi.updateMaterialItem.cancel = c) // Update material item
         )
@@ -40,26 +40,11 @@ export const materialListApi = {
   },
   deleteMaterialItem: {
     action: (params: {}): Promise<{ data: any }> =>
-      axios.put(`/entities/items/${params}/`, {
+      axios.delete(`/entities/items/${params}/`, {
         cancelToken: new cancelToken(
           (c: Canceler) => (materialListApi.deleteMaterialItem.cancel = c) //  Delete material item
         )
       }),
     cancel: (() => null) as Canceler
   }
-
-  // getMaterialList: (params: {}) =>
-  //   axios.get(`${baseUrl}/entities/items/`, { params }), // Get material list
-
-  // createMaterialItem: (params: {}) =>
-  //   axios.post(`${baseUrl}/entities/items/`, params), // Create material item
-
-  // getMaterialItem: (params: {}) =>
-  //   axios.get(`${baseUrl}/entities/items/${params}/`), // Get material item
-
-  // updateMaterialItem: (params: {}) =>
-  //   axios.put(`${baseUrl}/entities/items/${params}/`), // Update material item
-
-  // deleteMaterialItem: (params: {}) =>
-  //   axios.delete(`${baseUrl}/entities/items/${params}/`) // Delete material item
 };

@@ -1,97 +1,115 @@
 import * as React from 'react';
 import { Button } from 'antd';
+import { useRequest } from 'estafette';
+import { materialListApi } from 'api/materialListApi/materialListApi';
+import { Loader } from 'components/atoms/Loader/Loader';
 import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 import { WerehouseAddModal } from 'components/atoms/WerehouseAddModal/WerehouseAddModal';
+import { WerehouseDeleteModal } from 'components/atoms/WerehouseDeleteModal/WerehouseDeleteModal';
 
 import './WerehouseList.scss';
 
-export const dataWerehouse = [
-  {
-    werehouse_name: 'Провод медный 10х3см',
-    werehouse_quantity: 104,
-    werehouse_buy_price: 50,
-    werehouse_sell_price: 35
-  },
-  {
-    werehouse_name: 'Провод медный 10х3см',
-    werehouse_quantity: 104,
-    werehouse_buy_price: 50,
-    werehouse_sell_price: 35
-  },
-  {
-    werehouse_name: 'Провод медный 10х3см',
-    werehouse_quantity: 104,
-    werehouse_buy_price: 50,
-    werehouse_sell_price: 35
-  },
-  {
-    werehouse_name: 'Провод медный 10х3см',
-    werehouse_quantity: 104,
-    werehouse_buy_price: 50,
-    werehouse_sell_price: 35
-  },
-  {
-    werehouse_name: 'Провод медный 10х3см',
-    werehouse_quantity: 104,
-    werehouse_buy_price: 50,
-    werehouse_sell_price: 35
-  },
-  {
-    werehouse_name: 'Провод медный 10х3см',
-    werehouse_quantity: 104,
-    werehouse_buy_price: 50,
-    werehouse_sell_price: 35
-  },
-  {
-    werehouse_name: 'Провод медный 10х3см',
-    werehouse_quantity: 104,
-    werehouse_buy_price: 50,
-    werehouse_sell_price: 35
-  },
-  {
-    werehouse_name: 'Провод медный 10х3см',
-    werehouse_quantity: 104,
-    werehouse_buy_price: 50,
-    werehouse_sell_price: 35
-  }
-];
-
 export const WerehouseList = () => {
+  const { request, data, loading } = useRequest<any>({
+    data: {},
+    loading: true
+  });
+
   const [visible, setVisible] = React.useState<boolean>(false);
+  const [editVisible, setEditVisible] = React.useState<boolean>(false);
+  const [werehouseList, setWerehouseList] = React.useState<any>([]);
+  const [materialId, setMaterialId] = React.useState<any>(null);
+
+  React.useEffect(() => {
+    onFetch();
+  }, []);
+
+  React.useEffect(() => {
+    if (data) {
+      setWerehouseList(data.results);
+    }
+  }, [data]);
+
+  console.log(werehouseList);
+
+  const onFetch = () => {
+    request(materialListApi.getMaterialList.action({}));
+  };
 
   const onShowModal = () => {
-    setVisible(prev => !prev)
-  }
+    setVisible((prev) => !prev);
+    setMaterialId(null);
+  };
+
+  const onShowEditModal = (mat_id: number) => {
+    setVisible((prev) => !prev);
+    setMaterialId(mat_id);
+  };
+
+  const onDeleteModal = () => {
+    setEditVisible((prev) => !prev);
+    setMaterialId(null);
+  };
+
+  const onShowDeleteModal = (mat_id: number) => {
+    setEditVisible((prev) => !prev);
+    setMaterialId(mat_id);
+  };
 
   return (
     <div className="werehouse-list">
       <AdminMenu />
-      {visible && <WerehouseAddModal onShow={onShowModal}/>}
+      {visible && (
+        <WerehouseAddModal
+          onShow={onShowModal}
+          onRefresh={onFetch}
+          id={materialId}
+        />
+      )}
+      {editVisible && (
+        <WerehouseDeleteModal
+          onShow={onDeleteModal}
+          onRefresh={onFetch}
+          id={materialId}
+          type="Удалить материал"
+        />
+      )}
       <div className="werehouse-list__title">
         <span>Список материалов</span>
-        <Button className="add-material" onClick={onShowModal}>Добавить</Button>
+        <Button className="add-material" onClick={onShowModal}>
+          Добавить
+        </Button>
       </div>
       <div className="werehouse-list__items">
-        {dataWerehouse.map((item, index) => (
-          <div className="werehouse-item" key={index}>
-            <div className="werehouse-item__name">{item.werehouse_name}</div>
-            <div className="werehouse-item__buy-price">
-              Ценна покупки - {item.werehouse_buy_price} лей.
+        {loading ? (
+          <Loader />
+        ) : (
+          werehouseList &&
+          werehouseList.map((item: any) => (
+            <div className="werehouse-item" key={item.id}>
+              <div className="werehouse-item__name">{item.title}</div>
+              <div className="werehouse-item__buy-price">
+                Ценна покупки - {item.price} лей.
+              </div>
+              <div className="werehouse-item__sell-price">
+                Ценна продажи - {item.price} лей.
+              </div>
+              <div className="werehouse-item__quantity">
+                Колличество - {item.count} шт.
+              </div>
+              <div className="button-edit-werehouse">
+                <Button onClick={() => onShowEditModal(item.id)}>
+                  Редактировать
+                </Button>
+              </div>
+              <div className="button-delete-werehouse">
+                <Button onClick={() => onShowDeleteModal(item.id)}>
+                  Удалить
+                </Button>
+              </div>
             </div>
-            <div className="werehouse-item__sell-price">
-              Ценна продажи - {item.werehouse_sell_price} лей.
-            </div>
-            <div className="werehouse-item__quantity">
-              Колличество - {item.werehouse_quantity} шт.
-            </div>
-            <div className="button-edit-werehouse">
-              <Button>Редактировать</Button>
-            </div>
-            <div className="button-delete-werehouse">
-              <Button>Удалить</Button>
-            </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );

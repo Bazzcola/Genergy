@@ -30,8 +30,8 @@ export const instrumentListApi = {
     cancel: (() => null) as Canceler
   },
   updateInstrumentItem: {
-    action: (params: {}): Promise<{ data: any }> =>
-      axios.put(`/entities/utils/${params}/`, {
+    action: (params: any): Promise<{ data: any }> =>
+      axios.put(`/entities/utils/${params.id}/`, params, {
         cancelToken: new cancelToken(
           (c: Canceler) => (instrumentListApi.updateInstrumentItem.cancel = c) // Update Instrument item
         )
@@ -39,7 +39,7 @@ export const instrumentListApi = {
     cancel: (() => null) as Canceler
   },
   deleteInstrumentItem: {
-    action: (params: {}): Promise<{ data: any }> =>
+    action: (params: any): Promise<{ data: any }> =>
       axios.delete(`/entities/utils/${params}/`, {
         cancelToken: new cancelToken(
           (c: Canceler) => (instrumentListApi.deleteInstrumentItem.cancel = c) // Delete Instrument item

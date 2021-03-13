@@ -16,7 +16,7 @@ export const userListApi = {
     action: (params: {}): Promise<{ data: any }> =>
       axios.post(`/accounts/users/`, params, {
         cancelToken: new cancelToken(
-          (c: Canceler) => (userListApi.updateUserList.cancel = c) // User list update
+          (c: Canceler) => (userListApi.updateUserList.cancel = c) // User list update (create)
         )
       }),
     cancel: (() => null) as Canceler
@@ -26,7 +26,7 @@ export const userListApi = {
     action: (params = {}): Promise<{ data: any }> =>
       axios.get(`/accounts/users/${params}/`, {
         cancelToken: new cancelToken(
-          (c: Canceler) => (userListApi.getUserById.cancel = c) // User retrieve
+          (c: Canceler) => (userListApi.getUserById.cancel = c) // User retrieve by id
         )
       }),
     cancel: (() => null) as Canceler
@@ -36,7 +36,7 @@ export const userListApi = {
     action: (params: {}): Promise<{ data: any }> =>
       axios.put(`/accounts/users/${params}/`, {
         cancelToken: new cancelToken(
-          (c: Canceler) => (userListApi.updateUserById.cancel = c) // User retrieve
+          (c: Canceler) => (userListApi.updateUserById.cancel = c) // User update by id
         )
       }),
     cancel: (() => null) as Canceler
@@ -46,7 +46,7 @@ export const userListApi = {
     action: (params: {}): Promise<{ data: any }> =>
       axios.delete(`/accounts/users/${params}/`, {
         cancelToken: new cancelToken(
-          (c: Canceler) => (userListApi.deleteUserById.cancel = c) // User retrieve
+          (c: Canceler) => (userListApi.deleteUserById.cancel = c) // User delete
         )
       }),
     cancel: (() => null) as Canceler
@@ -56,27 +56,9 @@ export const userListApi = {
     action: (params: {}): Promise<{ data: any }> =>
       axios.get(`/accounts/users/me/`, {
         cancelToken: new cancelToken(
-          (c: Canceler) => (userListApi.getUserProfile.cancel = c) // User retrieve
+          (c: Canceler) => (userListApi.getUserProfile.cancel = c) // User profile
         )
       }),
     cancel: (() => null) as Canceler
   }
-
-  // getUserList: (params: {}) =>
-  //  axios.get(`${baseUrl}/accounts/users/`, { params }), // User list create
-
-  // updateUserList: (params: {}) =>
-  //   axios.post(`${baseUrl}/accounts/users/`, { params }), // User list update
-
-  // getUserById: (params: {}) =>
-  //   axios.get(`${baseUrl}/accounts/users/${params}/`), // User retrieve
-
-  // updateUserById: (params: {}) =>
-  //   axios.put(`${baseUrl}/accounts/users/${params}/`), // User update
-
-  // deleteUserById: (params: {}) =>
-  //   axios.delete(`${baseUrl}/accounts/users/${params}/`), // User delete
-
-  // getUserProfile: (params: {}) =>
-  //   axios.get(`${baseUrl}/accounts/users/me/`, { params }) // User Profile
 };
