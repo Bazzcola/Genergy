@@ -13,7 +13,7 @@ export const workListApi = {
   },
   createWorkItem: {
     action: (params: {}): Promise<{ data: any }> =>
-      axios.post(`/entities/works/`, {
+      axios.post(`/entities/works/`, params, {
         cancelToken: new cancelToken(
           (c: Canceler) => (workListApi.createWorkItem.cancel = c) // Create work item
         )
@@ -21,7 +21,7 @@ export const workListApi = {
     cancel: (() => null) as Canceler
   },
   getWorkItem: {
-    action: (params: {}): Promise<{ data: any }> =>
+    action: (params: any): Promise<{ data: any }> =>
       axios.get(`/entities/works/${params}/`, {
         cancelToken: new cancelToken(
           (c: Canceler) => (workListApi.getWorkItem.cancel = c) // Get work item
@@ -30,8 +30,8 @@ export const workListApi = {
     cancel: (() => null) as Canceler
   },
   updateWorkItem: {
-    action: (params: {}): Promise<{ data: any }> =>
-      axios.put(`/entities/works/${params}/`, {
+    action: (params: any): Promise<{ data: any }> =>
+      axios.put(`/entities/works/${params.id}/`, params, {
         cancelToken: new cancelToken(
           (c: Canceler) => (workListApi.updateWorkItem.cancel = c) // Update work item
         )

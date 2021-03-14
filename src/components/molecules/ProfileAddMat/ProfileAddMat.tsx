@@ -1,40 +1,76 @@
-import React from 'react';
+import * as React from 'react';
 import { Form, Button, InputNumber, Select, Space } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { useRequest } from 'estafette';
+import { useParams } from 'estafette-router';
+import { userListApi } from 'api/userListApi/userListApi';
+import { materialListApi } from 'api/materialListApi/materialListApi';
+import { instrumentListApi } from 'api/instrumentListApi/instrumentListApi';
+import { werehouseApi } from 'api/werehouseApi/werehouseApi';
 import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 
 import './ProfileAddMat.scss';
 
 export const ProfileAddMat = () => {
-  const onFinish = (values: any) => {
-    console.log('Received values of form:', values);
+  const { userId } = useParams<any>();
+  const { request, data, loading } = useRequest<any>({ data: {} });
+  const { request: requestInventory, data: dataInventory } = useRequest<any>();
+  const { request: requestMaterial, data: dataMaterial } = useRequest<any>();
+
+  React.useEffect(() => {
+    if (userId) {
+      requestInventory(instrumentListApi.getInstrumentList.action({}));
+      requestMaterial(materialListApi.getMaterialList.action({}));
+      onFetch();
+    }
+  }, [userId]);
+
+  console.log(dataInventory.results, 'inventoryList');
+  console.log(dataMaterial.results, 'materialList');
+
+  const onFetch = () => {
+    request(userListApi.getUserById.action(userId));
   };
 
-  const materialList = [
-    { value: 'Провод' },
-    { value: 'Лампочка' },
-    { value: 'Шурупы' },
-    { value: 'Розетка' }
-  ];
+  const onFinish = (values: any) => {
+    console.log(values, 'values');
+  };
 
-  const inventoryList = [
-    { value: 'Машина Dacia Logan' },
-    { value: 'Дрель' },
-    { value: 'Набор ключей' },
-    { value: 'Набор отверток' }
-  ];
+  const materialList = React.useMemo(
+    () =>
+      dataMaterial.results
+        ? dataMaterial.results.map((item: { title: any; id: any }) => ({
+            value: item.id,
+            label: item.title
+          }))
+        : [],
+    [dataMaterial.results]
+  );
+
+  const inventoryList = React.useMemo(
+    () =>
+      dataInventory.results
+        ? dataInventory.results.map((item: { title: any; id: any }) => ({
+            value: item.id,
+            label: item.title
+          }))
+        : [],
+    [dataInventory.results]
+  );
 
   return (
     <div className="add-mat-container">
       <AdminMenu />
-      <div className="user-info">
-        <h1>Профиль работника</h1>
-        <ul>
-          <li>User name: Вова</li>
-          <li>IDNP: 213123123213</li>
-          <li>Phone: +655634343</li>
-        </ul>
-      </div>
+      {data && (
+        <div className="user-info">
+          <h1>Профиль работника</h1>
+          <ul>
+            <li>User name: {data.fullname}</li>
+            <li>IDNP: {data.idnp}</li>
+            <li>Phone: {data.phone}</li>
+          </ul>
+        </div>
+      )}
 
       <Form
         name="nest-messages"
@@ -71,8 +107,8 @@ export const ProfileAddMat = () => {
                   </Form.Item>
                   <Form.Item
                     {...field}
-                    name={[field.name, 'quantity']}
-                    fieldKey={[field.fieldKey, 'quantity']}
+                    name={[field.name, 'count']}
+                    fieldKey={[field.fieldKey, 'count']}
                     rules={[
                       {
                         required: true,

@@ -44,8 +44,6 @@ export const UserList = () => {
     setDeleteId(id);
   };
 
-  console.log(deleteId);
-
   return (
     <div className="user-list">
       <AdminMenu />
@@ -78,7 +76,11 @@ export const UserList = () => {
                   Мат. на сумму : 14550 лей.
                 </div>
                 <div className="button-edit-user">
-                  <Button onClick={() => push('ProfileAddMatPage')}>
+                  <Button
+                    onClick={() =>
+                      push('ProfileAddMatPage', { userId: item.id })
+                    }
+                  >
                     Добавить Мат.
                   </Button>
                 </div>

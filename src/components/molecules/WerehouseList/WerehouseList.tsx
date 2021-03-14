@@ -16,7 +16,7 @@ export const WerehouseList = () => {
   });
 
   const [visible, setVisible] = React.useState<boolean>(false);
-  const [editVisible, setEditVisible] = React.useState<boolean>(false);
+  const [deleteVisible, setDeleteVisible] = React.useState<boolean>(false);
   const [werehouseList, setWerehouseList] = React.useState<any>([]);
   const [materialId, setMaterialId] = React.useState<any>(null);
 
@@ -47,12 +47,12 @@ export const WerehouseList = () => {
   };
 
   const onDeleteModal = () => {
-    setEditVisible((prev) => !prev);
+    setDeleteVisible((prev) => !prev);
     setMaterialId(null);
   };
 
   const onShowDeleteModal = (mat_id: number) => {
-    setEditVisible((prev) => !prev);
+    setDeleteVisible((prev) => !prev);
     setMaterialId(mat_id);
   };
 
@@ -66,7 +66,7 @@ export const WerehouseList = () => {
           id={materialId}
         />
       )}
-      {editVisible && (
+      {deleteVisible && (
         <WerehouseDeleteModal
           onShow={onDeleteModal}
           onRefresh={onFetch}

@@ -16,7 +16,7 @@ export const InventoryList = () => {
   });
 
   const [visible, setVisible] = React.useState<boolean>(false);
-  const [editVisible, setEditVisible] = React.useState<boolean>(false);
+  const [deleteVisible, setDeleteVisible] = React.useState<boolean>(false);
   const [inventoryList, setInventoryList] = React.useState<any>([]);
   const [editId, setEditId] = React.useState<number | null>(null);
 
@@ -41,7 +41,7 @@ export const InventoryList = () => {
   };
 
   const onDeleteModal = () => {
-    setEditVisible((prev) => !prev);
+    setDeleteVisible((prev) => !prev);
     setEditId(null);
   };
 
@@ -51,7 +51,7 @@ export const InventoryList = () => {
   };
 
   const onShowDeleteModal = (id: number) => {
-    setEditVisible((prev) => !prev);
+    setDeleteVisible((prev) => !prev);
     setEditId(id);
   };
 
@@ -65,7 +65,7 @@ export const InventoryList = () => {
           id={editId}
         />
       )}
-      {editVisible && (
+      {deleteVisible && (
         <InventoryDeleteModal
           onShow={onDeleteModal}
           onRefresh={onFetch}

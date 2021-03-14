@@ -40,95 +40,95 @@ const SalaryListPage = (): React.ReactNode => <SalaryList />;
 
 export const routes: Routes[] = [
   { name: 'Login', path: '/', exact: true, component: LoginPage },
-  { name: 'AdminPage', path: '/admin_menu', exact: true, component: AdminPage },
-  { name: 'StaffPage', path: '/staff_menu', exact: true, component: StaffPage },
+  { name: 'AdminPage', path: '/admin-menu', exact: true, component: AdminPage },
+  { name: 'StaffPage', path: '/staff-menu', exact: true, component: StaffPage },
   {
     name: 'SalaryListPage',
-    path: '/admin_menu/salary_list',
+    path: '/admin-menu/salary-list',
     exact: true,
     component: SalaryListPage
   },
   {
     name: 'CurrentObjectPage',
-    path: '/admin_menu/curent_object',
+    path: '/admin-menu/curent-object',
     exact: true,
     component: CurrentObjectPage
   },
   {
     name: 'EditObjectPage',
-    path: '/admin_menu/edit_object',
+    path: '/admin-menu/edit-object',
     exact: true,
     component: EditObjectPage
   },
   {
     name: 'AddWorkerTimePage',
-    path: '/admin_menu/edit_object_worker_time',
+    path: '/admin-menu/edit-object-worker-time',
     exact: true,
     component: AddWorkerTimePage
   },
   {
     name: 'ProfileEditMatPage',
-    path: '/admin_menu/user_profile_edit_material',
+    path: '/admin-menu/user-profile-edit-material',
     exact: true,
     component: ProfileEditMatPage
   },
   {
     name: 'WaitingObjectListPage',
-    path: '/admin_menu/object_waiting_list',
+    path: '/admin-menu/object-waiting-list',
     exact: true,
     component: WaitingObjectListPage
   },
   {
     name: 'ProfileAddMatPage',
-    path: '/admin_menu/user_profile_add_material',
+    path: '/admin-menu/user-profile-add-material/:userId',
     exact: true,
     component: ProfileAddMatPage
   },
   {
     name: 'UserProfilePage',
-    path: '/admin_menu/user_profile',
+    path: '/admin-menu/user-profile',
     exact: true,
     component: UserProfilePage
   },
   {
     name: 'UserListPage',
-    path: '/admin_menu/user_list',
+    path: '/admin-menu/user-list',
     exact: true,
     component: UserListPage
   },
   {
     name: 'InventoryListPage',
-    path: '/admin_menu/inventory_list',
+    path: '/admin-menu/inventory-list',
     exact: true,
     component: InventoryListPage
   },
   {
     name: 'ObjectListPage',
-    path: '/admin_menu/object_list',
+    path: '/admin-menu/object-list',
     exact: true,
     component: ObjectListPage
   },
   {
     name: 'WerehouseListPage',
-    path: '/admin_menu/werehouse_list',
+    path: '/admin-menu/werehouse-list',
     exact: true,
     component: WerehouseListPage
   },
   {
     name: 'WorkListPage',
-    path: '/admin_menu/work_price_list',
+    path: '/admin-menu/work-price-list',
     exact: true,
     component: WorkListPage
   },
   {
     name: 'AdminCreateUserPage',
-    path: '/admin_menu/create_user',
+    path: '/admin-menu/create-user',
     exact: true,
     component: AdminCreateUserPage
   },
   {
     name: 'CreateObjectPage',
-    path: '/admin_menu/create_object',
+    path: '/admin-menu/create-object',
     exact: true,
     component: CreateObjectPage
   }

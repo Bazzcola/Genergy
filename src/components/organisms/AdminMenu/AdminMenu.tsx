@@ -83,7 +83,7 @@ export const AdminMenu = () => {
 
       <div className="container">
         <div className="company-logo">
-          <img src="../assets/img/logo.png" alt="logo" />
+          <img src="/assets/img/logo.png" alt="logo" />
           <Button className="logout-button" onClick={() => onLogout()}>
             Выйти
           </Button>
