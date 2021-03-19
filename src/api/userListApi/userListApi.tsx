@@ -3,8 +3,8 @@ import { axios, cancelToken } from 'axios/axios';
 
 export const userListApi = {
   getUserList: {
-    action: (params: {}): Promise<{ data: any }> =>
-      axios.get(`/accounts/users/`, {
+    action: (params: any): Promise<{ data: any }> =>
+      axios.get(`/accounts/users/${params ? `?search=${params}` : ``}`, {
         cancelToken: new cancelToken(
           (c: Canceler) => (userListApi.getUserList.cancel = c) // User list create
         )

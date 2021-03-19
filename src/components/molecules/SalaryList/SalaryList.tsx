@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button } from 'antd';
+import { Button, Input } from 'antd';
 import { useRequest } from 'estafette';
 import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 import { userListApi } from 'api/userListApi/userListApi';
@@ -12,11 +12,22 @@ export const SalaryList = () => {
     data: {},
     loading: true
   });
+  const { Search } = Input;
+
   const [userList, setUserList] = React.useState<any>([]);
+  const [searchValue, setSearchValue] = React.useState<string>('');
+  const [check, setCheck] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    request(userListApi.getUserList.action({}));
+    request(userListApi.getUserList.action(searchValue));
+    setCheck(true);
   }, []);
+
+  React.useEffect(() => {
+    if (check) {
+      request(userListApi.getUserList.action(searchValue));
+    }
+  }, [searchValue]);
 
   React.useEffect(() => {
     if (dataUserList) {
@@ -24,14 +35,25 @@ export const SalaryList = () => {
     }
   }, [dataUserList]);
 
-  console.log(dataUserList);
+  const onSearch = (value: string) => setSearchValue(value);
 
   return (
     <div className="salary-list">
       <AdminMenu />
       <div className="title">
-        <div className="title__text">Список зарплат</div>
-        <div className="title__period">Период 01.02.2021 - 01.03.2021</div>
+        <div className="title__info">
+          <div className="title__text">Список зарплат</div>
+          <div className="title__period">Период 01.02.2021 - 01.03.2021</div>
+        </div>
+
+        <Search
+          placeholder="Введите текст"
+          allowClear
+          enterButton="Поиск"
+          onSearch={onSearch}
+          className="search-input"
+          loading={loading}
+        />
       </div>
       <div className="item_list">
         {loading ? (
@@ -41,7 +63,7 @@ export const SalaryList = () => {
           userList.map((item: any) => (
             <div className="salary-item" key={item.id}>
               <div className="salary-item__name">
-                {item.username}
+                {item.fullname}
                 <span>{item.gender}</span>
                 <span>Тел. {item.phone}</span>
               </div>

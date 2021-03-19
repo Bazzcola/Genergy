@@ -10,8 +10,26 @@
       display: block;
     }
 
-    &__text {
-      color: rgb(0, 153, 255);
+    &__info {
+      display: flex;
+
+      .title__text {
+        color: rgb(0, 153, 255);
+        margin-right: 20px;
+      }
+
+      .title__period {
+        display: flex;
+        align-items: center;
+        margin-top: -2px;
+        font-size: 16px;
+        line-height: 16px;
+      }
+    }
+
+    .search-input {
+      max-width: 300px;
+      width: 100%;
     }
   }
 

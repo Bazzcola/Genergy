@@ -3,8 +3,8 @@ import { axios, cancelToken } from 'axios/axios';
 
 export const workListApi = {
   getWorkList: {
-    action: (params: {}): Promise<{ data: any }> =>
-      axios.get(`/entities/works/`, {
+    action: (params: any): Promise<{ data: any }> =>
+      axios.get(`/entities/works/${params ? `?search=${params}` : ``}`, {
         cancelToken: new cancelToken(
           (c: Canceler) => (workListApi.getWorkList.cancel = c) // Get work list
         )

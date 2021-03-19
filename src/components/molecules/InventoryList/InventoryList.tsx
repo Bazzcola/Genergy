@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button } from 'antd';
+import { Button, Input } from 'antd';
 import { useRequest } from 'estafette';
 import { instrumentListApi } from 'api/instrumentListApi/instrumentListApi';
 import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
@@ -14,15 +14,25 @@ export const InventoryList = () => {
     data: {},
     loading: true
   });
+  const { Search } = Input;
 
   const [visible, setVisible] = React.useState<boolean>(false);
   const [deleteVisible, setDeleteVisible] = React.useState<boolean>(false);
   const [inventoryList, setInventoryList] = React.useState<any>([]);
   const [editId, setEditId] = React.useState<number | null>(null);
+  const [searchValue, setSearchValue] = React.useState<string>('');
+  const [check, setCheck] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     onFetch();
+    setCheck(true);
   }, []);
+
+  React.useEffect(() => {
+    if (check) {
+      onFetch();
+    }
+  }, [searchValue]);
 
   React.useEffect(() => {
     if (data) {
@@ -31,7 +41,7 @@ export const InventoryList = () => {
   }, [data]);
 
   const onFetch = () => {
-    request(instrumentListApi.getInstrumentList.action({}));
+    request(instrumentListApi.getInstrumentList.action(searchValue));
     setEditId(null);
   };
 
@@ -55,6 +65,8 @@ export const InventoryList = () => {
     setEditId(id);
   };
 
+  const onSearch = (value: string) => setSearchValue(value);
+
   return (
     <div className="inventory-list">
       <AdminMenu />
@@ -76,9 +88,21 @@ export const InventoryList = () => {
 
       <div className="title">
         <div className="title__text">Список инвентаря</div>
-        <Button className="add-button" onClick={onShowModal}>
-          Добавить
-        </Button>
+
+        <div className="action-group">
+          <Search
+            placeholder="Введите текст"
+            allowClear
+            enterButton="Поиск"
+            onSearch={onSearch}
+            className="search-input"
+            loading={loading}
+          />
+
+          <Button className="add-button" onClick={onShowModal}>
+            Добавить
+          </Button>
+        </div>
       </div>
       <div className="item_list">
         {loading ? (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'estafette-router';
-import { Button } from 'antd';
+import { Button, Input } from 'antd';
 import { useRequest } from 'estafette';
 import { userListApi } from 'api/userListApi/userListApi';
 import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
@@ -13,16 +13,25 @@ export const UserList = () => {
   const { request, data: dataUserList, loading, errors } = useRequest<any>({
     data: {}
   });
-
+  const { Search } = Input;
   const { push } = useHistory();
 
   const [userList, setUserList] = useState<any>([]);
   const [deleteVisible, setDeleteVisible] = useState<boolean>(false);
   const [deleteId, setDeleteId] = useState<number | null>(null);
+  const [searchValue, setSearchValue] = React.useState<string>('');
+  const [check, setCheck] = React.useState<boolean>(false);
 
   useEffect(() => {
     onFetch();
+    setCheck(true);
   }, []);
+
+  useEffect(() => {
+    if (check) {
+      onFetch();
+    }
+  }, [searchValue]);
 
   useEffect(() => {
     if (dataUserList) {
@@ -31,7 +40,7 @@ export const UserList = () => {
   }, [dataUserList]);
 
   const onFetch = () => {
-    request(userListApi.getUserList.action({}));
+    request(userListApi.getUserList.action(searchValue));
   };
 
   const onDeleteUser = () => {
@@ -43,6 +52,8 @@ export const UserList = () => {
     setDeleteVisible((prev) => !prev);
     setDeleteId(id);
   };
+
+  const onSearch = (value: string) => setSearchValue(value);
 
   return (
     <div className="user-list">
@@ -57,6 +68,15 @@ export const UserList = () => {
       )}
       <div className="title">
         <div className="title__text">Список персонала</div>
+
+        <Search
+          placeholder="Введите текст"
+          allowClear
+          enterButton="Поиск"
+          onSearch={onSearch}
+          className="search-input"
+          loading={loading}
+        />
       </div>
       <div className="item_list">
         {loading ? (

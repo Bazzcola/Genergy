@@ -3,8 +3,8 @@ import { axios, cancelToken } from 'axios/axios';
 
 export const instrumentListApi = {
   getInstrumentList: {
-    action: (params: {}): Promise<{ data: any }> =>
-      axios.get(`/entities/utils/`, {
+    action: (params: any): Promise<{ data: any }> =>
+      axios.get(`/entities/utils/${params ? `?search=${params}` : ``}`, {
         cancelToken: new cancelToken(
           (c: Canceler) => (instrumentListApi.getInstrumentList.cancel = c) // Get Instrument list
         )

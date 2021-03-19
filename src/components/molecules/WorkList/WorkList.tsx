@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button } from 'antd';
+import { Button, Input } from 'antd';
 import { useRequest } from 'estafette';
 import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 import { WorkAddModal } from 'components/atoms/WorkAddModal/WorkAddModal';
@@ -11,14 +11,18 @@ import './WorkList.scss';
 
 export const WorkList = () => {
   const { request, data, loading } = useRequest<any>({ data: {} });
+  const { Search } = Input;
 
   const [visible, setVisible] = React.useState<boolean>(false);
   const [deleteVisible, setDeleteVisible] = React.useState<boolean>(false);
   const [workId, setWorkId] = React.useState<number | null>(null);
   const [dataWorkList, setDataWorkList] = React.useState<any>([]);
+  const [searchValue, setSearchValue] = React.useState<string>('');
+  const [check, setCheck] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     onFetch();
+    setCheck(true);
   }, []);
 
   React.useEffect(() => {
@@ -27,8 +31,14 @@ export const WorkList = () => {
     }
   }, [data]);
 
+  React.useEffect(() => {
+    if (check) {
+      onFetch();
+    }
+  }, [searchValue]);
+
   const onFetch = () => {
-    request(workListApi.getWorkList.action({}));
+    request(workListApi.getWorkList.action(searchValue));
   };
 
   const onShowModal = () => {
@@ -51,12 +61,16 @@ export const WorkList = () => {
     setWorkId(mat_id);
   };
 
+  const onSearch = (value: string) => setSearchValue(value);
+
   return (
     <div className="work-list">
       <AdminMenu />
+
       {visible && (
         <WorkAddModal onShow={onShowModal} onRefresh={onFetch} id={workId} />
       )}
+
       {deleteVisible && (
         <WorkDeleteModal
           onShow={onDeleteModal}
@@ -65,11 +79,24 @@ export const WorkList = () => {
           type="Удалить работу"
         />
       )}
+
       <div className="title">
         <div className="title__text">Список работ</div>
-        <Button className="add-button" onClick={onShowModal}>
-          Добавить
-        </Button>
+
+        <div className="action-group">
+          <Search
+            placeholder="Введите текст"
+            allowClear
+            enterButton="Поиск"
+            onSearch={onSearch}
+            className="search-input"
+            loading={loading}
+          />
+
+          <Button className="add-button" onClick={onShowModal}>
+            Добавить
+          </Button>
+        </div>
       </div>
       <div className="item_list">
         {loading ? (
