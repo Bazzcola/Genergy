@@ -10,79 +10,104 @@ import {
   Radio
 } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { useRequest } from 'estafette';
+import DatePicker from "react-datepicker";
+import { objectApi } from 'api/objectApi/objectApi';
+import { userListApi } from 'api/userListApi/userListApi';
+import { workListApi } from 'api/workListApi/workListApi';
+import { materialListApi } from 'api/materialListApi/materialListApi';
 import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 
 import './CreateObject.scss';
+import "react-datepicker/dist/react-datepicker.css";
 
-interface ObjectForm {
-  object: {
-    object_master: string;
-    object_description: string;
-    object_name: string;
-    object_avans: number;
-    object_worker_list: string[];
-    object_work_total_list: {
-      work: string;
-      quantity: number;
-    };
-  };
-}
+export const workerRender = (props: any) => {
+  const { label, closable, onClose } = props;
+
+  return (
+    <Tag
+      color={'cyan'}
+      closable={closable}
+      onClose={onClose}
+      style={{ marginRight: 3, marginTop: 3 }}
+    >
+      {label}
+    </Tag>
+  );
+};
+
+export const validateMessages = {
+  required: '${label} обязательно!'
+};
+
+export const layout = {
+  labelCol: {
+    span: 8
+  },
+  wrapperCol: {
+    span: 16
+  }
+};
 
 export const CreateObject = () => {
-  const [test, setTest] = React.useState<ObjectForm>();
-  const [value, setValue] = React.useState(0);
+  const {request, loading} = useRequest();
+  const {request:requestProfile, data:dataProfile} = useRequest<any>();
+  const {request:requestWorkList, data:dataWorkList} = useRequest<any>();
+  const {request:requestMaterialList, data:dataMaterialList} = useRequest<any>();
+  const {request:requestUsersList, data:dataUsersList} = useRequest<any>();
 
-  const layout = {
-    labelCol: {
-      span: 8
-    },
-    wrapperCol: {
-      span: 16
+  const [value, setValue] = React.useState(0);
+  const [hold, setHold] = React.useState(false);
+  const [workList, setWorkList] = React.useState<any>([]);
+  const [materialList, setMaterialList] = React.useState<any>([]);
+  const [usersList, setUsersList] = React.useState<any>([]);
+  const [startDate, setStartDate] = React.useState<any>(new Date());
+
+  React.useEffect(() => {
+    fetch();
+  },[])
+
+  React.useEffect(() => {
+    if(dataWorkList.results && dataMaterialList.results && dataUsersList.results) {
+      setWorkList(dataWorkList.results.map((item:any) => ({value:item.id, label:item.title})));
+      setMaterialList(dataMaterialList.results.map((item:any) => ({value:item.id, label:item.title})));
+      setUsersList(dataUsersList.results.map((item:any) => ({value:item.id, label:item.fullname})))
     }
+  },[dataWorkList, dataMaterialList, dataUsersList])
+
+  const fetch = () => {
+    requestProfile(userListApi.getUserProfile.action({}));
+    requestWorkList(workListApi.getWorkList.action(''));
+    requestMaterialList(materialListApi.getMaterialList.action({}));
+    requestUsersList(userListApi.getUserList.action(''));
   };
 
   const onChange = (e: any) => {
-    console.log('radio checked', e.target.value);
     setValue(e.target.value);
   };
 
-  const validateMessages = {
-    required: '${label} обязательно!'
-  };
-
-  const onFinish = (values: ObjectForm) => {
+  const onFinish = (values: any) => {
     console.log('Received values of form:', values);
-    setTest(values);
+
+    const keys = values.object.executors.map((item:any) => ({user:item}))
+
+    const params = {
+      exercises:values.object.exercises,
+      executors: keys,
+      materials:values.object.materials,
+      title: values.object.title,
+      state: !hold ? "OPEN" : 'HOLD',
+      prepaid: values.object.prepaid,
+      discount: values.object.discount,
+      owner: dataProfile.id,
+    }
+
+    request(objectApi.createObject.action(params));
   };
 
-  const workerListOptions = [
-    { value: 'Ваня' },
-    { value: 'Петя' },
-    { value: 'Саша' },
-    { value: 'Дима' }
-  ];
-
-  const workerPriceListOptions = [
-    { value: 'Установка розетки 1' },
-    { value: 'Установка розетки 2' },
-    { value: 'Установка розетки 3' },
-    { value: 'Установка розетки 4' }
-  ];
-
-  const workerRender = (props: any) => {
-    const { label, closable, onClose } = props;
-
-    return (
-      <Tag
-        color={'cyan'}
-        closable={closable}
-        onClose={onClose}
-        style={{ marginRight: 3, marginTop: 3 }}
-      >
-        {label}
-      </Tag>
-    );
-  };
+  const onHoldingObject = () => {
+    setHold(prev => !prev);
+  }
 
   return (
     <div className="create-object-container">
@@ -97,7 +122,7 @@ export const CreateObject = () => {
         className="object-form"
       >
         <Form.Item
-          name={['object', 'object_name']}
+          name={['object', 'title']}
           label="Название объекта"
           rules={[
             {
@@ -107,20 +132,22 @@ export const CreateObject = () => {
         >
           <Input placeholder="Введите название объекта" />
         </Form.Item>
+
         <Form.Item
-          name={['object', 'object_description']}
-          label="Описание объекта"
+          name={['object', 'object_date_end']}
+          label="Дата конца работы"
           rules={[
             {
               required: true
             }
           ]}
         >
-          <Input.TextArea placeholder="Введите описание объекта" />
+          <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
         </Form.Item>
 
         <Form.Item
-          name={['object', 'object_worker_list']}
+          name={['object', 'executors']}
+          key={'count'}
           label="Список работников"
           rules={[
             {
@@ -134,12 +161,12 @@ export const CreateObject = () => {
             showArrow
             tagRender={workerRender}
             style={{ width: '100%' }}
-            options={workerListOptions}
+            options={usersList}
           />
         </Form.Item>
 
         <div className="add-inputs">
-          <Form.List name={['object', 'object_work_total_list']}>
+          <Form.List name={['object', 'exercises']}>
             {(fields, { add, remove }) => (
               <>
                 {fields.map((field) => (
@@ -164,13 +191,13 @@ export const CreateObject = () => {
                         showArrow
                         tagRender={workerRender}
                         className="select-materials"
-                        options={workerPriceListOptions}
+                        options={workList}
                       />
                     </Form.Item>
                     <Form.Item
                       {...field}
-                      name={[field.name, 'quantity']}
-                      fieldKey={[field.fieldKey, 'quantity']}
+                      name={[field.name, 'count']}
+                      fieldKey={[field.fieldKey, 'count']}
                       rules={[
                         {
                           required: true,
@@ -200,7 +227,7 @@ export const CreateObject = () => {
             )}
           </Form.List>
 
-          <Form.List name={['object', 'object_material_total_list']}>
+          <Form.List name={['object', 'materials']}>
             {(fields, { add, remove }) => (
               <>
                 {fields.map((field) => (
@@ -211,8 +238,8 @@ export const CreateObject = () => {
                   >
                     <Form.Item
                       {...field}
-                      name={[field.name, 'material']}
-                      fieldKey={[field.fieldKey, 'material']}
+                      name={[field.name, 'item']}
+                      fieldKey={[field.fieldKey, 'item']}
                       rules={[
                         {
                           required: true,
@@ -225,13 +252,13 @@ export const CreateObject = () => {
                         showArrow
                         tagRender={workerRender}
                         className="select-materials"
-                        options={workerPriceListOptions}
+                        options={materialList}
                       />
                     </Form.Item>
                     <Form.Item
                       {...field}
-                      name={[field.name, 'quantity']}
-                      fieldKey={[field.fieldKey, 'quantity']}
+                      name={[field.name, 'count']}
+                      fieldKey={[field.fieldKey, 'count']}
                       rules={[
                         {
                           required: true,
@@ -264,7 +291,7 @@ export const CreateObject = () => {
 
         <Form.Item
           className="avans_field"
-          name={['object', 'object_avans']}
+          name={['object', 'prepaid']}
           label="Аванс"
           rules={[
             {
@@ -279,7 +306,7 @@ export const CreateObject = () => {
         </Form.Item>
         <Form.Item
           className="radio-percent"
-          name={['object', 'percent']}
+          name={['object', 'discount']}
           label="Скидка"
         >
           <Radio.Group onChange={onChange} value={value}>
@@ -293,13 +320,14 @@ export const CreateObject = () => {
         <Form.Item>
           <div className="submit-buttons">
             <Button
+              loading={loading}
               type="primary"
               htmlType="submit"
               className="object-submit-btn"
             >
               Создать
             </Button>
-            <Button>Добавить в ожидания</Button>
+            <Button onClick={onHoldingObject} danger={hold}>{hold ? 'Объект в ожидании' : 'Добавить в ожидание'}</Button>
           </div>
         </Form.Item>
       </Form>

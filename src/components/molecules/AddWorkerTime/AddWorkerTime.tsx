@@ -21,7 +21,7 @@ export const AddWorkerTime = () => {
     <div className="worker-time-container">
       <AdminMenu />
       <h1>Выставить время на объекте</h1>
-      <Form onFinish={onFinish}>
+      <Form onFinish={onFinish} className="form-add-time">
         <Form.List name={['object', 'object_worker_time']}>
           {(fields, { add, remove }) => (
             <>
