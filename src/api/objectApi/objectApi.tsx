@@ -19,5 +19,5 @@ export const objectApi = {
         )
       }),
     cancel: (() => null) as Canceler
-  },
+  }
 };

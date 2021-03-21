@@ -1,11 +1,13 @@
 import React from 'react';
 import { Button, Form, InputNumber, Select, Space } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { useParams } from 'estafette-router';
 import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 
 import './AddWorkerTime.scss';
 
 export const AddWorkerTime = () => {
+  const { objectId } = useParams<any>();
   const workerListOptions = [
     { value: 'Ваня' },
     { value: 'Петя' },

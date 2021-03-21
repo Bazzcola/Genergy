@@ -56,13 +56,13 @@ export const routes: Routes[] = [
   },
   {
     name: 'EditObjectPage',
-    path: '/admin-menu/edit-object',
+    path: '/admin-menu/edit-object/:objectId',
     exact: true,
     component: EditObjectPage
   },
   {
     name: 'AddWorkerTimePage',
-    path: '/admin-menu/edit-object-worker-time',
+    path: '/admin-menu/edit-object-worker-time/:objectId',
     exact: true,
     component: AddWorkerTimePage
   },

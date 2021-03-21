@@ -11,7 +11,7 @@ import {
 } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { useRequest } from 'estafette';
-import DatePicker from "react-datepicker";
+import DatePicker from 'react-datepicker';
 import { objectApi } from 'api/objectApi/objectApi';
 import { userListApi } from 'api/userListApi/userListApi';
 import { workListApi } from 'api/workListApi/workListApi';
@@ -19,7 +19,7 @@ import { materialListApi } from 'api/materialListApi/materialListApi';
 import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 
 import './CreateObject.scss';
-import "react-datepicker/dist/react-datepicker.css";
+import 'react-datepicker/dist/react-datepicker.css';
 
 export const workerRender = (props: any) => {
   const { label, closable, onClose } = props;
@@ -50,12 +50,14 @@ export const layout = {
 };
 
 export const CreateObject = () => {
-  const {request, loading} = useRequest();
-  const {request:requestProfile, data:dataProfile} = useRequest<any>();
-  const {request:requestWorkList, data:dataWorkList} = useRequest<any>();
-  const {request:requestMaterialList, data:dataMaterialList} = useRequest<any>();
-  const {request:requestUsersList, data:dataUsersList} = useRequest<any>();
-  const dateFormat = require("dateformat");
+  const { request, loading } = useRequest();
+  const { request: requestProfile, data: dataProfile } = useRequest<any>();
+  const { request: requestWorkList, data: dataWorkList } = useRequest<any>();
+  const { request: requestMaterialList, data: dataMaterialList } = useRequest<
+    any
+  >();
+  const { request: requestUsersList, data: dataUsersList } = useRequest<any>();
+  const dateFormat = require('dateformat');
 
   const [value, setValue] = React.useState(0);
   const [hold, setHold] = React.useState(false);
@@ -66,15 +68,34 @@ export const CreateObject = () => {
 
   React.useEffect(() => {
     fetch();
-  },[])
+  }, []);
 
   React.useEffect(() => {
-    if(dataWorkList.results && dataMaterialList.results && dataUsersList.results) {
-      setWorkList(dataWorkList.results.map((item:any) => ({value:item.id, label:item.title})));
-      setMaterialList(dataMaterialList.results.map((item:any) => ({value:item.id, label:item.title})));
-      setUsersList(dataUsersList.results.map((item:any) => ({value:item.id, label:item.fullname})))
+    if (
+      dataWorkList.results &&
+      dataMaterialList.results &&
+      dataUsersList.results
+    ) {
+      setWorkList(
+        dataWorkList.results.map((item: any) => ({
+          value: item.id,
+          label: item.title
+        }))
+      );
+      setMaterialList(
+        dataMaterialList.results.map((item: any) => ({
+          value: item.id,
+          label: item.title
+        }))
+      );
+      setUsersList(
+        dataUsersList.results.map((item: any) => ({
+          value: item.id,
+          label: item.fullname
+        }))
+      );
     }
-  },[dataWorkList, dataMaterialList, dataUsersList])
+  }, [dataWorkList, dataMaterialList, dataUsersList]);
 
   const fetch = () => {
     requestProfile(userListApi.getUserProfile.action({}));
@@ -90,29 +111,29 @@ export const CreateObject = () => {
   const onFinish = (values: any) => {
     console.log('Received values of form:', values);
 
-    const keys = values.object.executors.map((item:any) => ({user:item}))
-    const endDate = dateFormat(startDate, "yyyy-mm-dd hh:mm:ss");
+    const keys = values.object.executors.map((item: any) => ({ user: item }));
+    const endDate = dateFormat(startDate, 'yyyy-mm-dd hh:mm:ss');
 
     const params = {
-      date_ending:endDate,
-      exercises:values.object.exercises,
+      date_ending: endDate,
+      exercises: values.object.exercises,
       executors: keys,
-      materials:values.object.materials,
+      materials: values.object.materials,
       title: values.object.title,
-      state: !hold ? "OPEN" : 'HOLD',
+      state: !hold ? 'OPEN' : 'HOLD',
       prepaid: values.object.prepaid,
       discount: values.object.discount,
-      owner: dataProfile.id,
-    }
+      owner: dataProfile.id
+    };
 
     request(objectApi.createObject.action(params));
   };
 
-console.log(dateFormat(startDate, "yyyy-mm-dd hh:mm:ss"))
+  console.log(dateFormat(startDate, 'yyyy-mm-dd hh:mm:ss'));
 
   const onHoldingObject = () => {
-    setHold(prev => !prev);
-  }
+    setHold((prev) => !prev);
+  };
 
   return (
     <div className="create-object-container">
@@ -147,7 +168,11 @@ console.log(dateFormat(startDate, "yyyy-mm-dd hh:mm:ss"))
             }
           ]}
         >
-          <DatePicker selected={startDate} onChange={date => setStartDate(date)} className="data-picker"/>
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+            className="data-picker"
+          />
         </Form.Item>
 
         <Form.Item
@@ -332,7 +357,9 @@ console.log(dateFormat(startDate, "yyyy-mm-dd hh:mm:ss"))
             >
               Создать
             </Button>
-            <Button onClick={onHoldingObject} danger={hold}>{hold ? 'Объект в ожидании' : 'Добавить в ожидание'}</Button>
+            <Button onClick={onHoldingObject} danger={hold}>
+              {hold ? 'Объект в ожидании' : 'Добавить в ожидание'}
+            </Button>
           </div>
         </Form.Item>
       </Form>

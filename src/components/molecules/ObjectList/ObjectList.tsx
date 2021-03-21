@@ -1,196 +1,147 @@
 import * as React from 'react';
-import { Button } from 'antd';
+import { Button, Input } from 'antd';
 import { useHistory } from 'estafette-router';
+import { useRequest } from 'estafette';
+import { objectApi } from 'api/objectApi/objectApi';
+import { Loader } from 'components/atoms/Loader/Loader';
 import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 
 import './ObjectList.scss';
 
 export const ObjectList = () => {
   const { push } = useHistory();
-  const objectList = [
-    {
-      object_name: 'Ларёк',
-      object_description:
-        'Описание обьекта. Ларёк или будка или хз что там Федя чинит, провода провести, счетчик смотать или левый свет замутить, как то так!',
-      object_workers: ['Петя', 'Вася', 'Женя'],
-      object_work_description: [
-        { work: 'Замена розетки', price: '100', quantity: '5' },
-        { work: 'Замена розетки', price: '100', quantity: '5' },
-        { work: 'Замена розетки', price: '100', quantity: '5' }
-      ],
-      object_work_material: [
-        { title: 'Провод 20/3', price: '50', quantity: '2' },
-        { title: 'Розетка', price: '70', quantity: '5' }
-      ],
-      object_work_detail_price: 1440,
-      object_work_avans: 0,
-      object_work_price: 1440
-    },
-    {
-      object_name: 'Ларёк',
-      object_description:
-        'Описание обьекта. Ларёк или будка или хз что там Федя чинит, провода провести, счетчик смотать или левый свет замутить, как то так!',
-      object_workers: ['Петя', 'Вася', 'Женя'],
-      object_work_description: [
-        { work: 'Замена розетки', price: '100', quantity: '5' },
-        { work: 'Замена розетки', price: '100', quantity: '5' },
-        { work: 'Замена розетки', price: '100', quantity: '5' }
-      ],
-      object_work_material: [
-        { title: 'Провод 20/3', price: '50', quantity: '2' },
-        { title: 'Розетка', price: '70', quantity: '5' }
-      ],
-      object_work_detail_price: 1440,
-      object_work_avans: 0,
-      object_work_price: 1440
-    },
-    {
-      object_name: 'Ларёк',
-      object_description:
-        'Описание обьекта. Ларёк или будка или хз что там Федя чинит, провода провести, счетчик смотать или левый свет замутить, как то так!',
-      object_workers: ['Петя', 'Вася', 'Женя'],
-      object_work_description: [
-        { work: 'Замена розетки', price: '100', quantity: '5' },
-        { work: 'Замена розетки', price: '100', quantity: '5' },
-        { work: 'Замена розетки', price: '100', quantity: '5' }
-      ],
-      object_work_material: [
-        { title: 'Провод 20/3', price: '50', quantity: '2' },
-        { title: 'Розетка', price: '70', quantity: '5' }
-      ],
-      object_work_detail_price: 1440,
-      object_work_avans: 0,
-      object_work_price: 1440
-    },
-    {
-      object_name: 'Ларёк',
-      object_description:
-        'Описание обьекта. Ларёк или будка или хз что там Федя чинит, провода провести, счетчик смотать или левый свет замутить, как то так!',
-      object_workers: ['Петя', 'Вася', 'Женя'],
-      object_work_description: [
-        { work: 'Замена розетки', price: '100', quantity: '5' },
-        { work: 'Замена розетки', price: '100', quantity: '5' },
-        { work: 'Замена розетки', price: '100', quantity: '5' }
-      ],
-      object_work_material: [
-        { title: 'Провод 20/3', price: '50', quantity: '2' },
-        { title: 'Розетка', price: '70', quantity: '5' }
-      ],
-      object_work_detail_price: 1440,
-      object_work_avans: 0,
-      object_work_price: 1440
-    },
-    {
-      object_name: 'Ларёк',
-      object_description:
-        'Описание обьекта. Ларёк или будка или хз что там Федя чинит, провода провести, счетчик смотать или левый свет замутить, как то так!',
-      object_workers: ['Петя', 'Вася', 'Женя'],
-      object_work_description: [
-        { work: 'Замена розетки', price: '100', quantity: '5' },
-        { work: 'Замена розетки', price: '100', quantity: '5' },
-        { work: 'Замена розетки', price: '100', quantity: '5' }
-      ],
-      object_work_material: [
-        { title: 'Провод 20/3', price: '50', quantity: '2' },
-        { title: 'Розетка', price: '70', quantity: '5' }
-      ],
-      object_work_detail_price: 1440,
-      object_work_avans: 0,
-      object_work_price: 1440
-    },
-    {
-      object_name: 'Ларёк',
-      object_description:
-        'Описание обьекта. Ларёк или будка или хз что там Федя чинит, провода провести, счетчик смотать или левый свет замутить, как то так!',
-      object_workers: ['Петя', 'Вася', 'Женя'],
-      object_work_description: [
-        { work: 'Замена розетки', price: '100', quantity: '5' },
-        { work: 'Замена розетки', price: '100', quantity: '5' },
-        { work: 'Замена розетки', price: '100', quantity: '5' }
-      ],
-      object_work_material: [
-        { title: 'Провод 20/3', price: '50', quantity: '2' },
-        { title: 'Розетка', price: '70', quantity: '5' }
-      ],
-      object_work_detail_price: 1440,
-      object_work_avans: 0,
-      object_work_price: 1440
+  const { Search } = Input;
+  const { request, data, loading } = useRequest<any>();
+
+  const [check, setCheck] = React.useState<boolean>(false);
+  const [searchValue, setSearchValue] = React.useState<string>('');
+  const [objectList, setObjectList] = React.useState<any>([]);
+
+  React.useEffect(() => {
+    fetch();
+    setCheck(true);
+  }, []);
+
+  React.useEffect(() => {
+    if (check) {
+      fetch();
     }
-  ];
+  }, [searchValue]);
+
+  React.useEffect(() => {
+    if (data.results) {
+      setObjectList(data.results);
+    }
+  }, [data]);
+
+  const fetch = () => {
+    request(objectApi.getObjectList.action(searchValue));
+  };
+
+  const onSearch = (value: string) => setSearchValue(value);
+
+  console.log(data.results, 'results');
 
   return (
     <div className="object-list">
       <AdminMenu />
-      <div className="object-list__title">Список обьектов</div>
+      <div className="object-list__title">
+        <span>Список обьектов</span>
+
+        <Search
+          placeholder="Введите текст"
+          allowClear
+          enterButton="Поиск"
+          onSearch={onSearch}
+          className="search-input"
+          loading={loading}
+        />
+      </div>
       <div className="object-list__items">
-        {objectList.map((item, index) => (
-          <div className="object_item" key={index}>
-            <div className="object_item__title">
-              <span>Название: {item.object_name}</span>
-              <div className="buttons-group">
-                <Button
-                  className="close-object"
-                  onClick={() => push('EditObjectPage')}
-                >
-                  Редактировать
-                </Button>
+        {loading ? (
+          <Loader />
+        ) : (
+          objectList.map((item: any) => (
+            <div className="object_item" key={item.id}>
+              <div className="object_item__title">
+                <span>Название: {item.title}</span>
+                <div className="buttons-group">
+                  <Button
+                    className="close-object"
+                    onClick={() =>
+                      push('EditObjectPage', { objectId: item.id })
+                    }
+                  >
+                    Редактировать
+                  </Button>
 
-                <Button
-                  className="close-object"
-                  onClick={() => push('AddWorkerTimePage')}
-                >
-                  Время +/-
-                </Button>
+                  <Button
+                    className="close-object"
+                    onClick={() =>
+                      push('AddWorkerTimePage', { objectId: item.id })
+                    }
+                  >
+                    Время +/-
+                  </Button>
 
-                <Button className="close-object">Закрыть</Button>
-              </div>
-            </div>
-            <div className="object_item__description">
-              <span>Описание объекта</span>
-              <br />
-              {item.object_description}
-            </div>
-            <div className="object_item__workers">
-              <div className="workers-list">
-                <span>Список работников</span>
-                <ul>
-                  {item.object_workers.map((item, index) => (
-                    <li key={index}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            <div className="object_work-detail">
-              <span>Описание работ</span>
-
-              {item.object_work_description.map((item: any) => (
-                <div className="object_work-detail__description">
-                  <span>{item.work}</span> - {item.quantity}шт - {item.price}
-                  лей.
+                  <Button className="close-object">Закрыть</Button>
                 </div>
-              ))}
+              </div>
 
-              <span>Описание материалов</span>
+              <div className="object_item__description">
+                <span>Дата завершения объекта</span>
+                <br />
+                {item.date_ending
+                  ? item.date_ending.substring(0, 10)
+                  : 'нету даты'}
+              </div>
 
-              {item.object_work_material.map((item: any) => (
-                <div className="object_work-detail__description">
-                  <span>{item.title}</span> - {item.quantity}шт - {item.price}
-                  лей.
+              <div className="object_item__workers">
+                <div className="workers-list">
+                  <span>Список работников</span>
+                  <ul>
+                    {item.executors.map((item: any) => (
+                      <li key={item.id}>{item.fullname || 'нет имени'}</li>
+                    ))}
+                  </ul>
                 </div>
-              ))}
+              </div>
+              <div className="object_work-detail">
+                <span>Описание работ</span>
 
-              {/* <div className="object_work-detail__price">
+                {item.exercises.map((item: any) => (
+                  <div
+                    className="object_work-detail__description"
+                    key={item.id}
+                  >
+                    <span>{item.title || 'нет названия'}</span> - {item.count}{' '}
+                    шт - {item.price || 'нет ценны'} лей.
+                  </div>
+                ))}
+
+                <span>Описание материалов</span>
+
+                {item.materials.map((item: any) => (
+                  <div
+                    className="object_work-detail__description"
+                    key={item.id}
+                  >
+                    <span>{item.title || 'нет названия'}</span> - {item.count}{' '}
+                    шт - {item.price || 'нет ценны'} лей.
+                  </div>
+                ))}
+
+                {/* <div className="object_work-detail__price">
                 Примерно {item.object_work_detail_price} лей.
               </div> */}
+              </div>
+              <div className="object_avans">Аванс {item.prepaid} лей.</div>
+              <div className="object_price">
+                Стоимость обьекта {item.total_price} лей.
+              </div>
             </div>
-            <div className="object_avans">
-              Аванс {item.object_work_avans} лей.
-            </div>
-            <div className="object_price">
-              Стоимость обьекта {item.object_work_price} лей.
-            </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );

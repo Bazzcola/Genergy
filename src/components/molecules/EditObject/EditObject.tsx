@@ -10,6 +10,7 @@ import {
   Radio
 } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { useParams } from 'estafette-router';
 import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 import { RadioChangeEvent } from 'antd/lib/radio';
 
@@ -34,6 +35,7 @@ interface ObjectForm {
 }
 
 export const EditObject = () => {
+  const { objectId } = useParams<any>();
   const [test, setTest] = React.useState<ObjectForm>();
   const [value, setValue] = React.useState(0);
   const layout = {
