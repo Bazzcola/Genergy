@@ -14,6 +14,7 @@
     "@types/react-datepicker": "^3.1.8",
     "@types/react-dom": "^16.9.8",
     "antd": "^4.10.0",
+    "dateformat": "^4.5.1",
     "estafette": "^1.0.10",
     "estafette-router": "^2.2.1",
     "react": "^16.13.1",

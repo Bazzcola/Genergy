@@ -55,6 +55,7 @@ export const CreateObject = () => {
   const {request:requestWorkList, data:dataWorkList} = useRequest<any>();
   const {request:requestMaterialList, data:dataMaterialList} = useRequest<any>();
   const {request:requestUsersList, data:dataUsersList} = useRequest<any>();
+  const dateFormat = require("dateformat");
 
   const [value, setValue] = React.useState(0);
   const [hold, setHold] = React.useState(false);
@@ -90,8 +91,10 @@ export const CreateObject = () => {
     console.log('Received values of form:', values);
 
     const keys = values.object.executors.map((item:any) => ({user:item}))
+    const endDate = dateFormat(startDate, "yyyy-mm-dd hh:mm:ss");
 
     const params = {
+      date_ending:endDate,
       exercises:values.object.exercises,
       executors: keys,
       materials:values.object.materials,
@@ -104,6 +107,8 @@ export const CreateObject = () => {
 
     request(objectApi.createObject.action(params));
   };
+
+console.log(dateFormat(startDate, "yyyy-mm-dd hh:mm:ss"))
 
   const onHoldingObject = () => {
     setHold(prev => !prev);
@@ -142,7 +147,7 @@ export const CreateObject = () => {
             }
           ]}
         >
-          <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
+          <DatePicker selected={startDate} onChange={date => setStartDate(date)} className="data-picker"/>
         </Form.Item>
 
         <Form.Item
