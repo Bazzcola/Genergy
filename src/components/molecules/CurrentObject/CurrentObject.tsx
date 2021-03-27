@@ -72,16 +72,22 @@ export const CurrentObject = () => {
             </div>
             <div className="current-object_work-detail">
               <span>Описание работ</span>
-              {item.object_work_description.map((item: any) => (
-                <div className="current-object_work-detail__description">
+              {item.object_work_description.map((item: any, index) => (
+                <div
+                  className="current-object_work-detail__description"
+                  key={index}
+                >
                   <span>{item.work}</span> - {item.quantity}шт - {item.price}
                   лей.
                 </div>
               ))}
 
               <span>Описание материалов</span>
-              {item.object_work_material.map((item: any) => (
-                <div className="current-object_work-detail__description">
+              {item.object_work_material.map((item: any, index) => (
+                <div
+                  className="current-object_work-detail__description"
+                  key={index}
+                >
                   <span>{item.title}</span> - {item.quantity}шт - {item.price}
                   лей.
                 </div>

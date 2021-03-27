@@ -14,15 +14,43 @@
     }
   }
 
+  .switch-list-buttons {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 15px;
+
+    .switch-group {
+      .active {
+        border-color: #0099ff !important;
+        color: #0099ff !important;
+      }
+
+      .open-button {
+        margin-right: 25px;
+        font-weight: 500;
+      }
+
+      .hold-button {
+        font-weight: 500;
+      }
+    }
+  }
+
   &__items {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     margin-top: 20px;
     padding: 0 15px;
+    padding-bottom: 50px;
 
     @media (max-width: 1228px) {
       display: block;
+    }
+
+    .active {
+      border: 3px #1fbf32 solid !important;
+      background-color: #ffd6d6;
     }
 
     .object_item {

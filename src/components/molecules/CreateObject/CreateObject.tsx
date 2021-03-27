@@ -7,10 +7,12 @@ import {
   Select,
   Tag,
   Space,
-  Radio
+  Radio,
+  message
 } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { useRequest } from 'estafette';
+import { useHistory } from 'estafette-router';
 import DatePicker from 'react-datepicker';
 import { objectApi } from 'api/objectApi/objectApi';
 import { userListApi } from 'api/userListApi/userListApi';
@@ -49,7 +51,15 @@ export const layout = {
   }
 };
 
+export const success = () => {
+  message.success({
+    content: 'Объект создался!',
+    className: 'create-object-message'
+  });
+};
+
 export const CreateObject = () => {
+  const { push } = useHistory();
   const { request, loading } = useRequest();
   const { request: requestProfile, data: dataProfile } = useRequest<any>();
   const { request: requestWorkList, data: dataWorkList } = useRequest<any>();
@@ -127,9 +137,10 @@ export const CreateObject = () => {
     };
 
     request(objectApi.createObject.action(params));
-  };
 
-  console.log(dateFormat(startDate, 'yyyy-mm-dd hh:mm:ss'));
+    success();
+    push('CurrentObjectPage');
+  };
 
   const onHoldingObject = () => {
     setHold((prev) => !prev);

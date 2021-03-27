@@ -37,11 +37,6 @@ export const AdminMenu = () => {
     }
   };
 
-  const handleMenuClick = (e: any) => {
-    message.info('Click on menu item.');
-    console.log('click', e);
-  };
-
   const onLogout = () => {
     localStorage.clear();
     remove('token', { path: '/' });
@@ -50,7 +45,7 @@ export const AdminMenu = () => {
   };
 
   const menu1 = (
-    <Menu onClick={handleMenuClick}>
+    <Menu>
       <Menu.Item key="1" onClick={() => push('InventoryListPage')}>
         <span>Список инвентаря</span>
       </Menu.Item>
@@ -64,7 +59,7 @@ export const AdminMenu = () => {
   );
 
   const menu2 = (
-    <Menu onClick={handleMenuClick}>
+    <Menu>
       <Menu.Item key="4" onClick={() => push('SalaryListPage')}>
         <span>Список зарплат</span>
       </Menu.Item>

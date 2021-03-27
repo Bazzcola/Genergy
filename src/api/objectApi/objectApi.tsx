@@ -19,5 +19,32 @@ export const objectApi = {
         )
       }),
     cancel: (() => null) as Canceler
+  },
+  getObject: {
+    action: (params: any): Promise<{ data: any }> =>
+      axios.get(`/projects/projects/${params}`, {
+        cancelToken: new cancelToken(
+          (c: Canceler) => (objectApi.getObject.cancel = c) // Get object list
+        )
+      }),
+    cancel: (() => null) as Canceler
+  },
+  addWorkerTimeOnObject: {
+    action: (params: any, objectId: any): Promise<{ data: any }> =>
+      axios.post(`/projects/projects/${objectId}/executors`, params, {
+        cancelToken: new cancelToken(
+          (c: Canceler) => (objectApi.createObject.cancel = c) // Add time to worker on object
+        )
+      }),
+    cancel: (() => null) as Canceler
+  },
+  updateObject: {
+    action: (params: any, projectId: any): Promise<{ data: any }> =>
+      axios.patch(`/projects/projects/${projectId}`, params, {
+        cancelToken: new cancelToken(
+          (c: Canceler) => (objectApi.getObject.cancel = c) // Get object list
+        )
+      }),
+    cancel: (() => null) as Canceler
   }
 };

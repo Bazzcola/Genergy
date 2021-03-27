@@ -105,7 +105,11 @@ export const UserList = () => {
                   </Button>
                 </div>
                 <div className="button-edit-user">
-                  <Button onClick={() => push('ProfileEditMatPage')}>
+                  <Button
+                    onClick={() =>
+                      push('ProfileEditMatPage', { userId: item.id })
+                    }
+                  >
                     Редактировать Мат.
                   </Button>
                 </div>

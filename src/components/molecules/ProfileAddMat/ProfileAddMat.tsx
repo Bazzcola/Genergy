@@ -16,24 +16,46 @@ export const ProfileAddMat = () => {
   const { request, data, loading } = useRequest<any>({ data: {} });
   const { request: requestInventory, data: dataInventory } = useRequest<any>();
   const { request: requestMaterial, data: dataMaterial } = useRequest<any>();
+  const {
+    request: requestAddMaterial,
+    loading: loadingAddMaterial
+  } = useRequest();
+  const {
+    request: requestAddInventory,
+    loading: loadingAddInventory
+  } = useRequest();
 
   React.useEffect(() => {
     if (userId) {
-      requestInventory(instrumentListApi.getInstrumentList.action({}));
-      requestMaterial(materialListApi.getMaterialList.action({}));
+      requestInventory(instrumentListApi.getInstrumentList.action(''));
+      requestMaterial(materialListApi.getMaterialList.action(''));
       onFetch();
     }
   }, [userId]);
 
-  console.log(dataInventory.results, 'inventoryList');
+  console.log(dataInventory, 'inventoryList');
   console.log(dataMaterial.results, 'materialList');
 
   const onFetch = () => {
     request(userListApi.getUserById.action(userId));
   };
 
-  const onFinish = (values: any) => {
+  const onAddMaterial = (values: any) => {
     console.log(values, 'values');
+
+    const params = {
+      id: userId
+    };
+    // requestAddMaterial(werehouseApi.addMaterialsToUser.action());
+  };
+
+  const onAddInventory = (values: any) => {
+    console.log(values, 'values');
+
+    const params = {
+      id: userId
+    };
+    // requestAddMaterial(werehouseApi.addInstrumentsToUser.action());
   };
 
   const materialList = React.useMemo(
@@ -74,7 +96,7 @@ export const ProfileAddMat = () => {
 
       <Form
         name="nest-messages"
-        onFinish={onFinish}
+        onFinish={onAddMaterial}
         autoComplete="off"
         className="add-form"
       >
@@ -138,6 +160,19 @@ export const ProfileAddMat = () => {
           )}
         </Form.List>
 
+        <Form.Item>
+          <Button type="primary" htmlType="submit" className="add-submit-btn">
+            Добавить материалов
+          </Button>
+        </Form.Item>
+      </Form>
+
+      <Form
+        name="nest-messages"
+        onFinish={onAddInventory}
+        autoComplete="off"
+        className="add-form"
+      >
         <Form.List name={['user', 'user_profile_inventory']}>
           {(fields, { add, remove }) => (
             <>
@@ -200,7 +235,7 @@ export const ProfileAddMat = () => {
 
         <Form.Item>
           <Button type="primary" htmlType="submit" className="add-submit-btn">
-            Добавить
+            Добавить инвентаря
           </Button>
         </Form.Item>
       </Form>

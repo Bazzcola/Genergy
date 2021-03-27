@@ -12,8 +12,8 @@ export const werehouseApi = {
     cancel: (() => null) as Canceler
   },
   addMaterialsToUser: {
-    action: (params: {}): Promise<{ data: any }> =>
-      axios.post(`/entities/items/${params}/afford/`, {
+    action: (params: any): Promise<{ data: any }> =>
+      axios.post(`/entities/items/${params.id}/afford/`, params.materials, {
         cancelToken: new cancelToken(
           (c: Canceler) => (werehouseApi.addMaterialsToUser.cancel = c) //  Add materials to user
         )

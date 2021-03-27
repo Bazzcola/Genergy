@@ -1,5 +1,22 @@
 .profile-edit-material {
   .edit-material {
+    margin: 0 auto;
+    text-align: left;
+    padding-top: 75px;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    .edit-form-material {
+      margin: 0 auto;
+      max-width: 600px;
+      width: 100%;
+      padding-bottom: 50px;
+
+      > div {
+        margin: 0 auto;
+      }
+    }
+
     h1 {
       margin-bottom: 30px;
     }

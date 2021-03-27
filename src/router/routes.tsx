@@ -68,7 +68,7 @@ export const routes: Routes[] = [
   },
   {
     name: 'ProfileEditMatPage',
-    path: '/admin-menu/user-profile-edit-material',
+    path: '/admin-menu/user-profile-edit-material/:userId',
     exact: true,
     component: ProfileEditMatPage
   },
