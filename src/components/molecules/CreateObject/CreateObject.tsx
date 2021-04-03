@@ -67,7 +67,7 @@ const error = () => {
 
 export const CreateObject = () => {
   const { push } = useHistory();
-  const { request, loading , errors} = useRequest();
+  const { request, loading, errors } = useRequest();
   const { request: requestProfile, data: dataProfile } = useRequest<any>();
   const { request: requestWorkList, data: dataWorkList } = useRequest<any>();
   const { request: requestMaterialList, data: dataMaterialList } = useRequest<

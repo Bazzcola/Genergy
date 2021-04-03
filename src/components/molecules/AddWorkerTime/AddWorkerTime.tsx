@@ -31,7 +31,11 @@ export const AddWorkerTime = () => {
     data: dataUserList,
     loading: loadingDataUserList
   } = useRequest<any>();
-  const { request: requestAddTime, loading: loadingAddTime, errors } = useRequest();
+  const {
+    request: requestAddTime,
+    loading: loadingAddTime,
+    errors
+  } = useRequest();
 
   const [workerListOptions, setWorkerListOptions] = React.useState<any>();
 
@@ -53,25 +57,28 @@ export const AddWorkerTime = () => {
   }, [dataUserList]);
 
   console.log(dataUserList);
-  console.log(workerListOptions)
+  console.log(workerListOptions);
 
   const onFinish = (values: any) => {
     console.log('Received values of form:', values);
     const userId = values.object.object_worker_time[0].name;
-    const time = values.object.object_worker_time[0].hour.toString() ? values.object.object_worker_time[0].hour > 10 ? 
-    `${values.object.object_worker_time[0].hour.toString()}:00:00` : `0${values.object.object_worker_time[0].hour.toString()}:00:00`
-    : undefined;
+    const time = values.object.object_worker_time[0].hour.toString()
+      ? values.object.object_worker_time[0].hour > 10
+        ? `${values.object.object_worker_time[0].hour.toString()}:00:00`
+        : `0${values.object.object_worker_time[0].hour.toString()}:00:00`
+      : undefined;
 
     const params = {
-      user:Number(objectId),
-      hours:time,
-    }
+      user: Number(objectId),
+      hours: time
+    };
 
-    requestAddTime(objectApi.addWorkerTimeOnObject.action(params, objectId, userId));
+    requestAddTime(
+      objectApi.addWorkerTimeOnObject.action(params, objectId, userId)
+    );
 
     !errors ? success() : error();
     !errors && push('CurrentObjectPage');
-    
   };
 
   return (

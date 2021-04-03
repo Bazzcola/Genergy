@@ -22,7 +22,7 @@ const defaultValue = {
   userLogin: undefined,
   setUserLogin: () => {},
   refreshToken: undefined,
-  setRefreshToken: () => {},
+  setRefreshToken: () => {}
 };
 
 export const Context = React.createContext<Props>(defaultValue);
@@ -34,7 +34,6 @@ export const ProviderContext = (props: ProviderProps) => {
   const [refreshToken, setRefreshToken] = useState<string | undefined>(
     undefined
   );
-
 
   useEffect(() => {
     if (load('token')) {
@@ -63,7 +62,7 @@ export const ProviderContext = (props: ProviderProps) => {
         userLogin,
         setUserLogin,
         refreshToken,
-        setRefreshToken,
+        setRefreshToken
       }}
     >
       {children}

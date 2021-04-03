@@ -13,9 +13,13 @@ import './CurrentObject.scss';
 export const CurrentObject = () => {
   const { push } = useHistory();
   const { Search } = Input;
-  const {request:requstObjectList, data:dataObjectList, loading:loadingDataList} = useRequest<any>();
-  const {request:requestProfile, data:dataProfile} = useRequest<any>();
-  
+  const {
+    request: requstObjectList,
+    data: dataObjectList,
+    loading: loadingDataList
+  } = useRequest<any>();
+  const { request: requestProfile, data: dataProfile } = useRequest<any>();
+
   const [check, setCheck] = React.useState<boolean>(false);
   const [searchValue, setSearchValue] = React.useState<string>('');
 
@@ -28,19 +32,21 @@ export const CurrentObject = () => {
   React.useEffect(() => {
     requestProfile(userListApi.getUserProfile.action({}));
     setCheck(true);
-  },[])
+  }, []);
 
   React.useEffect(() => {
-    if(dataProfile.id){
+    if (dataProfile.id) {
       fetch();
     }
-  },[dataProfile])
+  }, [dataProfile]);
 
-  console.log(dataObjectList)
+  console.log(dataObjectList);
 
   const fetch = () => {
-    requstObjectList(objectApi.getOwnObject.action(dataProfile.id, searchValue));
-  }
+    requstObjectList(
+      objectApi.getOwnObject.action(dataProfile.id, searchValue)
+    );
+  };
 
   const onSearch = (value: string) => setSearchValue(value);
 
@@ -63,16 +69,15 @@ export const CurrentObject = () => {
         <span>Список текущих обьектов</span>
 
         <Search
-            placeholder="Введите текст"
-            allowClear
-            enterButton="Поиск"
-            onSearch={onSearch}
-            className="search-input"
-            loading={loadingDataList}
-          />
-        
+          placeholder="Введите текст"
+          allowClear
+          enterButton="Поиск"
+          onSearch={onSearch}
+          className="search-input"
+          loading={loadingDataList}
+        />
       </div>
-    
+
       <div className="current-object-list__items">
         {loadingDataList ? (
           <Loader />
@@ -96,16 +101,14 @@ export const CurrentObject = () => {
                     Редактировать
                   </Button>
 
-                 
-                    <Button
-                      className="close-object"
-                      onClick={() =>
-                        push('AddWorkerTimePage', { objectId: item.id })
-                      }
-                    >
-                      Время +/-
-                    </Button>
-                  
+                  <Button
+                    className="close-object"
+                    onClick={() =>
+                      push('AddWorkerTimePage', { objectId: item.id })
+                    }
+                  >
+                    Время +/-
+                  </Button>
                 </div>
               </div>
 
@@ -135,8 +138,9 @@ export const CurrentObject = () => {
                     className="current-object_work-detail__description"
                     key={item.id}
                   >
-                    <span>{item.work.title || 'нет названия'}</span> - {item.count}{' '}
-                    шт - {item.exercises_final_price || 'нет ценны'} лей.
+                    <span>{item.work.title || 'нет названия'}</span> -{' '}
+                    {item.count} шт -{' '}
+                    {item.exercises_final_price || 'нет ценны'} лей.
                   </div>
                 ))}
 
@@ -147,13 +151,15 @@ export const CurrentObject = () => {
                     className="current-object_work-detail__description"
                     key={item.id}
                   >
-                    <span>{item.user.title || 'нет названия'}</span> - {item.count}{' '}
-                    шт - {item.materials_final_price || 'нет ценны'} лей.
+                    <span>{item.user.title || 'нет названия'}</span> -{' '}
+                    {item.count} шт -{' '}
+                    {item.materials_final_price || 'нет ценны'} лей.
                   </div>
                 ))}
-
               </div>
-              <div className="current-object_avans">Аванс {item.prepaid} лей.</div>
+              <div className="current-object_avans">
+                Аванс {item.prepaid} лей.
+              </div>
               <div className="current-object_price">
                 Стоимость обьекта {item.total_price || 'нет ценны'} лей.
               </div>
