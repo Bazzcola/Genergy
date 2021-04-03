@@ -1,22 +1,37 @@
 import * as React from 'react';
-import { Button, Form, InputNumber, Select, Space } from 'antd';
+import { Button, Form, InputNumber, Select, Space, message } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { useRequest } from 'estafette';
-import { useParams } from 'estafette-router';
+import { useParams, useHistory } from 'estafette-router';
 import { objectApi } from 'api/objectApi/objectApi';
 import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 import { Loader } from 'components/atoms/Loader/Loader';
 
 import './AddWorkerTime.scss';
 
+const success = () => {
+  message.success({
+    content: 'Часы добавилсь!',
+    className: 'create-object-message'
+  });
+};
+
+const error = () => {
+  message.error({
+    content: 'Часы не добавились!',
+    className: 'create-object-message'
+  });
+};
+
 export const AddWorkerTime = () => {
+  const { push } = useHistory();
   const { objectId } = useParams<any>();
   const {
     request: requestUserList,
     data: dataUserList,
     loading: loadingDataUserList
   } = useRequest<any>();
-  const { request: requestAddTime, loading: loadingAddTime } = useRequest();
+  const { request: requestAddTime, loading: loadingAddTime, errors } = useRequest();
 
   const [workerListOptions, setWorkerListOptions] = React.useState<any>();
 
@@ -30,7 +45,7 @@ export const AddWorkerTime = () => {
     if (dataUserList.executors) {
       setWorkerListOptions(
         dataUserList.executors.map((item: any) => ({
-          label: item.user,
+          label: item.user.fullname,
           value: item.id
         }))
       );
@@ -38,16 +53,25 @@ export const AddWorkerTime = () => {
   }, [dataUserList]);
 
   console.log(dataUserList);
+  console.log(workerListOptions)
 
   const onFinish = (values: any) => {
     console.log('Received values of form:', values);
+    const userId = values.object.object_worker_time[0].name;
+    const time = values.object.object_worker_time[0].hour.toString() ? values.object.object_worker_time[0].hour > 10 ? 
+    `${values.object.object_worker_time[0].hour.toString()}:00:00` : `0${values.object.object_worker_time[0].hour.toString()}:00:00`
+    : undefined;
 
-    // const params = {
-    //   user:values.object.object_worker_time[0].name,
-    //   hours:values.object.object_worker_time[0].hour.toString(),
-    // }
+    const params = {
+      user:Number(objectId),
+      hours:time,
+    }
 
-    // requestAddTime(objectApi.addWorkerTimeOnObject.action(params, objectId));
+    requestAddTime(objectApi.addWorkerTimeOnObject.action(params, objectId, userId));
+
+    !errors ? success() : error();
+    !errors && push('CurrentObjectPage');
+    
   };
 
   return (

@@ -51,16 +51,23 @@ export const layout = {
   }
 };
 
-export const success = () => {
+const success = () => {
   message.success({
     content: 'Объект создался!',
     className: 'create-object-message'
   });
 };
 
+const error = () => {
+  message.error({
+    content: 'Объект не создался!',
+    className: 'create-object-message'
+  });
+};
+
 export const CreateObject = () => {
   const { push } = useHistory();
-  const { request, loading } = useRequest();
+  const { request, loading , errors} = useRequest();
   const { request: requestProfile, data: dataProfile } = useRequest<any>();
   const { request: requestWorkList, data: dataWorkList } = useRequest<any>();
   const { request: requestMaterialList, data: dataMaterialList } = useRequest<
@@ -138,8 +145,8 @@ export const CreateObject = () => {
 
     request(objectApi.createObject.action(params));
 
-    success();
-    push('CurrentObjectPage');
+    !errors ? success() : error();
+    !errors && push('CurrentObjectPage');
   };
 
   const onHoldingObject = () => {

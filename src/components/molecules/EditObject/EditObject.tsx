@@ -7,56 +7,84 @@ import {
   Select,
   Tag,
   Space,
-  Radio
+  Radio,
+  message
 } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import { useParams } from 'estafette-router';
-import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 import { RadioChangeEvent } from 'antd/lib/radio';
+import { useRequest } from 'estafette';
+import { useHistory, useParams } from 'estafette-router';
+import { objectApi } from 'api/objectApi/objectApi';
+import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
+import { Loader } from 'components/atoms/Loader/Loader';
 
 import './EditObject.scss';
 
-interface ObjectForm {
-  object: {
-    object_master: string;
-    object_description: string;
-    object_name: string;
-    object_avans: number;
-    object_worker_list: string[];
-    object_work_list: {
-      work: string;
-      quantity: number;
-    };
-    object_material_list: {
-      material: string;
-      quantity: number;
-    };
-  };
-}
+const layout = {
+  labelCol: {
+    span: 8
+  },
+  wrapperCol: {
+    span: 16
+  }
+};
+
+const success = () => {
+  message.success({
+    content: 'Объект отредактирован!',
+    className: 'create-object-message'
+  });
+};
+
+const error = () => {
+  message.error({
+    content: 'Объект не отредактировался!',
+    className: 'create-object-message'
+  });
+};
 
 export const EditObject = () => {
+  const { push } = useHistory();
   const { objectId } = useParams<any>();
-  const [test, setTest] = React.useState<ObjectForm>();
-  const [value, setValue] = React.useState(0);
-  const layout = {
-    labelCol: {
-      span: 8
-    },
-    wrapperCol: {
-      span: 16
-    }
-  };
+  const {request:requestObjectProfile, data:dataObjectProfile, loading:loadingObjectProfile} = useRequest<any>();
+  const {request:requestEditObject, loading:loadingEditObject, errors} = useRequest(); 
 
+  const [value, setValue] = React.useState(0);
+
+  React.useEffect(() => {
+    if(objectId) {
+      requestObjectProfile(objectApi.getObject.action(objectId))
+    } 
+  },[objectId])
+
+  console.log(dataObjectProfile)
+  console.log(dataObjectProfile.exercises)
   const validateMessages = {
     required: '${label} обязательно!'
   };
 
-  const onFinish = (values: ObjectForm) => {
+  const onFinish = (values: any) => {
     console.log('Received values of form:', values);
-    setTest(values);
+   
+      const params = {
+        state: dataObjectProfile.state,
+        exercises: dataObjectProfile.exercises,
+        executors: dataObjectProfile.executors,
+        materials: [...dataObjectProfile.materials],
+        title: values.object_name || dataObjectProfile.title,
+        prepaid: values.prepaid || dataObjectProfile.prepaid,
+        discount: dataObjectProfile.discount,
+        date_ending: dataObjectProfile.date_ending,
+        owner: dataObjectProfile.owner.id
+      };
+    
+    requestEditObject(objectApi.updateObject.action(params, objectId));
+
+    !errors ? success() : error();
+    !errors && push('CurrentObjectPage');
   };
 
-  console.log(test);
+  console.log(objectId);
 
   const workerListOptions = [
     { value: 'Ваня' },
@@ -96,6 +124,7 @@ export const EditObject = () => {
     <div className="edit-object-container">
       <AdminMenu />
       <h1>Редактировать рабочий обьект</h1>
+      {loadingObjectProfile ? <Loader/> : dataObjectProfile &&
       <Form
         {...layout}
         name="nest-messages"
@@ -113,28 +142,12 @@ export const EditObject = () => {
             }
           ]}
         >
-          <Input placeholder="Введите название объекта" />
+          <Input placeholder={dataObjectProfile.title || "Введите название объекта"}/>
         </Form.Item>
-        <Form.Item
-          name={['object', 'object_description']}
-          label="Описание объекта"
-          rules={[
-            {
-              required: true
-            }
-          ]}
-        >
-          <Input.TextArea placeholder="Введите описание объекта" />
-        </Form.Item>
-
+      
         <Form.Item
           name={['object', 'object_worker_list']}
           label="Список работников"
-          rules={[
-            {
-              required: true
-            }
-          ]}
         >
           <Select
             placeholder={'Выберите работников'}
@@ -273,16 +286,8 @@ export const EditObject = () => {
         <Form.Item
           name={['object', 'object_avans']}
           label="Аванс"
-          rules={[
-            {
-              type: 'number',
-              required: true,
-              min: 0,
-              max: 9999999
-            }
-          ]}
         >
-          <InputNumber placeholder="Введите аванс" />
+          <InputNumber placeholder={dataObjectProfile.prepaid || 'Введите аванс'}/>
         </Form.Item>
 
         <Form.Item name={['object', 'object_discount']} label="Скидка">
@@ -308,7 +313,7 @@ export const EditObject = () => {
             <Button>Очистить форму</Button>
           </div>
         </Form.Item>
-      </Form>
+      </Form>}
     </div>
   );
 };

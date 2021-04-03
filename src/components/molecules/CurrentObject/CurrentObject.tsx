@@ -1,110 +1,165 @@
-import React from 'react';
-import { Button } from 'antd';
+import * as React from 'react';
+import dayjs from 'dayjs';
+import { Button, Input } from 'antd';
+import { useRequest } from 'estafette';
 import { useHistory } from 'estafette-router';
+import { objectApi } from 'api/objectApi/objectApi';
+import { userListApi } from 'api/userListApi/userListApi';
 import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
+import { Loader } from 'components/atoms/Loader/Loader';
 
 import './CurrentObject.scss';
 
 export const CurrentObject = () => {
   const { push } = useHistory();
-  const objectList = [
-    {
-      object_name: 'Ларёк',
-      object_description:
-        'Описание обьекта. Ларёк или будка или хз что там Федя чинит, провода провести, счетчик смотать или левый свет замутить, как то так!',
-      object_workers: ['Петя', 'Вася', 'Женя'],
-      object_work_description: [
-        { work: 'Замена розетки', price: '100', quantity: '5' },
-        { work: 'Замена розетки', price: '100', quantity: '5' },
-        { work: 'Замена розетки', price: '100', quantity: '5' }
-      ],
-      object_work_material: [
-        { title: 'Провод 20/3', price: '50', quantity: '2' },
-        { title: 'Розетка', price: '70', quantity: '5' }
-      ],
-      object_work_detail_price: 1440,
-      object_work_avans: 0,
-      object_work_price: 1440
+  const { Search } = Input;
+  const {request:requstObjectList, data:dataObjectList, loading:loadingDataList} = useRequest<any>();
+  const {request:requestProfile, data:dataProfile} = useRequest<any>();
+  
+  const [check, setCheck] = React.useState<boolean>(false);
+  const [searchValue, setSearchValue] = React.useState<string>('');
+
+  React.useEffect(() => {
+    if (check) {
+      fetch();
     }
-  ];
+  }, [searchValue]);
+
+  React.useEffect(() => {
+    requestProfile(userListApi.getUserProfile.action({}));
+    setCheck(true);
+  },[])
+
+  React.useEffect(() => {
+    if(dataProfile.id){
+      fetch();
+    }
+  },[dataProfile])
+
+  console.log(dataObjectList)
+
+  const fetch = () => {
+    requstObjectList(objectApi.getOwnObject.action(dataProfile.id, searchValue));
+  }
+
+  const onSearch = (value: string) => setSearchValue(value);
+
+  const deadLine = (time: any) => {
+    let x = dayjs(Date()).format('YYYY-MM-DD').slice(8);
+    let y = dayjs(time).format('YYYY-MM-DD').slice(8);
+    let number1 = Number(x);
+    let number2 = Number(y);
+    if (number1 + 2 === number2) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   return (
     <div className="current-object-list">
       <AdminMenu />
-      <div className="current-object-list__title">Список текущих обьектов</div>
+      <div className="current-object-list__title">
+        <span>Список текущих обьектов</span>
+
+        <Search
+            placeholder="Введите текст"
+            allowClear
+            enterButton="Поиск"
+            onSearch={onSearch}
+            className="search-input"
+            loading={loadingDataList}
+          />
+        
+      </div>
+    
       <div className="current-object-list__items">
-        {objectList.map((item, index) => (
-          <div className="current-object_item" key={index}>
-            <div className="current-object_item__title">
-              <span className="object-name">Название: {item.object_name}</span>
-              <div className="buttons-group">
-                <Button
-                  className="close-object"
-                  onClick={() => push('EditObjectPage')}
-                >
-                  Редактировать
-                </Button>
+        {loadingDataList ? (
+          <Loader />
+        ) : (
+          dataObjectList.map((item: any) => (
+            <div
+              className={`current-object_item ${
+                deadLine(item.date_ending) ? 'active' : ''
+              }`}
+              key={item.id}
+            >
+              <div className="current-object_item__title">
+                <span>Название: {item.title}</span>
+                <div className="buttons-group">
+                  <Button
+                    className="close-object"
+                    onClick={() =>
+                      push('EditObjectPage', { objectId: item.id })
+                    }
+                  >
+                    Редактировать
+                  </Button>
 
-                <Button
-                  className="close-object"
-                  onClick={() => push('AddWorkerTimePage')}
-                >
-                  Время +/-
-                </Button>
+                 
+                    <Button
+                      className="close-object"
+                      onClick={() =>
+                        push('AddWorkerTimePage', { objectId: item.id })
+                      }
+                    >
+                      Время +/-
+                    </Button>
+                  
+                </div>
+              </div>
 
-                <Button className="close-object">Закрыть???</Button>
+              <div className="current-object_item__description">
+                <span>Дата завершения объекта</span>
+                <br />
+                {item.date_ending
+                  ? item.date_ending.substring(0, 10)
+                  : 'нету даты'}
+              </div>
+
+              <div className="current-object_item__workers">
+                <div className="workers-list">
+                  <span>Список работников</span>
+                  <ul>
+                    {item.executors.map((item: any) => (
+                      <li key={item.id}>{item.user.fullname || 'нет имени'}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <div className="current-object_work-detail">
+                <span>Описание работ</span>
+
+                {item.exercises.map((item: any) => (
+                  <div
+                    className="current-object_work-detail__description"
+                    key={item.id}
+                  >
+                    <span>{item.work.title || 'нет названия'}</span> - {item.count}{' '}
+                    шт - {item.exercises_final_price || 'нет ценны'} лей.
+                  </div>
+                ))}
+
+                <span>Описание материалов</span>
+
+                {item.materials.map((item: any) => (
+                  <div
+                    className="current-object_work-detail__description"
+                    key={item.id}
+                  >
+                    <span>{item.user.title || 'нет названия'}</span> - {item.count}{' '}
+                    шт - {item.materials_final_price || 'нет ценны'} лей.
+                  </div>
+                ))}
+
+              </div>
+              <div className="current-object_avans">Аванс {item.prepaid} лей.</div>
+              <div className="current-object_price">
+                Стоимость обьекта {item.total_price || 'нет ценны'} лей.
               </div>
             </div>
-            <div className="current-object_item__description">
-              <span>Описание объекта</span>
-              <br />
-              {item.object_description}
-            </div>
-            <div className="current-object_item__workers">
-              <div className="workers-list">
-                <span>Список работников</span>
-                <ul>
-                  {item.object_workers.map((item, index) => (
-                    <li key={index}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            <div className="current-object_work-detail">
-              <span>Описание работ</span>
-              {item.object_work_description.map((item: any, index) => (
-                <div
-                  className="current-object_work-detail__description"
-                  key={index}
-                >
-                  <span>{item.work}</span> - {item.quantity}шт - {item.price}
-                  лей.
-                </div>
-              ))}
-
-              <span>Описание материалов</span>
-              {item.object_work_material.map((item: any, index) => (
-                <div
-                  className="current-object_work-detail__description"
-                  key={index}
-                >
-                  <span>{item.title}</span> - {item.quantity}шт - {item.price}
-                  лей.
-                </div>
-              ))}
-
-              {/* <div className="object_work-detail__price">
-                            Примерно {item.object_work_detail_price} лей.
-                        </div> */}
-            </div>
-            <div className="current-object_avans">
-              Аванс {item.object_work_avans} лей.
-            </div>
-            <div className="current-object_price">
-              Стоимость обьекта {item.object_work_price} лей.
-            </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );

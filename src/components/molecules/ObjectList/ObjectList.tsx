@@ -9,8 +9,18 @@ import { AdminMenu } from 'components/organisms/AdminMenu/AdminMenu';
 
 import './ObjectList.scss';
 
-export const success = () => {
-  message.success('Объект активирован успешно!');
+const success = () => {
+  message.success({
+    content: 'Объект активирован успешно!',
+    className: 'create-object-message'
+  });
+};
+
+const error = () => {
+  message.error({
+    content: 'Объект не активирован!',
+    className: 'create-object-message'
+  });
 };
 
 export const ObjectList = () => {
@@ -79,7 +89,7 @@ export const ObjectList = () => {
 
       requestChangeStatus(objectApi.updateObject.action(params, objectNumber));
 
-      !errors && success();
+      !errors ? success() : error();
     }
   }, [objectNumber]);
 
