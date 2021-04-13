@@ -145,8 +145,8 @@ export const CreateObject = () => {
 
     request(objectApi.createObject.action(params));
 
-    !errors ? success() : error();
-    !errors && push('CurrentObjectPage');
+    !errors.length ? success() : error();
+    !errors.length && push('CurrentObjectPage');
   };
 
   const onHoldingObject = () => {
