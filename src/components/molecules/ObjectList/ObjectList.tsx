@@ -122,7 +122,12 @@ export const ObjectList = () => {
     let number1 = Number(x);
     let number2 = Number(y);
 
-    if (number1 + 2 === number2 || number1 + 1 === number2 || number1 === number2 || number1 < number2) {
+    if (
+      number1 + 2 === number2 ||
+      number1 + 1 === number2 ||
+      number1 === number2 ||
+      number1 < number2
+    ) {
       return true;
     } else {
       return false;
@@ -235,7 +240,7 @@ export const ObjectList = () => {
                     key={item.id}
                   >
                     <span>{item.title || 'нет названия'}</span> - {item.count}{' '}
-                    шт - {item.price || 'нет ценны'} лей.
+                    шт - {item.total_price || 'нет ценны'} лей.
                   </div>
                 ))}
 
@@ -247,13 +252,9 @@ export const ObjectList = () => {
                     key={item.id}
                   >
                     <span>{item.title || 'нет названия'}</span> - {item.count}{' '}
-                    шт - {item.price || 'нет ценны'} лей.
+                    шт - {item.total_price || 'нет ценны'} лей.
                   </div>
                 ))}
-
-                {/* <div className="object_work-detail__price">
-                Примерно {item.object_work_detail_price} лей.
-              </div> */}
               </div>
               <div className="object_avans">Аванс {item.prepaid} лей.</div>
               <div className="object_price">

@@ -55,8 +55,13 @@ export const CurrentObject = () => {
     let y = dayjs(time).format('YYYY-MM-DD').slice(8);
     let number1 = Number(x);
     let number2 = Number(y);
-    
-    if (number1 + 2 === number2 || number1 + 1 === number2 || number1 === number2 || number1 < number2) {
+
+    if (
+      number1 + 2 === number2 ||
+      number1 + 1 === number2 ||
+      number1 === number2 ||
+      number1 < number2
+    ) {
       return true;
     } else {
       return false;
@@ -140,8 +145,7 @@ export const CurrentObject = () => {
                     key={item.id}
                   >
                     <span>{item.work.title || 'нет названия'}</span> -{' '}
-                    {item.count} шт -{' '}
-                    {item.exercises_final_price || 'нет ценны'} лей.
+                    {item.count} шт - {item.total_price || 'нет ценны'} лей.
                   </div>
                 ))}
 
@@ -153,8 +157,7 @@ export const CurrentObject = () => {
                     key={item.id}
                   >
                     <span>{item.user.title || 'нет названия'}</span> -{' '}
-                    {item.count} шт -{' '}
-                    {item.materials_final_price || 'нет ценны'} лей.
+                    {item.count} шт - {item.total_price || 'нет ценны'} лей.
                   </div>
                 ))}
               </div>
