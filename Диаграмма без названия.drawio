@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-07-18T15:42:20.114Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="DZKOtzPQwn5hYwsSU98o" version="21.6.2" type="github">
+<mxfile host="app.diagrams.net" modified="2023-07-18T15:45:33.210Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="rDXkflZMNrHVu27u-tiT" version="21.6.2" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
     <mxGraphModel dx="1434" dy="788" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -13,14 +13,17 @@
         <mxCell id="oEzOJamyJBqlvtKKESgJ-2" value="Auth jwt data&lt;br&gt;jwt token&lt;br&gt;userData: {}" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="360" y="40" width="120" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="oEzOJamyJBqlvtKKESgJ-3" value="User&lt;br&gt;userData:{&lt;br&gt;id:string&lt;br&gt;admin:true&lt;br&gt;moderator:false&lt;br&gt;}" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
-          <mxGeometry x="40" y="200" width="120" height="120" as="geometry" />
+        <mxCell id="oEzOJamyJBqlvtKKESgJ-3" value="&lt;b&gt;Admin&lt;/b&gt;&lt;br&gt;&lt;b&gt;User&lt;br&gt;&lt;/b&gt;userData:{&lt;br&gt;id:string&lt;br&gt;admin:true&lt;br&gt;moderator:false&lt;br&gt;}" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="360" y="200" width="120" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="oEzOJamyJBqlvtKKESgJ-4" value="User&lt;br&gt;userData:{&lt;br&gt;id:string&lt;br&gt;admin:false&lt;br&gt;moderator:true&lt;br&gt;}" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="oEzOJamyJBqlvtKKESgJ-4" value="&lt;b&gt;Moderator&lt;br&gt;User&lt;/b&gt;&lt;br&gt;userData:{&lt;br&gt;id:string&lt;br&gt;admin:false&lt;br&gt;moderator:true&lt;br&gt;}" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="200" y="200" width="120" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="oEzOJamyJBqlvtKKESgJ-5" value="User&lt;br&gt;userData:{&lt;br&gt;id:string&lt;br&gt;admin:false&lt;br&gt;moderator:false&lt;br&gt;}" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
-          <mxGeometry x="360" y="200" width="120" height="120" as="geometry" />
+        <mxCell id="oEzOJamyJBqlvtKKESgJ-5" value="&lt;b&gt;Simple&lt;br&gt;User&lt;/b&gt;&lt;br&gt;userData:{&lt;br&gt;id:string&lt;br&gt;admin:false&lt;br&gt;moderator:false&lt;br&gt;}" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="40" y="200" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="oEzOJamyJBqlvtKKESgJ-6" value="" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="680" y="320" width="120" height="120" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
